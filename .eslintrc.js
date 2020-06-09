@@ -8,4 +8,7 @@ module.exports = {
     "jest": true
   },
   ignorePatterns: ["dist", "*.config.js", ".*.js"],
+  rules: {
+    "import/prefer-default-export": "off",
+  }
 };
