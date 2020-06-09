@@ -2,7 +2,7 @@ import { Module } from '../../../src/meta-data';
 
 export const meta: Module = {
   required: {
-    from: 'lib.core.meta'
+    import: 'lib.core.meta'
   },
   Entity: {
     interface: {

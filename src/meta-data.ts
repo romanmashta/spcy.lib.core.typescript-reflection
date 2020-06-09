@@ -23,7 +23,7 @@ interface EnumDeclaration {
 }
 
 interface ImportDeclaration {
-  from: string;
+  import: string;
 }
 
 export interface Module {
