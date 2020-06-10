@@ -16,7 +16,8 @@ export const transform = (files: string[], program: ts.Program): MetaInfo => {
 
   const inspectTypeRef = (node: ts.TypeReferenceNode): TypeReference => {
     const typeRef = (node.typeName as ts.Identifier).text;
-    return { typeRef };
+    const args = node.typeArguments ? _.map(node.typeArguments, inspectType) : undefined;
+    return { typeRef, arguments: args };
   };
 
   const inspectType = (node: ts.TypeNode): TypeInfo => {

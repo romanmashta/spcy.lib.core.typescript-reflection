@@ -23,4 +23,5 @@ describe('Schemas', () => {
   assertSchema('enum');
   assertSchema('mixed-types');
   assertSchema('basic-typeref');
+  assertSchema('basic-typeref-arguments');
 });
