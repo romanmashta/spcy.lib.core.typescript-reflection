@@ -1,13 +1,13 @@
 export type BasicTypes = 'boolean' | 'number' | 'string';
 
-interface TypeReference {
+export interface TypeReference {
   typeRef: string;
   arguments?: TypeInfo[];
 }
 
-type TypeInfo = BasicTypes | TypeReference;
+export type TypeInfo = BasicTypes | TypeReference;
 
-interface InterfaceDeclaration {
+export interface InterfaceDeclaration {
   interface: {
     extends?: TypeInfo;
     properties: {
@@ -16,16 +16,23 @@ interface InterfaceDeclaration {
   };
 }
 
-interface EnumDeclaration {
+export interface EnumDeclaration {
   enum: {
     [name: string]: string | number;
   };
 }
 
-interface ImportDeclaration {
+export interface ImportDeclaration {
   import: string;
 }
 
 export interface Module {
-  [name: string]: ImportDeclaration | InterfaceDeclaration | EnumDeclaration;
+  members: {
+    [name: string]: ImportDeclaration | InterfaceDeclaration | EnumDeclaration;
+  };
+}
+
+export interface MetaInfo {
+  modules: Module[];
+  hasErrors: boolean;
 }
