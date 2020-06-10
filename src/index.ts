@@ -1,6 +1,6 @@
 import _ from 'lodash';
 import ts from 'typescript';
-import { EnumDeclaration, InterfaceDeclaration, MetaInfo, Module, TypeInfo } from './meta-data';
+import { EnumDeclaration, InterfaceDeclaration, MetaInfo, Module, TypeInfo, TypeReference } from './meta-data';
 
 const defaultOptions: ts.CompilerOptions = {
   declaration: false
@@ -14,6 +14,11 @@ export const transform = (files: string[], program: ts.Program): MetaInfo => {
   const sources = _.map(files, f => program.getSourceFile(f)!);
   const typeChecker = program.getTypeChecker();
 
+  const inspectTypeRef = (node: ts.TypeReferenceNode): TypeReference => {
+    const typeRef = (node.typeName as ts.Identifier).text;
+    return { typeRef };
+  };
+
   const inspectType = (node: ts.TypeNode): TypeInfo => {
     switch (node.kind) {
       case ts.SyntaxKind.StringKeyword:
@@ -22,6 +27,8 @@ export const transform = (files: string[], program: ts.Program): MetaInfo => {
         return 'number';
       case ts.SyntaxKind.BooleanKeyword:
         return 'boolean';
+      case ts.SyntaxKind.TypeReference:
+        return inspectTypeRef(node as ts.TypeReferenceNode);
       default:
         return 'string';
     }
