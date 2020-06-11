@@ -24,5 +24,6 @@ describe('Schemas', () => {
   assertSchema('mixed-types');
   assertSchema('basic-typeref');
   assertSchema('basic-typeref-arguments');
-  assertSchema('basic-typeliteral-arguments');
+  assertSchema('basic-typeliteral');
+  assertSchema('basic-typeliteral-argument');
 });

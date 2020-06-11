@@ -2,29 +2,46 @@ import { Module } from '../../../src/meta-data';
 
 export const meta: Module = {
   members: {
+    ExtraInfo: {
+      interface: {
+        properties: {
+          required: 'boolean',
+          count: 'number',
+          description: 'string',
+          some: 'string'
+        }
+      }
+    },
     Person: {
       interface: {
         properties: {
           firstName: {
             typeRef: 'Property',
-            arguments: ['string']
+            arguments: [
+              'string',
+              {
+                properties: {
+                  required: true,
+                  count: 10,
+                  description: 'First Name',
+                  some: null
+                }
+              }
+            ]
           },
           lastName: {
             typeRef: 'Property',
-            arguments: ['string']
-          },
-          role: {
-            typeRef: 'Property',
-            arguments: [{ typeRef: 'Role' }]
+            arguments: [
+              'string',
+              {
+                properties: {
+                  required: true,
+                  description: 'Last Name'
+                }
+              }
+            ]
           }
         }
-      }
-    },
-    Role: {
-      enum: {
-        Guest: 'Guest',
-        User: 'User',
-        Admin: 'Admin'
       }
     }
   }

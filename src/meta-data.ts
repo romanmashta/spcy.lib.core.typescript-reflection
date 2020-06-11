@@ -1,4 +1,5 @@
 export type BasicTypes = 'boolean' | 'number' | 'string';
+export type LiterlType = string | number | boolean | null;
 
 export interface TypeReference {
   typeRef: string;
@@ -11,7 +12,7 @@ export interface TypeLiteral {
   };
 }
 
-export type TypeInfo = BasicTypes | TypeReference | TypeLiteral;
+export type TypeInfo = BasicTypes | TypeReference | TypeLiteral | LiterlType;
 
 export interface InterfaceDeclaration {
   interface: {

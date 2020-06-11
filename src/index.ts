@@ -3,6 +3,7 @@ import ts, { NodeArray, SourceFile, TypeElement } from 'typescript';
 import {
   EnumDeclaration,
   InterfaceDeclaration,
+  LiterlType,
   MetaInfo,
   Module,
   TypeInfo,
@@ -50,6 +51,22 @@ class MetaGenerator {
     return { ...this.processMembers(node.members) };
   };
 
+  inspectLiteralType = (node: ts.LiteralTypeNode): LiterlType => {
+    const { literal } = node;
+    switch (literal.kind) {
+      case ts.SyntaxKind.StringLiteral:
+        return literal.text;
+      case ts.SyntaxKind.NumericLiteral:
+        return _.toNumber(literal.text);
+      case ts.SyntaxKind.TrueKeyword:
+        return true;
+      case ts.SyntaxKind.FalseKeyword:
+        return false;
+      default:
+        return null;
+    }
+  };
+
   inspectTypeRef = (node: ts.TypeReferenceNode): TypeReference => {
     const typeRef = (node.typeName as ts.Identifier).text;
     const args = node.typeArguments ? _.map(node.typeArguments, this.inspectType) : undefined;
@@ -68,6 +85,10 @@ class MetaGenerator {
         return this.inspectTypeRef(node as ts.TypeReferenceNode);
       case ts.SyntaxKind.TypeLiteral:
         return this.inspectTypeLiteral(node as ts.TypeLiteralNode);
+      case ts.SyntaxKind.LiteralType:
+        return this.inspectLiteralType(node as ts.LiteralTypeNode);
+      case ts.SyntaxKind.NullKeyword:
+        return null;
       default:
         return 'string';
     }
