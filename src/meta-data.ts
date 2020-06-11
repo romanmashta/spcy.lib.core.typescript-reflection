@@ -5,15 +5,18 @@ export interface TypeReference {
   arguments?: TypeInfo[];
 }
 
-export type TypeInfo = BasicTypes | TypeReference;
+export interface TypeLiteral {
+  properties: {
+    [name: string]: TypeInfo;
+  };
+}
+
+export type TypeInfo = BasicTypes | TypeReference | TypeLiteral;
 
 export interface InterfaceDeclaration {
   interface: {
     extends?: TypeInfo;
-    properties: {
-      [name: string]: TypeInfo;
-    };
-  };
+  } & TypeLiteral;
 }
 
 export interface EnumDeclaration {
