@@ -1,6 +1,14 @@
 import _ from 'lodash';
-import ts from 'typescript';
-import { EnumDeclaration, InterfaceDeclaration, MetaInfo, Module, TypeInfo, TypeReference } from './meta-data';
+import ts, { NodeArray, SourceFile, TypeElement } from 'typescript';
+import {
+  EnumDeclaration,
+  InterfaceDeclaration,
+  MetaInfo,
+  Module,
+  TypeInfo,
+  TypeLiteral,
+  TypeReference
+} from './meta-data';
 
 const defaultOptions: ts.CompilerOptions = {
   declaration: false
@@ -10,17 +18,45 @@ interface NamedInfo<T> {
   [name: string]: T;
 }
 
-export const transform = (files: string[], program: ts.Program): MetaInfo => {
-  const sources = _.map(files, f => program.getSourceFile(f)!);
-  const typeChecker = program.getTypeChecker();
+class MetaGenerator {
+  private files: string[];
+  private options: ts.CompilerOptions;
+  private program: ts.Program;
+  private sources: SourceFile[];
+  private typeChecker: ts.TypeChecker;
 
-  const inspectTypeRef = (node: ts.TypeReferenceNode): TypeReference => {
+  constructor(files: string[], options: ts.CompilerOptions = {}) {
+    this.files = files;
+    this.options = options;
+    this.program = ts.createProgram(files, { ...defaultOptions, ...options });
+    this.sources = _.map(this.files, f => this.program.getSourceFile(f)!);
+    this.typeChecker = this.program.getTypeChecker();
+  }
+
+  inspectProperty = (node: ts.PropertySignature): NamedInfo<TypeInfo> => {
+    const name = (node.name as ts.Identifier).text;
+    const info: TypeInfo = this.inspectType(node.type!);
+    return { [name]: info };
+  };
+
+  processMembers = (members: NodeArray<TypeElement>): TypeLiteral => ({
+    properties: _.chain(members)
+      .filter(ts.isPropertySignature)
+      .reduce((r: any, prop: ts.PropertySignature) => ({ ...r, ...this.inspectProperty(prop) }), {})
+      .value()
+  });
+
+  inspectTypeLiteral = (node: ts.TypeLiteralNode): TypeLiteral => {
+    return { ...this.processMembers(node.members) };
+  };
+
+  inspectTypeRef = (node: ts.TypeReferenceNode): TypeReference => {
     const typeRef = (node.typeName as ts.Identifier).text;
-    const args = node.typeArguments ? _.map(node.typeArguments, inspectType) : undefined;
+    const args = node.typeArguments ? _.map(node.typeArguments, this.inspectType) : undefined;
     return { typeRef, arguments: args };
   };
 
-  const inspectType = (node: ts.TypeNode): TypeInfo => {
+  inspectType = (node: ts.TypeNode): TypeInfo => {
     switch (node.kind) {
       case ts.SyntaxKind.StringKeyword:
         return 'string';
@@ -29,75 +65,67 @@ export const transform = (files: string[], program: ts.Program): MetaInfo => {
       case ts.SyntaxKind.BooleanKeyword:
         return 'boolean';
       case ts.SyntaxKind.TypeReference:
-        return inspectTypeRef(node as ts.TypeReferenceNode);
+        return this.inspectTypeRef(node as ts.TypeReferenceNode);
+      case ts.SyntaxKind.TypeLiteral:
+        return this.inspectTypeLiteral(node as ts.TypeLiteralNode);
       default:
         return 'string';
     }
   };
 
-  const inspectProperty = (node: ts.PropertySignature): NamedInfo<TypeInfo> => {
-    const name = (node.name as ts.Identifier).text;
-    const info: TypeInfo = inspectType(node.type!);
-    return { [name]: info };
-  };
-
-  const inspectInterface = (node: ts.InterfaceDeclaration): NamedInfo<InterfaceDeclaration> => {
+  inspectInterface = (node: ts.InterfaceDeclaration): NamedInfo<InterfaceDeclaration> => {
     const name = node.name.text;
     const info: InterfaceDeclaration = {
       interface: {
-        properties: _.chain(node.members)
-          .filter(ts.isPropertySignature)
-          .reduce((r: any, prop: ts.PropertySignature) => ({ ...r, ...inspectProperty(prop) }), {})
-          .value()
+        ...this.processMembers(node.members)
       }
     };
     return { [name]: info };
   };
 
-  const inspectEnumMember = (node: ts.EnumMember): NamedInfo<string> => {
+  inspectEnumMember = (node: ts.EnumMember): NamedInfo<string> => {
     const name = (node.name as ts.Identifier).text;
     return { [name]: name };
   };
 
-  const inspectEnum = (node: ts.EnumDeclaration): NamedInfo<EnumDeclaration> => {
+  inspectEnum = (node: ts.EnumDeclaration): NamedInfo<EnumDeclaration> => {
     const name = node.name.text;
     const info: EnumDeclaration = {
       enum: _.chain(node.members)
         .filter(ts.isEnumMember)
-        .reduce((r: any, prop: ts.EnumMember) => ({ ...r, ...inspectEnumMember(prop) }), {})
+        .reduce((r: any, prop: ts.EnumMember) => ({ ...r, ...this.inspectEnumMember(prop) }), {})
         .value()
     };
     return { [name]: info };
   };
 
-  const metaInfo: MetaInfo = {
-    modules: [],
-    hasErrors: false
-  };
-
-  _.forEach(sources, sourceFile => {
-    const module: Module = { members: {} };
-    metaInfo.modules = [...metaInfo.modules, module];
-
-    const inspect = (node: ts.Node) => {
-      if (ts.isInterfaceDeclaration(node)) {
-        module.members = { ...module.members, ...inspectInterface(node) };
-      } else if (ts.isEnumDeclaration(node)) {
-        module.members = { ...module.members, ...inspectEnum(node) };
-      } else ts.forEachChild(node, inspect);
+  transform = (): MetaInfo => {
+    const metaInfo: MetaInfo = {
+      modules: [],
+      hasErrors: false
     };
 
-    inspect(sourceFile);
-  });
+    _.forEach(this.sources, sourceFile => {
+      const module: Module = { members: {} };
+      metaInfo.modules = [...metaInfo.modules, module];
 
-  return metaInfo;
-};
+      const inspect = (node: ts.Node) => {
+        if (ts.isInterfaceDeclaration(node)) {
+          module.members = { ...module.members, ...this.inspectInterface(node) };
+        } else if (ts.isEnumDeclaration(node)) {
+          module.members = { ...module.members, ...this.inspectEnum(node) };
+        } else ts.forEachChild(node, inspect);
+      };
 
-const createProgram = (files: string[], options: ts.CompilerOptions): ts.Program =>
-  ts.createProgram(files, { ...defaultOptions, ...options });
+      inspect(sourceFile);
+    });
+
+    return metaInfo;
+  };
+}
 
 export const generateMetaInfoForFiles = (files: string[], options: ts.CompilerOptions): MetaInfo =>
-  transform(files, createProgram(files, options));
+  new MetaGenerator(files, options).transform();
 
 export const generateMetaInfoForFile = (file: string, options: ts.CompilerOptions = {}): MetaInfo =>
-  generateMetaInfoForFiles([file], options);
+  new MetaGenerator([file], options).transform();
