@@ -37,6 +37,23 @@ export const meta: Module = {
               }
             }
           ]
+        },
+        location: {
+          typeRef: 'Property',
+          arguments: [
+            {
+              properties: {
+                lat: 'number',
+                lon: 'number'
+              }
+            },
+            {
+              properties: {
+                required: true,
+                description: 'Last Name'
+              }
+            }
+          ]
         }
       }
     }
