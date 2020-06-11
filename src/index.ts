@@ -97,9 +97,7 @@ class MetaGenerator {
   inspectInterface = (node: ts.InterfaceDeclaration): NamedInfo<InterfaceDeclaration> => {
     const name = node.name.text;
     const info: InterfaceDeclaration = {
-      interface: {
-        ...this.processMembers(node.members)
-      }
+      ...this.processMembers(node.members)
     };
     return { [name]: info };
   };

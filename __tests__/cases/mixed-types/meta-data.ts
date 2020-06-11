@@ -3,21 +3,17 @@ import { Module } from '../../../src/meta-data';
 export const meta: Module = {
   members: {
     Location: {
-      interface: {
-        properties: {
-          lat: 'number',
-          lon: 'number'
-        }
+      properties: {
+        lat: 'number',
+        lon: 'number'
       }
     },
     Person: {
-      interface: {
-        properties: {
-          firstName: 'string',
-          lastName: 'string',
-          age: 'number',
-          isActive: 'boolean'
-        }
+      properties: {
+        firstName: 'string',
+        lastName: 'string',
+        age: 'number',
+        isActive: 'boolean'
       }
     },
     Role: {

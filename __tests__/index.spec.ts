@@ -23,7 +23,7 @@ describe('Schemas', () => {
   assertSchema('enum');
   assertSchema('mixed-types');
   assertSchema('basic-typeref');
-  assertSchema('basic-typeref-arguments');
-  assertSchema('basic-typeliteral');
-  assertSchema('basic-typeliteral-argument');
+  assertSchema('typeref-arguments');
+  assertSchema('typeliteral');
+  assertSchema('typeliteral-argument');
 });

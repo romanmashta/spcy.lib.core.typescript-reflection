@@ -15,9 +15,9 @@ export interface TypeLiteral {
 export type TypeInfo = BasicTypes | TypeReference | TypeLiteral | LiterlType;
 
 export interface InterfaceDeclaration {
-  interface: {
-    extends?: TypeInfo;
-  } & TypeLiteral;
+  properties: {
+    [name: string]: TypeInfo;
+  };
 }
 
 export interface EnumDeclaration {

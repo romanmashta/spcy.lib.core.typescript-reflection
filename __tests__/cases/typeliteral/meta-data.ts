@@ -6,8 +6,12 @@ export const meta: Module = {
       properties: {
         firstName: 'string',
         lastName: 'string',
-        age: 'number',
-        isActive: 'boolean'
+        location: {
+          properties: {
+            lat: 'number',
+            lon: 'number'
+          }
+        }
       }
     }
   }
