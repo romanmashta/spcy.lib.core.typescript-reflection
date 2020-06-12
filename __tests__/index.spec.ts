@@ -18,6 +18,7 @@ const assertSchema = (caseName: string) => {
 };
 
 const caseNames = [
+  // 'meta-schema',
   'type-alias',
   'any-of',
   'basic-interface',
