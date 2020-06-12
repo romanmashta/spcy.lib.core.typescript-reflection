@@ -8,7 +8,8 @@ import {
   Module,
   TypeInfo,
   TypeLiteral,
-  TypeReference
+  TypeReference,
+  UnionType
 } from '@spcy/lib.core.reflection';
 
 const defaultOptions: ts.CompilerOptions = {
@@ -73,6 +74,10 @@ class MetaGenerator {
     return { typeRef, arguments: args };
   };
 
+  inspectUnionType = (node: ts.UnionTypeNode): UnionType => {
+    return { anyOf: _.map(node.types, this.inspectType) };
+  };
+
   inspectType = (node: ts.TypeNode): TypeInfo => {
     switch (node.kind) {
       case ts.SyntaxKind.StringKeyword:
@@ -87,6 +92,8 @@ class MetaGenerator {
         return this.inspectTypeLiteral(node as ts.TypeLiteralNode);
       case ts.SyntaxKind.LiteralType:
         return this.inspectLiteralType(node as ts.LiteralTypeNode);
+      case ts.SyntaxKind.UnionType:
+        return this.inspectUnionType(node as ts.UnionTypeNode);
       case ts.SyntaxKind.NullKeyword:
         return null;
       default:

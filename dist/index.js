@@ -60,6 +60,9 @@ var MetaGenerator = /** @class */ (function () {
             var args = node.typeArguments ? _.map(node.typeArguments, _this.inspectType) : undefined;
             return { typeRef: typeRef, arguments: args };
         };
+        this.inspectUnionType = function (node) {
+            return { anyOf: _.map(node.types, _this.inspectType) };
+        };
         this.inspectType = function (node) {
             switch (node.kind) {
                 case ts.SyntaxKind.StringKeyword:
@@ -74,6 +77,8 @@ var MetaGenerator = /** @class */ (function () {
                     return _this.inspectTypeLiteral(node);
                 case ts.SyntaxKind.LiteralType:
                     return _this.inspectLiteralType(node);
+                case ts.SyntaxKind.UnionType:
+                    return _this.inspectUnionType(node);
                 case ts.SyntaxKind.NullKeyword:
                     return null;
                 default:
