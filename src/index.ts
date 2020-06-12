@@ -42,11 +42,17 @@ class MetaGenerator {
     return { [name]: info };
   };
 
+  inspectIndexSignature = (node: ts.IndexSignatureDeclaration | undefined): TypeInfo | undefined => {
+    if (!node) return undefined;
+    return this.inspectType(node.type!);
+  };
+
   processMembers = (members: NodeArray<TypeElement>): TypeLiteral => ({
     properties: _.chain(members)
       .filter(ts.isPropertySignature)
-      .reduce((r: any, prop: ts.PropertySignature) => ({ ...r, ...this.inspectProperty(prop) }), {})
-      .value()
+      .reduce((r: any, prop: ts.PropertySignature) => ({ ...(r || {}), ...this.inspectProperty(prop) }), undefined)
+      .value(),
+    index: this.inspectIndexSignature(_.find(members, ts.isIndexSignatureDeclaration))
   });
 
   inspectTypeLiteral = (node: ts.TypeLiteralNode): TypeLiteral => {
