@@ -2,14 +2,6 @@ import { Module } from '@spcy/lib.core.reflection';
 
 export const meta: Module = {
   members: {
-    ExtraInfo: {
-      properties: {
-        required: 'boolean',
-        count: 'number',
-        description: 'string',
-        some: 'string'
-      }
-    },
     Person: {
       properties: {
         firstName: {

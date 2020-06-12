@@ -1,4 +1,4 @@
-type Property<T> = T;
+import { Property } from '../utils';
 
 export interface Person {
   firstName: Property<string>;

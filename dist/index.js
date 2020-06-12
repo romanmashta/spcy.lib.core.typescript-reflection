@@ -82,7 +82,7 @@ var MetaGenerator = /** @class */ (function () {
                 case ts.SyntaxKind.NullKeyword:
                     return null;
                 default:
-                    return 'string';
+                    return '!unknown';
             }
         };
         this.inspectInterface = function (node) {
@@ -90,6 +90,12 @@ var MetaGenerator = /** @class */ (function () {
             var name = node.name.text;
             var info = __assign({}, _this.processMembers(node.members));
             return _a = {}, _a[name] = info, _a;
+        };
+        this.inspectTypeAlias = function (node) {
+            var _a;
+            var name = node.name.text;
+            var type = _this.inspectType(node.type);
+            return _a = {}, _a[name] = type, _a;
         };
         this.inspectEnumMember = function (node) {
             var _a;
@@ -118,6 +124,9 @@ var MetaGenerator = /** @class */ (function () {
                 var inspect = function (node) {
                     if (ts.isInterfaceDeclaration(node)) {
                         module.members = __assign(__assign({}, module.members), _this.inspectInterface(node));
+                    }
+                    else if (ts.isTypeAliasDeclaration(node)) {
+                        module.members = __assign(__assign({}, module.members), _this.inspectTypeAlias(node));
                     }
                     else if (ts.isEnumDeclaration(node)) {
                         module.members = __assign(__assign({}, module.members), _this.inspectEnum(node));

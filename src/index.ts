@@ -97,7 +97,7 @@ class MetaGenerator {
       case ts.SyntaxKind.NullKeyword:
         return null;
       default:
-        return 'string';
+        return '!unknown';
     }
   };
 
@@ -107,6 +107,12 @@ class MetaGenerator {
       ...this.processMembers(node.members)
     };
     return { [name]: info };
+  };
+
+  inspectTypeAlias = (node: ts.TypeAliasDeclaration): NamedInfo<TypeInfo> => {
+    const name = node.name.text;
+    const type = this.inspectType(node.type);
+    return { [name]: type };
   };
 
   inspectEnumMember = (node: ts.EnumMember): NamedInfo<string> => {
@@ -138,6 +144,8 @@ class MetaGenerator {
       const inspect = (node: ts.Node) => {
         if (ts.isInterfaceDeclaration(node)) {
           module.members = { ...module.members, ...this.inspectInterface(node) };
+        } else if (ts.isTypeAliasDeclaration(node)) {
+          module.members = { ...module.members, ...this.inspectTypeAlias(node) };
         } else if (ts.isEnumDeclaration(node)) {
           module.members = { ...module.members, ...this.inspectEnum(node) };
         } else ts.forEachChild(node, inspect);

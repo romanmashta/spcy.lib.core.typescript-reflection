@@ -18,6 +18,8 @@ const assertSchema = (caseName: string) => {
 };
 
 const caseNames = [
+  'type-alias',
+  'any-of',
   'basic-interface',
   'enum',
   'mixed-types',
