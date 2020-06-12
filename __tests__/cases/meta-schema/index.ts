@@ -7,21 +7,27 @@ export interface TypeReference {
 }
 
 export interface TypeLiteral {
-  properties: {
+  properties?: {
     [name: string]: TypeInfo;
   };
+  index?: TypeInfo;
 }
 
 export interface UnionType {
   anyOf: TypeInfo[];
 }
 
-export type TypeInfo = BasicTypes | TypeReference | TypeLiteral | LiteralType | UnionType;
+export interface ArrayType {
+  array: TypeInfo;
+}
+
+export type TypeInfo = BasicTypes | TypeReference | TypeLiteral | LiteralType | UnionType | ArrayType;
 
 export interface InterfaceDeclaration {
-  properties: {
+  properties?: {
     [name: string]: TypeInfo;
   };
+  index?: TypeInfo;
 }
 
 export interface EnumDeclaration {

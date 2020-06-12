@@ -28,7 +28,8 @@ const caseNames = [
   'basic-typeref',
   'typeref-arguments',
   'typeliteral',
-  'typeliteral-argument'
+  'typeliteral-argument',
+  'meta-schema'
 ];
 
 it.each(caseNames)('Process schema %s', caseName => {
