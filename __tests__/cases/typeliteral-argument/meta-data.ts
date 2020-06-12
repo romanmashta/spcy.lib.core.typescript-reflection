@@ -1,4 +1,4 @@
-import { Module } from '../../../src/meta-data';
+import { Module } from '@spcy/lib.core.reflection';
 
 export const meta: Module = {
   members: {
@@ -50,7 +50,7 @@ export const meta: Module = {
             {
               properties: {
                 required: true,
-                description: 'Last Name'
+                description: 'User location'
               }
             }
           ]

@@ -1,5 +1,4 @@
 import ts from 'typescript';
-import { MetaInfo } from './meta-data';
-export declare const transform: (files: string[], program: ts.Program) => MetaInfo;
+import { MetaInfo } from '@spcy/lib.core.reflection';
 export declare const generateMetaInfoForFiles: (files: string[], options: ts.CompilerOptions) => MetaInfo;
 export declare const generateMetaInfoForFile: (file: string, options?: ts.CompilerOptions) => MetaInfo;

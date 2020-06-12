@@ -3,13 +3,13 @@ import ts, { NodeArray, SourceFile, TypeElement } from 'typescript';
 import {
   EnumDeclaration,
   InterfaceDeclaration,
-  LiterlType,
+  LiteralType,
   MetaInfo,
   Module,
   TypeInfo,
   TypeLiteral,
   TypeReference
-} from './meta-data';
+} from '@spcy/lib.core.reflection';
 
 const defaultOptions: ts.CompilerOptions = {
   declaration: false
@@ -51,7 +51,7 @@ class MetaGenerator {
     return { ...this.processMembers(node.members) };
   };
 
-  inspectLiteralType = (node: ts.LiteralTypeNode): LiterlType => {
+  inspectLiteralType = (node: ts.LiteralTypeNode): LiteralType => {
     const { literal } = node;
     switch (literal.kind) {
       case ts.SyntaxKind.StringLiteral:

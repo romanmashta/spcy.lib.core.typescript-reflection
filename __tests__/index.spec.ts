@@ -4,26 +4,29 @@ import { generateMetaInfoForFile } from '../src';
 
 const ROOT = '__tests__/cases';
 
-const assertSchema = (caseName: string) =>
-  test(`It process ${caseName}`, () => {
-    const file = resolve(`${ROOT}/${caseName}/index.ts`);
-    const metaFile = resolve(`${ROOT}/${caseName}/meta-data.ts`);
-    const result = generateMetaInfoForFile(file);
-    const module = _.first(result.modules);
-    const { meta } = require(metaFile);
+const assertSchema = (caseName: string) => {
+  const file = resolve(`${ROOT}/${caseName}/index.ts`);
+  const metaFile = resolve(`${ROOT}/${caseName}/meta-data.ts`);
+  const result = generateMetaInfoForFile(file);
+  const module = _.first(result.modules);
+  const { meta } = require(metaFile);
 
-    console.log(JSON.stringify(module, null, 2));
-    expect(module).toEqual(meta);
+  // console.log(JSON.stringify(module, null, 2));
+  expect(module).toEqual(meta);
 
-    expect(result.hasErrors).toBe(false);
-  });
+  expect(result.hasErrors).toBe(false);
+};
 
-describe('Schemas', () => {
-  assertSchema('basic-interface');
-  assertSchema('enum');
-  assertSchema('mixed-types');
-  assertSchema('basic-typeref');
-  assertSchema('typeref-arguments');
-  assertSchema('typeliteral');
-  assertSchema('typeliteral-argument');
+const caseNames = [
+  'basic-interface',
+  'enum',
+  'mixed-types',
+  'basic-typeref',
+  'typeref-arguments',
+  'typeliteral',
+  'typeliteral-argument'
+];
+
+it.each(caseNames)('Process schema %s', caseName => {
+  assertSchema(caseName);
 });
