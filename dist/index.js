@@ -63,6 +63,9 @@ var MetaGenerator = /** @class */ (function () {
         this.inspectUnionType = function (node) {
             return { anyOf: _.map(node.types, _this.inspectType) };
         };
+        this.inspectArrayType = function (node) {
+            return { array: _this.inspectType(node.elementType) };
+        };
         this.inspectType = function (node) {
             switch (node.kind) {
                 case ts.SyntaxKind.StringKeyword:
@@ -79,6 +82,8 @@ var MetaGenerator = /** @class */ (function () {
                     return _this.inspectLiteralType(node);
                 case ts.SyntaxKind.UnionType:
                     return _this.inspectUnionType(node);
+                case ts.SyntaxKind.ArrayType:
+                    return _this.inspectArrayType(node);
                 case ts.SyntaxKind.NullKeyword:
                     return null;
                 default:

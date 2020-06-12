@@ -18,7 +18,7 @@ const assertSchema = (caseName: string) => {
 };
 
 const caseNames = [
-  // 'meta-schema',
+  'array',
   'type-alias',
   'any-of',
   'basic-interface',
@@ -28,6 +28,7 @@ const caseNames = [
   'typeref-arguments',
   'typeliteral',
   'typeliteral-argument'
+  // 'meta-schema',
 ];
 
 it.each(caseNames)('Process schema %s', caseName => {
