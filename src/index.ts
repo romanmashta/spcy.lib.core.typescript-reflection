@@ -50,7 +50,13 @@ class MetaGenerator {
   processMembers = (members: NodeArray<TypeElement>): TypeLiteral => ({
     properties: _.chain(members)
       .filter(ts.isPropertySignature)
-      .reduce((r: any, prop: ts.PropertySignature) => ({ ...(r || {}), ...this.inspectProperty(prop) }), undefined)
+      .reduce(
+        (r: any, prop: ts.PropertySignature) => ({
+          ...(r || {}),
+          ...this.inspectProperty(prop)
+        }),
+        undefined
+      )
       .value(),
     index: this.inspectIndexSignature(_.find(members, ts.isIndexSignatureDeclaration))
   });
@@ -138,7 +144,13 @@ class MetaGenerator {
     const info: EnumDeclaration = {
       enum: _.chain(node.members)
         .filter(ts.isEnumMember)
-        .reduce((r: any, prop: ts.EnumMember) => ({ ...r, ...this.inspectEnumMember(prop) }), {})
+        .reduce(
+          (r: any, prop: ts.EnumMember) => ({
+            ...r,
+            ...this.inspectEnumMember(prop)
+          }),
+          {}
+        )
         .value()
     };
     return { [name]: info };
@@ -156,9 +168,15 @@ class MetaGenerator {
 
       const inspect = (node: ts.Node) => {
         if (ts.isInterfaceDeclaration(node)) {
-          module.members = { ...module.members, ...this.inspectInterface(node) };
+          module.members = {
+            ...module.members,
+            ...this.inspectInterface(node)
+          };
         } else if (ts.isTypeAliasDeclaration(node)) {
-          module.members = { ...module.members, ...this.inspectTypeAlias(node) };
+          module.members = {
+            ...module.members,
+            ...this.inspectTypeAlias(node)
+          };
         } else if (ts.isEnumDeclaration(node)) {
           module.members = { ...module.members, ...this.inspectEnum(node) };
         } else ts.forEachChild(node, inspect);

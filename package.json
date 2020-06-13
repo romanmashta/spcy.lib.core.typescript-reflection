@@ -15,7 +15,7 @@
   "scripts": {
     "build": "tsc",
     "format": "prettier --write \"{src,__tests__}/**/*.{js,ts}\"",
-    "lint": "eslint --fix \"src/**/*.{js,ts}\"",
+    "lint": "eslint \"src/**/*.{js,ts}\"",
     "test": "jest"
   },
   "devDependencies": {
