@@ -1,48 +1,45 @@
-export type BasicTypes = 'boolean' | 'number' | 'string';
-export type LiteralType = string | number | boolean | null;
+export type TypeInfo = ObjectType | SimpleType | ArrayType | TypeReference | EnumType | ConstLiteral | OneOf | AllOf;
 
 export interface TypeReference {
-  typeRef: string;
-  arguments?: TypeInfo[];
-}
-
-export interface TypeLiteral {
-  properties?: {
-    [name: string]: TypeInfo;
-  };
-  index?: TypeInfo;
-}
-
-export interface UnionType {
-  anyOf: TypeInfo[];
+  $ref: string;
 }
 
 export interface ArrayType {
-  array: TypeInfo;
+  type: 'array';
+  items: TypeInfo;
 }
 
-export type TypeInfo = BasicTypes | TypeReference | TypeLiteral | LiteralType | UnionType | ArrayType;
+export interface ConstLiteral {
+  const: string | number | boolean | null;
+}
 
-export interface InterfaceDeclaration {
+export interface EnumType {
+  enum: string[];
+}
+
+export interface SimpleType {
+  type: 'string' | 'number' | 'boolean' | 'date' | 'null';
+}
+
+export interface ObjectType {
+  type: 'object';
   properties?: {
     [name: string]: TypeInfo;
   };
-  index?: TypeInfo;
+  additionalProperties?: TypeInfo | boolean;
 }
 
-export interface EnumDeclaration {
-  enum: {
-    [name: string]: string | number;
-  };
+export interface OneOf {
+  oneOf: TypeInfo[];
 }
 
-export interface ImportDeclaration {
-  import: string;
+export interface AllOf {
+  allOf: TypeInfo[];
 }
 
 export interface Module {
-  members: {
-    [name: string]: ImportDeclaration | InterfaceDeclaration | EnumDeclaration | TypeInfo;
+  $defs: {
+    [name: string]: TypeInfo;
   };
 }
 

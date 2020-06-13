@@ -1,129 +1,179 @@
 import { Module } from '@spcy/lib.core.reflection';
 
 export const meta: Module = {
-  members: {
-    BasicTypes: {
-      anyOf: ['boolean', 'number', 'string']
-    },
-    LiteralType: {
-      anyOf: ['string', 'number', 'boolean', null]
+  $defs: {
+    TypeInfo: {
+      oneOf: [
+        {
+          $ref: '#/$defs/ObjectType'
+        },
+        {
+          $ref: '#/$defs/SimpleType'
+        },
+        {
+          $ref: '#/$defs/ArrayType'
+        },
+        {
+          $ref: '#/$defs/TypeReference'
+        },
+        {
+          $ref: '#/$defs/EnumType'
+        },
+        {
+          $ref: '#/$defs/ConstLiteral'
+        },
+        {
+          $ref: '#/$defs/OneOf'
+        },
+        {
+          $ref: '#/$defs/AllOf'
+        }
+      ]
     },
     TypeReference: {
+      type: 'object',
       properties: {
-        typeRef: 'string',
-        arguments: {
-          array: {
-            typeRef: 'TypeInfo'
-          }
-        }
-      }
-    },
-    TypeLiteral: {
-      properties: {
-        properties: {
-          index: {
-            typeRef: 'TypeInfo'
-          }
-        },
-        index: {
-          typeRef: 'TypeInfo'
-        }
-      }
-    },
-    UnionType: {
-      properties: {
-        anyOf: {
-          array: {
-            typeRef: 'TypeInfo'
-          }
+        $ref: {
+          type: 'string'
         }
       }
     },
     ArrayType: {
+      type: 'object',
       properties: {
-        array: {
-          typeRef: 'TypeInfo'
+        type: {
+          const: 'array'
+        },
+        items: {
+          $ref: '#/$defs/TypeInfo'
         }
       }
     },
-    TypeInfo: {
-      anyOf: [
-        {
-          typeRef: 'BasicTypes'
-        },
-        {
-          typeRef: 'TypeReference'
-        },
-        {
-          typeRef: 'TypeLiteral'
-        },
-        {
-          typeRef: 'LiteralType'
-        },
-        {
-          typeRef: 'UnionType'
-        },
-        {
-          typeRef: 'ArrayType'
-        }
-      ]
-    },
-    InterfaceDeclaration: {
+    ConstLiteral: {
+      type: 'object',
       properties: {
-        properties: {
-          index: {
-            typeRef: 'TypeInfo'
-          }
-        },
-        index: {
-          typeRef: 'TypeInfo'
+        const: {
+          oneOf: [
+            {
+              type: 'string'
+            },
+            {
+              type: 'number'
+            },
+            {
+              type: 'boolean'
+            },
+            {
+              type: 'null'
+            }
+          ]
         }
       }
     },
-    EnumDeclaration: {
+    EnumType: {
+      type: 'object',
       properties: {
         enum: {
-          index: {
-            anyOf: ['string', 'number']
+          type: 'array',
+          items: {
+            type: 'string'
           }
         }
       }
     },
-    ImportDeclaration: {
+    SimpleType: {
+      type: 'object',
       properties: {
-        import: 'string'
+        type: {
+          oneOf: [
+            {
+              const: 'string'
+            },
+            {
+              const: 'number'
+            },
+            {
+              const: 'boolean'
+            },
+            {
+              const: 'date'
+            },
+            {
+              const: 'null'
+            }
+          ]
+        }
+      }
+    },
+    ObjectType: {
+      type: 'object',
+      properties: {
+        type: {
+          const: 'object'
+        },
+        properties: {
+          type: 'object',
+          additionalProperties: {
+            $ref: '#/$defs/TypeInfo'
+          }
+        },
+        additionalProperties: {
+          oneOf: [
+            {
+              $ref: '#/$defs/TypeInfo'
+            },
+            {
+              type: 'boolean'
+            }
+          ]
+        }
+      }
+    },
+    OneOf: {
+      type: 'object',
+      properties: {
+        oneOf: {
+          type: 'array',
+          items: {
+            $ref: '#/$defs/TypeInfo'
+          }
+        }
+      }
+    },
+    AllOf: {
+      type: 'object',
+      properties: {
+        allOf: {
+          type: 'array',
+          items: {
+            $ref: '#/$defs/TypeInfo'
+          }
+        }
       }
     },
     Module: {
+      type: 'object',
       properties: {
-        members: {
-          index: {
-            anyOf: [
-              {
-                typeRef: 'ImportDeclaration'
-              },
-              {
-                typeRef: 'InterfaceDeclaration'
-              },
-              {
-                typeRef: 'EnumDeclaration'
-              },
-              {
-                typeRef: 'TypeInfo'
-              }
-            ]
+        $defs: {
+          type: 'object',
+          additionalProperties: {
+            $ref: '#/$defs/TypeInfo'
           }
         }
       }
     },
     MetaInfo: {
+      type: 'object',
       properties: {
         modules: {
-          array: {
-            typeRef: 'Module'
+          type: 'array',
+          items: {
+            $ref: '#/$defs/Module'
           }
         },
-        hasErrors: 'boolean'
+        hasErrors: {
+          type: 'boolean'
+        }
       }
     }
   }

@@ -5,4 +5,4 @@ export interface ExtraInfo {
   some?: string;
 }
 
-export type Property<T, E extends ExtraInfo = {}> = T;
+export type Property<type, extra extends ExtraInfo = {}> = type;

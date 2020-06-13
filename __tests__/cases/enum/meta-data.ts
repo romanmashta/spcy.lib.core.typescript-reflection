@@ -1,13 +1,19 @@
 import { Module } from '@spcy/lib.core.reflection';
 
 export const meta: Module = {
-  members: {
+  $defs: {
     Role: {
-      enum: {
-        Guest: 'Guest',
-        User: 'User',
-        Admin: 'Admin'
-      }
+      oneOf: [
+        {
+          const: 'Guest'
+        },
+        {
+          const: 'User'
+        },
+        {
+          const: 'Admin'
+        }
+      ]
     }
   }
 };
