@@ -1,17 +1,27 @@
 import { Module } from '@spcy/lib.core.reflection';
 
 export const meta: Module = {
-  members: {
+  $defs: {
     Config: {
+      type: 'object',
       properties: {
         colors: {
-          array: 'string'
+          type: 'array',
+          items: {
+            type: 'string'
+          }
         },
         params: {
-          array: {
+          type: 'array',
+          items: {
+            type: 'object',
             properties: {
-              key: 'string',
-              value: 'string'
+              key: {
+                type: 'string'
+              },
+              value: {
+                type: 'string'
+              }
             }
           }
         }

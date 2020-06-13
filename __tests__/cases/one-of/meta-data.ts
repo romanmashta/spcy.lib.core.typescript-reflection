@@ -1,29 +1,36 @@
 import { Module } from '@spcy/lib.core.reflection';
 
 export const meta: Module = {
-  members: {
+  $defs: {
     Decorator: {
+      type: 'object',
       properties: {
         figure: {
-          anyOf: [
+          oneOf: [
             {
-              typeRef: 'Circle'
+              $ref: '#/$defs/Circle'
             },
             {
-              typeRef: 'Square'
+              $ref: '#/$defs/Square'
             }
           ]
         }
       }
     },
     Circle: {
+      type: 'object',
       properties: {
-        radius: 'number'
+        radius: {
+          type: 'number'
+        }
       }
     },
     Square: {
+      type: 'object',
       properties: {
-        side: 'number'
+        side: {
+          type: 'number'
+        }
       }
     }
   }

@@ -14,8 +14,7 @@
     "noImplicitAny": true,
     "sourceMap": true,
     "declaration": true,
-    "outDir": "dist",
-    "typeRoots" : ["node_modules/@types"]
+    "outDir": "dist"
   },
   "include": [
     "src/**/*.ts"

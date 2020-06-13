@@ -1,15 +1,25 @@
 import { Module } from '@spcy/lib.core.reflection';
 
 export const meta: Module = {
-  members: {
+  $defs: {
     Person: {
+      type: 'object',
       properties: {
-        firstName: 'string',
-        lastName: 'string',
+        firstName: {
+          type: 'string'
+        },
+        lastName: {
+          type: 'string'
+        },
         location: {
+          type: 'object',
           properties: {
-            lat: 'number',
-            lon: 'number'
+            lat: {
+              type: 'number'
+            },
+            lon: {
+              type: 'number'
+            }
           }
         }
       }

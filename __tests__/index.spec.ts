@@ -11,7 +11,7 @@ const assertSchema = (caseName: string) => {
   const module = _.first(result.modules);
   const { meta } = require(metaFile);
 
-  // console.log(JSON.stringify(module, null, 2));
+  console.log(JSON.stringify(module, null, 2));
   expect(module).toEqual(meta);
 
   expect(result.hasErrors).toBe(false);
@@ -21,7 +21,7 @@ const caseNames = [
   'index-signature',
   'array',
   'type-alias',
-  'any-of',
+  'one-of',
   'basic-interface',
   'enum',
   'mixed-types',

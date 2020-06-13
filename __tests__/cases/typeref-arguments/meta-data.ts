@@ -1,29 +1,33 @@
 import { Module } from '@spcy/lib.core.reflection';
 
 export const meta: Module = {
-  members: {
+  $defs: {
     Person: {
+      type: 'object',
       properties: {
         firstName: {
-          typeRef: 'Property',
-          arguments: ['string']
+          $ref: '#/$defs/Property'
         },
         lastName: {
-          typeRef: 'Property',
-          arguments: ['string']
+          $ref: '#/$defs/Property'
         },
         role: {
-          typeRef: 'Property',
-          arguments: [{ typeRef: 'Role' }]
+          $ref: '#/$defs/Property'
         }
       }
     },
     Role: {
-      enum: {
-        Guest: 'Guest',
-        User: 'User',
-        Admin: 'Admin'
-      }
+      oneOf: [
+        {
+          const: 'Guest'
+        },
+        {
+          const: 'User'
+        },
+        {
+          const: 'Admin'
+        }
+      ]
     }
   }
 };
