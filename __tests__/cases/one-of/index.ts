@@ -1,5 +1,7 @@
-export interface Decorator {
-  figure: Circle | Square;
+export type Shapes = Circle | Square;
+
+export interface Picture {
+  figures: Shapes[];
 }
 
 export interface Circle {
