@@ -1,4 +1,4 @@
-import _ from 'lodash';
+import * as _ from 'lodash';
 import { resolve } from 'path';
 import { generateMetaInfoForFile } from '../src';
 
