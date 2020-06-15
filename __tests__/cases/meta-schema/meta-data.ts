@@ -117,6 +117,12 @@ export const meta: Module = {
         type: {
           const: 'object'
         },
+        required: {
+          type: 'array',
+          items: {
+            type: 'string'
+          }
+        },
         properties: {
           type: 'object',
           additionalProperties: {
