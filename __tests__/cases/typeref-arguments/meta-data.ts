@@ -4,6 +4,7 @@ export const meta: Module = {
   $defs: {
     Person: {
       type: 'object',
+      required: ['firstName', 'lastName', 'role'],
       properties: {
         firstName: {
           $ref: '#/$defs/Property'

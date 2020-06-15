@@ -32,6 +32,7 @@ export const meta: Module = {
     },
     TypeReference: {
       type: 'object',
+      required: ['$ref'],
       properties: {
         $ref: {
           type: 'string'
@@ -40,6 +41,7 @@ export const meta: Module = {
     },
     ArrayType: {
       type: 'object',
+      required: ['type', 'items'],
       properties: {
         type: {
           const: 'array'
@@ -51,6 +53,7 @@ export const meta: Module = {
     },
     ConstLiteral: {
       type: 'object',
+      required: ['const'],
       properties: {
         const: {
           oneOf: [
@@ -72,6 +75,7 @@ export const meta: Module = {
     },
     EnumType: {
       type: 'object',
+      required: ['enum'],
       properties: {
         enum: {
           type: 'array',
@@ -83,6 +87,7 @@ export const meta: Module = {
     },
     SimpleType: {
       type: 'object',
+      required: ['type'],
       properties: {
         type: {
           oneOf: [
@@ -107,6 +112,7 @@ export const meta: Module = {
     },
     ObjectType: {
       type: 'object',
+      required: ['type'],
       properties: {
         type: {
           const: 'object'
@@ -131,6 +137,7 @@ export const meta: Module = {
     },
     OneOf: {
       type: 'object',
+      required: ['oneOf'],
       properties: {
         oneOf: {
           type: 'array',
@@ -142,6 +149,7 @@ export const meta: Module = {
     },
     AllOf: {
       type: 'object',
+      required: ['allOf'],
       properties: {
         allOf: {
           type: 'array',
@@ -153,6 +161,7 @@ export const meta: Module = {
     },
     Module: {
       type: 'object',
+      required: ['$defs'],
       properties: {
         $defs: {
           type: 'object',
@@ -164,6 +173,7 @@ export const meta: Module = {
     },
     MetaInfo: {
       type: 'object',
+      required: ['modules', 'hasErrors'],
       properties: {
         modules: {
           type: 'array',

@@ -10,6 +10,7 @@ export const meta: Module = {
     },
     Section: {
       type: 'object',
+      required: ['id', 'secret'],
       properties: {
         id: {
           type: 'string'

@@ -116,8 +116,18 @@ class MetaGenerator {
     return { [name]: info };
   };
 
+  getRequired = (members: NodeArray<TypeElement>): string[] | undefined => {
+    const result = _.chain(members)
+      .filter(ts.isPropertySignature)
+      .filter(p => !p.questionToken)
+      .map(p => (p.name as ts.Identifier).text)
+      .value();
+    return _.isEmpty(result) ? undefined : result;
+  };
+
   processMembers = (members: NodeArray<TypeElement>): ObjectType => ({
     type: 'object',
+    required: this.getRequired(members),
     properties: _.chain(members)
       .filter(ts.isPropertySignature)
       .reduce(

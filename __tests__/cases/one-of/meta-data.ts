@@ -14,6 +14,7 @@ export const meta: Module = {
     },
     Picture: {
       type: 'object',
+      required: ['figures'],
       properties: {
         figures: {
           type: 'array',
@@ -25,6 +26,7 @@ export const meta: Module = {
     },
     Circle: {
       type: 'object',
+      required: ['radius'],
       properties: {
         radius: {
           type: 'number'
@@ -33,6 +35,7 @@ export const meta: Module = {
     },
     Square: {
       type: 'object',
+      required: ['side'],
       properties: {
         side: {
           type: 'number'

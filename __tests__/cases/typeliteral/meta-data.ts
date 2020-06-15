@@ -4,6 +4,7 @@ export const meta: Module = {
   $defs: {
     Person: {
       type: 'object',
+      required: ['firstName', 'lastName', 'location'],
       properties: {
         firstName: {
           type: 'string'
@@ -13,6 +14,7 @@ export const meta: Module = {
         },
         location: {
           type: 'object',
+          required: ['lat', 'lon'],
           properties: {
             lat: {
               type: 'number'

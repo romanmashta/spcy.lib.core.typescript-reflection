@@ -14,6 +14,7 @@ export const meta: Module = {
     },
     Decorator: {
       type: 'object',
+      required: ['figure'],
       properties: {
         figure: {
           $ref: '#/$defs/Figure'
@@ -22,6 +23,7 @@ export const meta: Module = {
     },
     Circle: {
       type: 'object',
+      required: ['radius'],
       properties: {
         radius: {
           type: 'number'
@@ -30,6 +32,7 @@ export const meta: Module = {
     },
     Square: {
       type: 'object',
+      required: ['side'],
       properties: {
         side: {
           type: 'number'

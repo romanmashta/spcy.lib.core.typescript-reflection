@@ -11,7 +11,7 @@ const assertSchema = (caseName: string) => {
   const module = _.first(result.modules);
   const { meta } = require(metaFile);
 
-  console.log(JSON.stringify(module, null, 2));
+  //console.log(JSON.stringify(module, null, 2));
   expect(module).toEqual(meta);
 
   expect(result.hasErrors).toBe(false);
@@ -29,7 +29,8 @@ const caseNames = [
   'typeref-arguments',
   'typeliteral',
   'typeliteral-argument',
-  'meta-schema'
+  'meta-schema',
+  'required-properties'
 ];
 
 it.each(caseNames)('Process schema %s', caseName => {
