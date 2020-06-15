@@ -13,10 +13,10 @@
   "license": "MIT",
   "private": true,
   "scripts": {
-    "build": "tsc",
-    "format": "prettier --write \"{src,__tests__}/**/*.{js,ts}\"",
-    "lint": "eslint \"src/**/*.{js,ts}\"",
-    "test": "jest"
+    "spcy:build": "tsc",
+    "spcy:format": "prettier --write \"{src,__tests__}/**/*.{js,ts}\"",
+    "spcy:lint": "eslint \"src/**/*.{js,ts}\"",
+    "spcy:test": "jest"
   },
   "devDependencies": {
     "@types/jest": "^25.2.3",

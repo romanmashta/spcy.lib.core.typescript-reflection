@@ -14,6 +14,8 @@ import {
 
 const localRef = (ref: string): string => `#/$defs/${ref}`;
 
+type propertiesMap = { [name: string]: TypeInfo };
+
 const defaultOptions: ts.CompilerOptions = {
   declaration: false
 };
@@ -27,10 +29,10 @@ export interface GeneratorOptions {
 }
 
 class MetaGenerator {
-  private files: string[];
+  private readonly files: string[];
+  private readonly sources: SourceFile[];
   private options: ts.CompilerOptions;
   private program: ts.Program;
-  private sources: SourceFile[];
   private typeChecker: ts.TypeChecker;
   private generatorOptions: GeneratorOptions;
 
@@ -39,13 +41,13 @@ class MetaGenerator {
     this.options = options;
     this.generatorOptions = generatorOptions;
     this.program = ts.createProgram(files, { ...defaultOptions, ...options });
-    this.sources = _.map(this.files, f => this.program.getSourceFile(f)!);
+    this.sources = _.map(this.files, f => this.program.getSourceFile(f)) as SourceFile[];
     this.typeChecker = this.program.getTypeChecker();
   }
 
   inspectIndexSignature = (node: ts.IndexSignatureDeclaration | undefined): TypeInfo | undefined => {
-    if (!node) return undefined;
-    return this.inspectType(node.type!);
+    if (!node || !node.type) return undefined;
+    return this.inspectType(node.type);
   };
 
   inspectLiteralType = (node: ts.LiteralTypeNode): ConstLiteral => {
@@ -112,7 +114,8 @@ class MetaGenerator {
 
   inspectProperty = (node: ts.PropertySignature): NamedInfo<TypeInfo> => {
     const name = (node.name as ts.Identifier).text;
-    const info: TypeInfo = this.inspectType(node.type!);
+    if (!node.type) throw Error('Unknown PropertySignature Type');
+    const info: TypeInfo = this.inspectType(node.type);
     return { [name]: info };
   };
 
@@ -131,7 +134,7 @@ class MetaGenerator {
     properties: _.chain(members)
       .filter(ts.isPropertySignature)
       .reduce(
-        (r: any, prop: ts.PropertySignature) => ({
+        (r: propertiesMap | undefined, prop: ts.PropertySignature) => ({
           ...(r || {}),
           ...this.inspectProperty(prop)
         }),
