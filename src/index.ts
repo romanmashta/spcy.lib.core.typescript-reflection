@@ -5,11 +5,14 @@ import {
   Module,
   ObjectType,
   TypeInfo,
-  SimpleType,
   TypeReference,
   ArrayType,
   OneOf,
-  ConstLiteral
+  ConstLiteral,
+  NumberType,
+  StringType,
+  BooleanType,
+  NullType
 } from '@spcy/lib.core.reflection';
 
 const localRef = (ref: string): string => `#/$defs/${ref}`;
@@ -90,11 +93,13 @@ class MetaGenerator {
   inspectType = (node: ts.TypeNode): TypeInfo => {
     switch (node.kind) {
       case ts.SyntaxKind.StringKeyword:
-        return { type: 'string' } as SimpleType;
+        return { type: 'string' } as StringType;
       case ts.SyntaxKind.NumberKeyword:
-        return { type: 'number' } as SimpleType;
+        return { type: 'number' } as NumberType;
       case ts.SyntaxKind.BooleanKeyword:
-        return { type: 'boolean' } as SimpleType;
+        return { type: 'boolean' } as BooleanType;
+      case ts.SyntaxKind.NullKeyword:
+        return { type: 'null' } as NullType;
       case ts.SyntaxKind.TypeReference:
         return this.inspectTypeRef(node as ts.TypeReferenceNode);
       case ts.SyntaxKind.ArrayType:
@@ -105,10 +110,8 @@ class MetaGenerator {
         return this.inspectUnionType(node as ts.UnionTypeNode);
       case ts.SyntaxKind.LiteralType:
         return this.inspectLiteralType(node as ts.LiteralTypeNode);
-      case ts.SyntaxKind.NullKeyword:
-        return { type: 'null' };
       default:
-        return { type: 'string' } as SimpleType;
+        return { type: 'string' } as StringType;
     }
   };
 
