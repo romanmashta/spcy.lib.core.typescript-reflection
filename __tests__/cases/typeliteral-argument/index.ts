@@ -1,13 +1,6 @@
-import { Property } from '../utils';
+import { property } from '@spcy/lib.core.reflection';
 
 export interface Person {
-  firstName: Property<string, { required: true; count: 10; description: 'First Name'; some: null }>;
-  lastName: Property<string, { required: true; description: 'Last Name' }>;
-  location: Property<
-    {
-      lat: number;
-      lon: number;
-    },
-    { required: true; description: 'User location' }
-  >;
+  email: property<string, { pattern: '.*' }>;
+  age: property<number, { minimum: 1; maximum: 99 }>;
 }

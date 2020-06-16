@@ -1,9 +1,9 @@
-import { Property } from '../utils';
+import { property } from '@spcy/lib.core.reflection';
 
 export interface Person {
-  firstName: Property<string>;
-  lastName: Property<string>;
-  role: Property<Role>;
+  firstName: property<string>;
+  lastName: property<string>;
+  role: property<Role>;
 }
 
 export enum Role {

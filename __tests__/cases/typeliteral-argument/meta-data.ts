@@ -7,13 +7,13 @@ export const meta: Module = {
       required: ['firstName', 'lastName', 'location'],
       properties: {
         firstName: {
-          $ref: '#/$defs/Property'
+          $ref: '#/$defs/property'
         },
         lastName: {
-          $ref: '#/$defs/Property'
+          $ref: '#/$defs/property'
         },
         location: {
-          $ref: '#/$defs/Property'
+          $ref: '#/$defs/property'
         }
       }
     }
