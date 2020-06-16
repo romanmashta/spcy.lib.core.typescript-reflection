@@ -4,15 +4,12 @@ export const meta: Module = {
   $defs: {
     Person: {
       type: 'object',
-      required: ['firstName', 'lastName', 'location'],
+      required: ['email', 'age'],
       properties: {
-        firstName: {
+        email: {
           $ref: '#/$defs/property'
         },
-        lastName: {
-          $ref: '#/$defs/property'
-        },
-        location: {
+        age: {
           $ref: '#/$defs/property'
         }
       }
