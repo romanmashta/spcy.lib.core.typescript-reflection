@@ -8,7 +8,19 @@ export const meta: Module = {
           $ref: '#/$defs/ObjectType'
         },
         {
-          $ref: '#/$defs/SimpleType'
+          $ref: '#/$defs/StringType'
+        },
+        {
+          $ref: '#/$defs/BooleanType'
+        },
+        {
+          $ref: '#/$defs/NumberType'
+        },
+        {
+          $ref: '#/$defs/DateType'
+        },
+        {
+          $ref: '#/$defs/NullType'
         },
         {
           $ref: '#/$defs/ArrayType'
@@ -48,6 +60,15 @@ export const meta: Module = {
         },
         items: {
           $ref: '#/$defs/TypeInfo'
+        },
+        minItems: {
+          type: 'number'
+        },
+        maxItems: {
+          type: 'number'
+        },
+        uniqueItems: {
+          type: 'boolean'
         }
       }
     },
@@ -85,28 +106,63 @@ export const meta: Module = {
         }
       }
     },
-    SimpleType: {
+    NullType: {
       type: 'object',
       required: ['type'],
       properties: {
         type: {
-          oneOf: [
-            {
-              const: 'string'
-            },
-            {
-              const: 'number'
-            },
-            {
-              const: 'boolean'
-            },
-            {
-              const: 'date'
-            },
-            {
-              const: 'null'
-            }
-          ]
+          const: 'null'
+        }
+      }
+    },
+    DateType: {
+      type: 'object',
+      required: ['type'],
+      properties: {
+        type: {
+          const: 'date'
+        }
+      }
+    },
+    BooleanType: {
+      type: 'object',
+      required: ['type'],
+      properties: {
+        type: {
+          const: 'boolean'
+        }
+      }
+    },
+    StringType: {
+      type: 'object',
+      required: ['type'],
+      properties: {
+        type: {
+          const: 'string'
+        },
+        minLength: {
+          type: 'number'
+        },
+        maxLength: {
+          type: 'number'
+        },
+        pattern: {
+          type: 'string'
+        }
+      }
+    },
+    NumberType: {
+      type: 'object',
+      required: ['type'],
+      properties: {
+        type: {
+          const: 'number'
+        },
+        minimum: {
+          type: 'number'
+        },
+        maximum: {
+          type: 'number'
         }
       }
     },

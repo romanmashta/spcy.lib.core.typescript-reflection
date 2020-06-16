@@ -1,4 +1,16 @@
-export type TypeInfo = ObjectType | SimpleType | ArrayType | TypeReference | EnumType | ConstLiteral | OneOf | AllOf;
+export type TypeInfo =
+  | ObjectType
+  | StringType
+  | BooleanType
+  | NumberType
+  | DateType
+  | NullType
+  | ArrayType
+  | TypeReference
+  | EnumType
+  | ConstLiteral
+  | OneOf
+  | AllOf;
 
 export interface TypeReference {
   $ref: string;
@@ -7,6 +19,9 @@ export interface TypeReference {
 export interface ArrayType {
   type: 'array';
   items: TypeInfo;
+  minItems?: number;
+  maxItems?: number;
+  uniqueItems?: boolean;
 }
 
 export interface ConstLiteral {
@@ -17,8 +32,29 @@ export interface EnumType {
   enum: string[];
 }
 
-export interface SimpleType {
-  type: 'string' | 'number' | 'boolean' | 'date' | 'null';
+export interface NullType {
+  type: 'null';
+}
+
+export interface DateType {
+  type: 'date';
+}
+
+export interface BooleanType {
+  type: 'boolean';
+}
+
+export interface StringType {
+  type: 'string';
+  minLength?: number;
+  maxLength?: number;
+  pattern?: string;
+}
+
+export interface NumberType {
+  type: 'number';
+  minimum?: number;
+  maximum?: number;
 }
 
 export interface ObjectType {
