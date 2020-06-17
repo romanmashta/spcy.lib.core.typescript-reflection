@@ -19,7 +19,8 @@ const localRef = (ref: string): string => `#/$defs/${ref}`;
 
 type propertiesMap = { [name: string]: TypeInfo };
 
-type propertyMeta = { [name: string]: propertyMeta } | string | number | boolean | null;
+type propertyMetaObject = { [name: string]: propertyMeta };
+type propertyMeta = propertyMetaObject | string | number | boolean | null;
 
 const defaultOptions: ts.CompilerOptions = {
   declaration: false
@@ -118,7 +119,7 @@ class MetaGenerator {
     if (!node.typeArguments) throw new Error('No Type Arguments for Property');
     const [argType, argMeta] = node.typeArguments;
     const type = this.inspectType(argType);
-    const meta = argMeta ? this.typeLiteralToObject(argMeta) : {};
+    const meta = argMeta ? (this.typeLiteralToObject(argMeta) as propertyMetaObject) : {};
     return { ...type, ...meta };
   };
 
