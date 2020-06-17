@@ -15,6 +15,7 @@ import {
   NullType
 } from '@spcy/lib.core.reflection';
 
+const propTypeName = 'property';
 const localRef = (ref: string): string => `#/$defs/${ref}`;
 
 type propertiesMap = { [name: string]: TypeInfo };
@@ -84,9 +85,14 @@ class MetaGenerator {
     };
   };
 
-  inspectTypeRef = (node: ts.TypeReferenceNode): TypeReference => {
+  inspectExplicitProperty = (node: ts.TypeReferenceNode): TypeInfo => {
+    const [type, extra] = _.map(node.typeArguments, this.inspectType);
+    return { ...type, ...extra };
+  };
+
+  inspectTypeRef = (node: ts.TypeReferenceNode): TypeInfo => {
     const typeRef = (node.typeName as ts.Identifier).text;
-    // const args = node.typeArguments ? _.map(node.typeArguments, this.inspectType) : undefined;
+    if (typeRef === propTypeName) return this.inspectExplicitProperty(node);
     return { $ref: localRef(typeRef) };
   };
 
