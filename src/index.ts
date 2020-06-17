@@ -5,7 +5,6 @@ import {
   Module,
   ObjectType,
   TypeInfo,
-  TypeReference,
   ArrayType,
   OneOf,
   ConstLiteral,
@@ -19,6 +18,8 @@ const propTypeName = 'property';
 const localRef = (ref: string): string => `#/$defs/${ref}`;
 
 type propertiesMap = { [name: string]: TypeInfo };
+
+type propertyMeta = { [name: string]: propertyMeta } | string | number | boolean | null;
 
 const defaultOptions: ts.CompilerOptions = {
   declaration: false
@@ -85,7 +86,7 @@ class MetaGenerator {
     };
   };
 
-  typeLiteralToObject = (node: ts.TypeNode): any => {
+  typeLiteralToObject = (node: ts.TypeNode): propertyMeta => {
     if (ts.isTypeLiteralNode(node)) {
       return _.chain(node.members)
         .filter(ts.isPropertySignature)
