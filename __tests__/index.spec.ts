@@ -26,7 +26,6 @@ const caseNames = [
   'enum',
   'mixed-types',
   'basic-typeref',
-  'typeref-arguments',
   'typeliteral',
   'typeliteral-argument',
   'meta-schema',

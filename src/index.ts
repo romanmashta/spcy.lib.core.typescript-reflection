@@ -1,5 +1,5 @@
 import _ from 'lodash';
-import ts, { NodeArray, SourceFile, TypeElement } from 'typescript';
+import ts, { LiteralTypeNode, NodeArray, SourceFile, TypeElement, TypeLiteralNode, TypeNode } from 'typescript';
 import {
   MetaInfo,
   Module,
@@ -85,9 +85,40 @@ class MetaGenerator {
     };
   };
 
+  typeLiteralToObject = (node: ts.TypeNode): any => {
+    if (ts.isTypeLiteralNode(node)) {
+      return _.chain(node.members)
+        .filter(ts.isPropertySignature)
+        .reduce(
+          (r, m) => ({ ...r, [(m.name as ts.Identifier).text]: this.typeLiteralToObject(m.type as TypeNode) }),
+          {}
+        )
+        .value();
+    }
+    if (ts.isLiteralTypeNode(node)) {
+      const { literal } = node;
+      switch (literal.kind) {
+        case ts.SyntaxKind.StringLiteral:
+          return literal.text;
+        case ts.SyntaxKind.NumericLiteral:
+          return _.toNumber(literal.text);
+        case ts.SyntaxKind.TrueKeyword:
+          return true;
+        case ts.SyntaxKind.FalseKeyword:
+          return false;
+        default:
+          return null;
+      }
+    }
+    return null;
+  };
+
   inspectExplicitProperty = (node: ts.TypeReferenceNode): TypeInfo => {
-    const [type, extra] = _.map(node.typeArguments, this.inspectType);
-    return { ...type, ...extra };
+    if (!node.typeArguments) throw new Error('No Type Arguments for Property');
+    const [argType, argMeta] = node.typeArguments;
+    const type = this.inspectType(argType);
+    const meta = argMeta ? this.typeLiteralToObject(argMeta) : {};
+    return { ...type, ...meta };
   };
 
   inspectTypeRef = (node: ts.TypeReferenceNode): TypeInfo => {
