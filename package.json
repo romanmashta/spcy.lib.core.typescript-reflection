@@ -13,7 +13,8 @@
   "license": "MIT",
   "private": true,
   "scripts": {
-    "spcy:build": "tsc",
+    "spcy:clean": "shx rm -rf dist && shx rm -rf lib",
+    "spcy:build": "yarn spcy:clean && tsc",
     "spcy:format": "prettier --write \"{src,__tests__}/**/*.{js,ts}\"",
     "spcy:lint": "eslint \"src/**/*.{js,ts}\"",
     "spcy:test": "jest"
@@ -26,7 +27,8 @@
     "eslint-config-airbnb-typescript-prettier": "^2.1.1",
     "jest": "^26.0.1",
     "prettier": "^2.0.5",
-    "ts-jest": "^26.1.0"
+    "ts-jest": "^26.1.0",
+    "shx": "^0.3.2"
   },
   "dependencies": {
     "lodash": "^4.17.15",
