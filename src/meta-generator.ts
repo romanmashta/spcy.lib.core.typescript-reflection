@@ -1,5 +1,5 @@
 import _ from 'lodash';
-import ts, { LiteralTypeNode, NodeArray, SourceFile, TypeElement, TypeLiteralNode, TypeNode } from 'typescript';
+import ts from 'typescript';
 import {
   MetaInfo,
   Module,
@@ -11,7 +11,8 @@ import {
   NumberType,
   StringType,
   BooleanType,
-  NullType
+  NullType,
+  SourceFile
 } from '@spcy/lib.core.reflection';
 
 const propTypeName = 'property';
@@ -36,7 +37,7 @@ export interface GeneratorOptions {
 
 class MetaGenerator {
   private readonly files: string[];
-  private readonly sources: SourceFile[];
+  private readonly sources: ts.SourceFile[];
   private options: ts.CompilerOptions;
   private program: ts.Program;
   private typeChecker: ts.TypeChecker;
@@ -47,7 +48,7 @@ class MetaGenerator {
     this.options = options;
     this.generatorOptions = generatorOptions;
     this.program = ts.createProgram(files, { ...defaultOptions, ...options });
-    this.sources = _.map(this.files, f => this.program.getSourceFile(f)) as SourceFile[];
+    this.sources = _.map(this.files, f => this.program.getSourceFile(f)) as ts.SourceFile[];
     this.typeChecker = this.program.getTypeChecker();
   }
 
@@ -92,7 +93,7 @@ class MetaGenerator {
       return _.chain(node.members)
         .filter(ts.isPropertySignature)
         .reduce(
-          (r, m) => ({ ...r, [(m.name as ts.Identifier).text]: this.typeLiteralToObject(m.type as TypeNode) }),
+          (r, m) => ({ ...r, [(m.name as ts.Identifier).text]: this.typeLiteralToObject(m.type as ts.TypeNode) }),
           {}
         )
         .value();
@@ -161,7 +162,7 @@ class MetaGenerator {
     return { [name]: info };
   };
 
-  getRequired = (members: NodeArray<TypeElement>): string[] | undefined => {
+  getRequired = (members: ts.NodeArray<ts.TypeElement>): string[] | undefined => {
     const result = _.chain(members)
       .filter(ts.isPropertySignature)
       .filter(p => !p.questionToken)
@@ -170,7 +171,7 @@ class MetaGenerator {
     return _.isEmpty(result) ? undefined : result;
   };
 
-  processMembers = (members: NodeArray<TypeElement>): ObjectType => ({
+  processMembers = (members: ts.NodeArray<ts.TypeElement>): ObjectType => ({
     type: 'object',
     required: this.getRequired(members),
     properties: _.chain(members)
@@ -220,12 +221,15 @@ class MetaGenerator {
 
   transform = (): MetaInfo => {
     const metaInfo: MetaInfo = {
+      sourceFiles: [],
       modules: [],
       hasErrors: false
     };
 
     _.forEach(this.sources, sourceFile => {
       const module: Module = { $defs: {} };
+      const moduleFile: SourceFile = { module, fileName: sourceFile.fileName };
+      metaInfo.sourceFiles = [...metaInfo.sourceFiles, moduleFile];
       metaInfo.modules = [...metaInfo.modules, module];
 
       const inspect = (node: ts.Node) => {
