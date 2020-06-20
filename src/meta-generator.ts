@@ -14,6 +14,12 @@ import {
   NullType,
   SourceFile
 } from '@spcy/lib.core.reflection';
+import path from 'path';
+import handlebars from 'handlebars';
+import stringify from 'stringify-object';
+import fs from 'fs';
+import minimatch from 'minimatch';
+import { ModuleTemplate } from './templates';
 
 const propTypeName = 'property';
 
@@ -278,3 +284,57 @@ export const generateMetaInfoForFile = (
   options: ts.CompilerOptions = {},
   generatorOptions: GeneratorOptions = {}
 ): MetaInfo => generateMetaInfoForFiles([file], options, generatorOptions);
+
+interface PackageJson {
+  name: string;
+}
+
+const readConfigFromFile = (configFileName: string): ts.ParsedCommandLine => {
+  const config = ts.sys.readFile(configFileName);
+  if (!config) throw new Error(`Cannot read config file: ${configFileName}`);
+  const result = ts.parseConfigFileTextToJson(configFileName, config);
+  const configObject = result.config;
+
+  return ts.parseJsonConfigFileContent(
+    configObject,
+    ts.sys,
+    path.dirname(configFileName),
+    {},
+    path.basename(configFileName)
+  );
+};
+
+handlebars.registerHelper(
+  'stringify',
+  (object: TypeInfo) =>
+    new handlebars.SafeString(
+      stringify(object, {
+        indent: '    ',
+        filter: (v, p) => !_.isUndefined(v[p])
+      })
+    )
+);
+
+const renderModule = handlebars.compile(ModuleTemplate);
+
+const writeSchemaFile = (sourceFile: SourceFile): string => {
+  const schemaFileName = sourceFile.fileName.replace(/model\.ts$/i, 'schema.ts');
+  const moduleText = renderModule(sourceFile);
+  fs.writeFileSync(schemaFileName, moduleText);
+  return schemaFileName;
+};
+
+export const exec = (packageFile?: string): string[] => {
+  const resolvedPackageFileName = packageFile || path.join(process.cwd(), 'package.json');
+  if (!fs.existsSync(resolvedPackageFileName)) throw new Error(`Cannot find package.json ${resolvedPackageFileName}`);
+  const cwd = path.dirname(resolvedPackageFileName);
+
+  const resolvedConfigFileName = path.join(cwd, 'tsconfig.json');
+  if (!fs.existsSync(resolvedConfigFileName)) throw new Error(`Cannot find tsconfig.json ${resolvedConfigFileName}`);
+
+  const packageJson = JSON.parse(fs.readFileSync(resolvedPackageFileName, { encoding: 'utf-8' })) as PackageJson;
+  const config = readConfigFromFile(resolvedConfigFileName);
+  const modelFiles = config.fileNames.filter(minimatch.filter('*.model.ts', { matchBase: true }));
+  const result = generateMetaInfoForFiles(modelFiles, config.options, { packageName: packageJson.name });
+  return _.map(result.sourceFiles, writeSchemaFile);
+};

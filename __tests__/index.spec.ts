@@ -1,10 +1,9 @@
 import * as path from 'path';
 import * as _ from 'lodash';
 import * as fs from 'fs';
-import { generateMetaInfoForFile, run } from '../src';
+import { generateMetaInfoForFile, exec } from '../src';
 
 const CASES_ROOT = '__tests__/cases';
-const MODULE_CONFIG = '__tests__/module/tsconfig.json';
 const MODULE_PACKAGE = '__tests__/module/package.json';
 
 const assertSchema = (caseName: string) => {
@@ -41,6 +40,6 @@ it.each(caseNames)('Process schema %s', caseName => {
 
 it('process module', () => {
   const cwd = process.cwd();
-  const files = run(path.join(cwd, MODULE_CONFIG), path.join(cwd, MODULE_PACKAGE));
+  const files = exec(path.join(cwd, MODULE_PACKAGE));
   files.forEach(f => expect(fs.existsSync(f)).toBe(true));
 });
