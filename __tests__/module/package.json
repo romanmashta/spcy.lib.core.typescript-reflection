@@ -1,0 +1,8 @@
+{
+  "name": "@spcy/lib.core.test-module",
+  "version": "1.0.0",
+  "description": "",
+  "dependencies": {
+    "@spcy/lib.core.reflection": "^1.0.0"
+  }
+}

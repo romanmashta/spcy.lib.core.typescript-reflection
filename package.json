@@ -20,22 +20,24 @@
     "spcy:test": "jest"
   },
   "devDependencies": {
-    "@types/lodash": "^4.14.155",
     "@types/jest": "^26.0.0",
+    "@types/lodash": "^4.14.155",
     "@types/node": "^14.0.13",
+    "@types/stringify-object": "^3.3.0",
     "eslint": "^6.8.0",
-    "prettier": "^1.18.2",
     "eslint-config-airbnb-typescript-prettier": "^2.1.1",
     "jest": "^26.0.1",
+    "prettier": "^1.18.2",
+    "shx": "^0.3.2",
     "ts-jest": "^26.1.0",
-    "typescript": "^3.9.5",
-    "shx": "^0.3.2"
+    "typescript": "^3.9.5"
   },
   "dependencies": {
     "@spcy/lib.core.reflection": "^1.0.0",
     "handlebars": "^4.7.6",
     "lodash": "^4.17.15",
     "minimatch": "^3.0.4",
+    "stringify-object": "^3.3.0",
     "typescript": "^3.9.5"
   }
 }

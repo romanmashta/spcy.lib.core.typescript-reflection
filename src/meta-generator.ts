@@ -16,7 +16,6 @@ import {
 } from '@spcy/lib.core.reflection';
 
 const propTypeName = 'property';
-const localRef = (ref: string): string => `#/$defs/${ref}`;
 
 type propertiesMap = { [name: string]: TypeInfo };
 
@@ -32,6 +31,7 @@ interface NamedInfo<T> {
 }
 
 export interface GeneratorOptions {
+  packageName?: string;
   noAdditionalProperties?: boolean;
 }
 
@@ -51,6 +51,8 @@ class MetaGenerator {
     this.sources = _.map(this.files, f => this.program.getSourceFile(f)) as ts.SourceFile[];
     this.typeChecker = this.program.getTypeChecker();
   }
+
+  localRef = (ref: string): string => `${this.generatorOptions.packageName || ''}/${ref}`;
 
   inspectIndexSignature = (node: ts.IndexSignatureDeclaration | undefined): TypeInfo | undefined => {
     if (!node || !node.type) return undefined;
@@ -127,7 +129,7 @@ class MetaGenerator {
   inspectTypeRef = (node: ts.TypeReferenceNode): TypeInfo => {
     const typeRef = (node.typeName as ts.Identifier).text;
     if (typeRef === propTypeName) return this.inspectExplicitProperty(node);
-    return { $ref: localRef(typeRef) };
+    return { $ref: this.localRef(typeRef) };
   };
 
   inspectType = (node: ts.TypeNode): TypeInfo => {
@@ -192,6 +194,7 @@ class MetaGenerator {
   inspectInterface = (node: ts.InterfaceDeclaration): NamedInfo<ObjectType> => {
     const name = node.name.text;
     const info: ObjectType = {
+      $id: this.localRef(name),
       ...this.processMembers(node.members)
     };
     return { [name]: info };
