@@ -52,7 +52,9 @@ class MetaGenerator {
     this.typeChecker = this.program.getTypeChecker();
   }
 
-  localRef = (ref: string): string => `${this.generatorOptions.packageName || ''}/${ref}`;
+  localRef = (ref: string): string => `${this.generatorOptions.packageName || '#/$defs'}/${ref}`;
+  typeId = (ref: string): string | undefined =>
+    this.generatorOptions.packageName ? `${this.generatorOptions.packageName}/${ref}` : undefined;
 
   inspectIndexSignature = (node: ts.IndexSignatureDeclaration | undefined): TypeInfo | undefined => {
     if (!node || !node.type) return undefined;
@@ -194,7 +196,7 @@ class MetaGenerator {
   inspectInterface = (node: ts.InterfaceDeclaration): NamedInfo<ObjectType> => {
     const name = node.name.text;
     const info: ObjectType = {
-      $id: this.localRef(name),
+      $id: this.typeId(name),
       ...this.processMembers(node.members)
     };
     return { [name]: info };
@@ -208,6 +210,7 @@ class MetaGenerator {
   inspectEnum = (node: ts.EnumDeclaration): NamedInfo<OneOf> => {
     const name = node.name.text;
     const info: OneOf = {
+      $id: this.typeId(name),
       oneOf: _.chain(node.members)
         .filter(ts.isEnumMember)
         .map(prop => this.inspectEnumMember(prop))
@@ -218,7 +221,10 @@ class MetaGenerator {
 
   inspectTypeAlias = (node: ts.TypeAliasDeclaration): NamedInfo<TypeInfo> => {
     const name = node.name.text;
-    const type = this.inspectType(node.type);
+    const type = {
+      $id: this.typeId(name),
+      ...this.inspectType(node.type)
+    };
     return { [name]: type };
   };
 
@@ -242,7 +248,10 @@ class MetaGenerator {
             ...this.inspectInterface(node)
           };
         } else if (ts.isEnumDeclaration(node)) {
-          module.$defs = { ...module.$defs, ...this.inspectEnum(node) };
+          module.$defs = {
+            ...module.$defs,
+            ...this.inspectEnum(node)
+          };
         } else if (ts.isTypeAliasDeclaration(node)) {
           module.$defs = {
             ...module.$defs,

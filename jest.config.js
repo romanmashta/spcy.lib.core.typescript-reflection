@@ -4,5 +4,5 @@ module.exports = {
   transform: {
     '^.+\\.(ts|tsx)$': 'ts-jest'
   },
-  modulePathIgnorePatterns: ['<rootDir>/__tests__/cases']
+  modulePathIgnorePatterns: ['<rootDir>/__tests__/cases', '<rootDir>/__tests__/module']
 };
