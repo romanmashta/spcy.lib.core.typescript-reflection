@@ -1,5 +1,5 @@
+import * as path from 'path';
 import * as _ from 'lodash';
-import path from 'path';
 import { generateMetaInfoForFile, run } from '../src';
 
 const CASES_ROOT = '__tests__/cases';
