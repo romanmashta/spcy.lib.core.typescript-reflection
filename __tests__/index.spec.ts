@@ -1,12 +1,13 @@
 import * as _ from 'lodash';
-import { resolve } from 'path';
-import { generateMetaInfoForFile } from '../src';
+import path from 'path';
+import { generateMetaInfoForFile, run } from '../src';
 
-const ROOT = '__tests__/cases';
+const CASES_ROOT = '__tests__/cases';
+const MODULE_CONFIG = '__tests__/module/tsconfig.json';
 
 const assertSchema = (caseName: string) => {
-  const file = resolve(`${ROOT}/${caseName}/index.ts`);
-  const metaFile = resolve(`${ROOT}/${caseName}/meta-data.ts`);
+  const file = path.resolve(`${CASES_ROOT}/${caseName}/index.ts`);
+  const metaFile = path.resolve(`${CASES_ROOT}/${caseName}/meta-data.ts`);
   const result = generateMetaInfoForFile(file);
   const module = _.first(result.modules);
   const { meta } = require(metaFile);
@@ -34,4 +35,8 @@ const caseNames = [
 
 it.each(caseNames)('Process schema %s', caseName => {
   assertSchema(caseName);
+});
+
+it('process module', () => {
+  run(path.join(process.cwd(), MODULE_CONFIG));
 });
