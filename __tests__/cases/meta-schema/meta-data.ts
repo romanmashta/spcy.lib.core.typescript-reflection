@@ -233,10 +233,28 @@ export const meta: Module = {
         }
       }
     },
+    SourceFile: {
+      type: 'object',
+      required: ['fileName', 'module'],
+      properties: {
+        fileName: {
+          type: 'string'
+        },
+        module: {
+          $ref: '#/$defs/Module'
+        }
+      }
+    },
     MetaInfo: {
       type: 'object',
-      required: ['modules', 'hasErrors'],
+      required: ['sourceFiles', 'modules', 'hasErrors'],
       properties: {
+        sourceFiles: {
+          type: 'array',
+          items: {
+            $ref: '#/$defs/SourceFile'
+          }
+        },
         modules: {
           type: 'array',
           items: {

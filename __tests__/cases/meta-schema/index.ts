@@ -80,7 +80,13 @@ export interface Module {
   };
 }
 
+export interface SourceFile {
+  fileName: string;
+  module: Module;
+}
+
 export interface MetaInfo {
+  sourceFiles: SourceFile[];
   modules: Module[];
   hasErrors: boolean;
 }
