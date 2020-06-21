@@ -127,6 +127,11 @@ class MetaGenerator {
     return { $ref: this.localRef(typeRef) };
   };
 
+  inspectExpressionWithTypeArguments = (node: ts.ExpressionWithTypeArguments): cr.TypeInfo => {
+    const typeRef = (node.expression as ts.Identifier).text;
+    return { $ref: this.localRef(typeRef) };
+  };
+
   inspectType = (node: ts.TypeNode): cr.TypeInfo => {
     switch (node.kind) {
       case ts.SyntaxKind.StringKeyword:
@@ -147,6 +152,8 @@ class MetaGenerator {
         return this.inspectUnionType(node as ts.UnionTypeNode);
       case ts.SyntaxKind.LiteralType:
         return this.inspectLiteralType(node as ts.LiteralTypeNode);
+      case ts.SyntaxKind.ExpressionWithTypeArguments:
+        return this.inspectExpressionWithTypeArguments(node as ts.ExpressionWithTypeArguments);
       default:
         return { type: 'string' } as cr.StringType;
     }
@@ -186,11 +193,27 @@ class MetaGenerator {
       (this.generatorOptions.noAdditionalProperties ? false : undefined)
   });
 
-  inspectInterface = (node: ts.InterfaceDeclaration): NamedInfo<cr.ObjectType> => {
+  inspectInterface = (node: ts.InterfaceDeclaration): NamedInfo<cr.TypeInfo> => {
     const name = node.name.text;
-    const info: cr.ObjectType = {
-      $id: this.typeId(name),
+    if (_.isEmpty(node.heritageClauses)) {
+      const info: cr.ObjectType = {
+        $id: this.typeId(name),
+        ...this.processMembers(node.members)
+      };
+      return { [name]: info };
+    }
+
+    const childType: cr.ObjectType = {
       ...this.processMembers(node.members)
+    };
+    const parentTypes = _.chain(node.heritageClauses)
+      .first()
+      .get('types')
+      .map(this.inspectType)
+      .value();
+    const info: cr.AllOf = {
+      $id: this.typeId(name),
+      allOf: [...parentTypes, childType]
     };
     return { [name]: info };
   };
