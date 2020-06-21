@@ -4,7 +4,7 @@ import * as fs from 'fs';
 import { generateMetaInfoForFile, exec } from '../src';
 
 const CASES_ROOT = '__tests__/cases';
-const MODULE_PACKAGE = '__tests__/module/package.json';
+const MODULE_PATH = '__tests__/module';
 
 const assertSchema = (caseName: string) => {
   const file = path.resolve(`${CASES_ROOT}/${caseName}/index.ts`);
@@ -40,6 +40,6 @@ it.each(caseNames)('Process schema %s', caseName => {
 
 it('process module', () => {
   const cwd = process.cwd();
-  const files = exec(path.join(cwd, MODULE_PACKAGE));
+  const files = exec({ path: path.join(cwd, MODULE_PATH) });
   files.forEach(f => expect(fs.existsSync(f)).toBe(true));
 });

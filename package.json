@@ -11,7 +11,7 @@
   "main": "dist/index.js",
   "main:src": "src/index.ts",
   "bin": {
-    "typescript-reflection": "./bin/typescript-reflection"
+    "tsr": "./bin/tsr"
   },
   "license": "MIT",
   "private": true,

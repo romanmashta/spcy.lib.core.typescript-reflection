@@ -289,11 +289,19 @@ interface PackageJson {
   name: string;
 }
 
-const readConfigFromFile = (configFileName: string): ts.ParsedCommandLine => {
+interface Options {
+  path?: string;
+  includes?: string[];
+}
+
+export const getDefaultOptions = (): Options => ({ includes: [] });
+
+const readConfigFromFile = (configFileName: string, options: Options): ts.ParsedCommandLine => {
   const config = ts.sys.readFile(configFileName);
   if (!config) throw new Error(`Cannot read config file: ${configFileName}`);
   const result = ts.parseConfigFileTextToJson(configFileName, config);
   const configObject = result.config;
+  configObject.include = [...configObject.include, ...(options.includes || [])];
 
   return ts.parseJsonConfigFileContent(
     configObject,
@@ -324,8 +332,8 @@ const writeSchemaFile = (sourceFile: SourceFile): string => {
   return schemaFileName;
 };
 
-export const exec = (packageFile?: string): string[] => {
-  const resolvedPackageFileName = packageFile || path.join(process.cwd(), 'package.json');
+export const exec = (options: Options): string[] => {
+  const resolvedPackageFileName = path.join(options.path ? path.resolve(options.path) : process.cwd(), 'package.json');
   if (!fs.existsSync(resolvedPackageFileName)) throw new Error(`Cannot find package.json ${resolvedPackageFileName}`);
   const cwd = path.dirname(resolvedPackageFileName);
 
@@ -333,7 +341,7 @@ export const exec = (packageFile?: string): string[] => {
   if (!fs.existsSync(resolvedConfigFileName)) throw new Error(`Cannot find tsconfig.json ${resolvedConfigFileName}`);
 
   const packageJson = JSON.parse(fs.readFileSync(resolvedPackageFileName, { encoding: 'utf-8' })) as PackageJson;
-  const config = readConfigFromFile(resolvedConfigFileName);
+  const config = readConfigFromFile(resolvedConfigFileName, options);
   const modelFiles = config.fileNames.filter(minimatch.filter('*.model.ts', { matchBase: true }));
   const result = generateMetaInfoForFiles(modelFiles, config.options, { packageName: packageJson.name });
   return _.map(result.sourceFiles, writeSchemaFile);
