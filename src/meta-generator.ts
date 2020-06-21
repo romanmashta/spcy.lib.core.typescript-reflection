@@ -1,19 +1,6 @@
 import _ from 'lodash';
 import ts from 'typescript';
-import {
-  MetaInfo,
-  Module,
-  ObjectType,
-  TypeInfo,
-  ArrayType,
-  OneOf,
-  ConstLiteral,
-  NumberType,
-  StringType,
-  BooleanType,
-  NullType,
-  SourceFile
-} from '@spcy/lib.core.reflection';
+import cr from '@spcy/lib.core.reflection';
 import path from 'path';
 import handlebars from 'handlebars';
 import stringify from 'stringify-object';
@@ -23,7 +10,7 @@ import { ModuleTemplate } from './templates';
 
 const propTypeName = 'property';
 
-type propertiesMap = { [name: string]: TypeInfo };
+type propertiesMap = { [name: string]: cr.TypeInfo };
 
 type propertyMetaObject = { [name: string]: propertyMeta };
 type propertyMeta = propertyMetaObject | string | number | boolean | null;
@@ -62,12 +49,12 @@ class MetaGenerator {
   typeId = (ref: string): string | undefined =>
     this.generatorOptions.packageName ? `${this.generatorOptions.packageName}/${ref}` : undefined;
 
-  inspectIndexSignature = (node: ts.IndexSignatureDeclaration | undefined): TypeInfo | undefined => {
+  inspectIndexSignature = (node: ts.IndexSignatureDeclaration | undefined): cr.TypeInfo | undefined => {
     if (!node || !node.type) return undefined;
     return this.inspectType(node.type);
   };
 
-  inspectLiteralType = (node: ts.LiteralTypeNode): ConstLiteral => {
+  inspectLiteralType = (node: ts.LiteralTypeNode): cr.ConstLiteral => {
     const { literal } = node;
     switch (literal.kind) {
       case ts.SyntaxKind.StringLiteral:
@@ -83,15 +70,15 @@ class MetaGenerator {
     }
   };
 
-  inspectUnionType = (node: ts.UnionTypeNode): OneOf => {
+  inspectUnionType = (node: ts.UnionTypeNode): cr.OneOf => {
     return { oneOf: _.map(node.types, this.inspectType) };
   };
 
-  inspectTypeLiteral = (node: ts.TypeLiteralNode): TypeInfo => {
+  inspectTypeLiteral = (node: ts.TypeLiteralNode): cr.TypeInfo => {
     return { ...this.processMembers(node.members) };
   };
 
-  inspectArrayType = (node: ts.ArrayTypeNode): ArrayType => {
+  inspectArrayType = (node: ts.ArrayTypeNode): cr.ArrayType => {
     return {
       type: 'array',
       items: this.inspectType(node.elementType)
@@ -126,7 +113,7 @@ class MetaGenerator {
     return null;
   };
 
-  inspectExplicitProperty = (node: ts.TypeReferenceNode): TypeInfo => {
+  inspectExplicitProperty = (node: ts.TypeReferenceNode): cr.TypeInfo => {
     if (!node.typeArguments) throw new Error('No Type Arguments for Property');
     const [argType, argMeta] = node.typeArguments;
     const type = this.inspectType(argType);
@@ -134,22 +121,22 @@ class MetaGenerator {
     return { ...type, ...meta };
   };
 
-  inspectTypeRef = (node: ts.TypeReferenceNode): TypeInfo => {
+  inspectTypeRef = (node: ts.TypeReferenceNode): cr.TypeInfo => {
     const typeRef = (node.typeName as ts.Identifier).text;
     if (typeRef === propTypeName) return this.inspectExplicitProperty(node);
     return { $ref: this.localRef(typeRef) };
   };
 
-  inspectType = (node: ts.TypeNode): TypeInfo => {
+  inspectType = (node: ts.TypeNode): cr.TypeInfo => {
     switch (node.kind) {
       case ts.SyntaxKind.StringKeyword:
-        return { type: 'string' } as StringType;
+        return { type: 'string' } as cr.StringType;
       case ts.SyntaxKind.NumberKeyword:
-        return { type: 'number' } as NumberType;
+        return { type: 'number' } as cr.NumberType;
       case ts.SyntaxKind.BooleanKeyword:
-        return { type: 'boolean' } as BooleanType;
+        return { type: 'boolean' } as cr.BooleanType;
       case ts.SyntaxKind.NullKeyword:
-        return { type: 'null' } as NullType;
+        return { type: 'null' } as cr.NullType;
       case ts.SyntaxKind.TypeReference:
         return this.inspectTypeRef(node as ts.TypeReferenceNode);
       case ts.SyntaxKind.ArrayType:
@@ -161,14 +148,14 @@ class MetaGenerator {
       case ts.SyntaxKind.LiteralType:
         return this.inspectLiteralType(node as ts.LiteralTypeNode);
       default:
-        return { type: 'string' } as StringType;
+        return { type: 'string' } as cr.StringType;
     }
   };
 
-  inspectProperty = (node: ts.PropertySignature): NamedInfo<TypeInfo> => {
+  inspectProperty = (node: ts.PropertySignature): NamedInfo<cr.TypeInfo> => {
     const name = (node.name as ts.Identifier).text;
     if (!node.type) throw Error('Unknown PropertySignature Type');
-    const info: TypeInfo = this.inspectType(node.type);
+    const info: cr.TypeInfo = this.inspectType(node.type);
     return { [name]: info };
   };
 
@@ -181,7 +168,7 @@ class MetaGenerator {
     return _.isEmpty(result) ? undefined : result;
   };
 
-  processMembers = (members: ts.NodeArray<ts.TypeElement>): ObjectType => ({
+  processMembers = (members: ts.NodeArray<ts.TypeElement>): cr.ObjectType => ({
     type: 'object',
     required: this.getRequired(members),
     properties: _.chain(members)
@@ -199,23 +186,23 @@ class MetaGenerator {
       (this.generatorOptions.noAdditionalProperties ? false : undefined)
   });
 
-  inspectInterface = (node: ts.InterfaceDeclaration): NamedInfo<ObjectType> => {
+  inspectInterface = (node: ts.InterfaceDeclaration): NamedInfo<cr.ObjectType> => {
     const name = node.name.text;
-    const info: ObjectType = {
+    const info: cr.ObjectType = {
       $id: this.typeId(name),
       ...this.processMembers(node.members)
     };
     return { [name]: info };
   };
 
-  inspectEnumMember = (node: ts.EnumMember): ConstLiteral => {
+  inspectEnumMember = (node: ts.EnumMember): cr.ConstLiteral => {
     const name = (node.name as ts.Identifier).text;
     return { const: name };
   };
 
-  inspectEnum = (node: ts.EnumDeclaration): NamedInfo<OneOf> => {
+  inspectEnum = (node: ts.EnumDeclaration): NamedInfo<cr.OneOf> => {
     const name = node.name.text;
-    const info: OneOf = {
+    const info: cr.OneOf = {
       $id: this.typeId(name),
       oneOf: _.chain(node.members)
         .filter(ts.isEnumMember)
@@ -225,7 +212,7 @@ class MetaGenerator {
     return { [name]: info };
   };
 
-  inspectTypeAlias = (node: ts.TypeAliasDeclaration): NamedInfo<TypeInfo> => {
+  inspectTypeAlias = (node: ts.TypeAliasDeclaration): NamedInfo<cr.TypeInfo> => {
     const name = node.name.text;
     const type = {
       $id: this.typeId(name),
@@ -234,16 +221,16 @@ class MetaGenerator {
     return { [name]: type };
   };
 
-  transform = (): MetaInfo => {
-    const metaInfo: MetaInfo = {
+  transform = (): cr.MetaInfo => {
+    const metaInfo: cr.MetaInfo = {
       sourceFiles: [],
       modules: [],
       hasErrors: false
     };
 
     _.forEach(this.sources, sourceFile => {
-      const module: Module = { $defs: {} };
-      const moduleFile: SourceFile = { module, fileName: sourceFile.fileName };
+      const module: cr.Module = { $defs: {} };
+      const moduleFile: cr.SourceFile = { module, fileName: sourceFile.fileName };
       metaInfo.sourceFiles = [...metaInfo.sourceFiles, moduleFile];
       metaInfo.modules = [...metaInfo.modules, module];
 
@@ -277,13 +264,13 @@ export const generateMetaInfoForFiles = (
   files: string[],
   options: ts.CompilerOptions,
   generatorOptions: GeneratorOptions = {}
-): MetaInfo => new MetaGenerator(files, options, generatorOptions).transform();
+): cr.MetaInfo => new MetaGenerator(files, options, generatorOptions).transform();
 
 export const generateMetaInfoForFile = (
   file: string,
   options: ts.CompilerOptions = {},
   generatorOptions: GeneratorOptions = {}
-): MetaInfo => generateMetaInfoForFiles([file], options, generatorOptions);
+): cr.MetaInfo => generateMetaInfoForFiles([file], options, generatorOptions);
 
 interface PackageJson {
   name: string;
@@ -314,7 +301,7 @@ const readConfigFromFile = (configFileName: string, options: Options): ts.Parsed
 
 handlebars.registerHelper(
   'stringify',
-  (object: TypeInfo) =>
+  (object: cr.TypeInfo) =>
     new handlebars.SafeString(
       stringify(object, {
         indent: '    ',
@@ -325,7 +312,7 @@ handlebars.registerHelper(
 
 const renderModule = handlebars.compile(ModuleTemplate);
 
-const writeSchemaFile = (sourceFile: SourceFile): string => {
+const writeSchemaFile = (sourceFile: cr.SourceFile): string => {
   const schemaFileName = sourceFile.fileName.replace(/model\.ts$/i, 'schema.ts');
   const moduleText = renderModule(sourceFile);
   fs.writeFileSync(schemaFileName, moduleText);
