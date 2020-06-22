@@ -7,11 +7,14 @@ export const run = () => {
   const args = yargs
     .usage(helpText)
     .string('path')
-    .default('path', defaultArgs.path)
-    .describe('path', 'Path to package.json')
     .array('includes')
+    .boolean('skip-model-reg')
+    .default('path', defaultArgs.path)
     .default('includes', defaultArgs.includes)
-    .describe('includes', 'Additional files').argv;
+    .default('skip-model-reg', defaultArgs.includes)
+    .describe('path', 'Path to package.json')
+    .describe('includes', 'Additional files')
+    .describe('skip-model-reg', 'Skip Model Registration').argv;
 
   exec({ path: args.path, includes: args.includes });
 };

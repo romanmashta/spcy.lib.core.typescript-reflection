@@ -205,11 +205,7 @@ class MetaGenerator {
     const childType: cr.ObjectType = {
       ...this.processMembers(node.members)
     };
-    const parentTypes = _.chain(node.heritageClauses)
-      .first()
-      .get('types')
-      .map(this.inspectType)
-      .value();
+    const parentTypes = _.chain(node.heritageClauses).first().get('types').map(this.inspectType).value();
     const info: cr.AllOf = {
       $id: this.typeId(name),
       allOf: [...parentTypes, childType]
@@ -301,9 +297,10 @@ interface PackageJson {
 interface Options {
   path?: string;
   includes?: string[];
+  skipModelRegistration?: boolean;
 }
 
-export const getDefaultOptions = (): Options => ({ includes: [] });
+export const getDefaultOptions = (): Options => ({ includes: [], skipModelRegistration: false });
 
 const readConfigFromFile = (configFileName: string, options: Options): ts.ParsedCommandLine => {
   const config = ts.sys.readFile(configFileName);
@@ -334,8 +331,9 @@ handlebars.registerHelper(
 
 const renderModule = handlebars.compile(ModuleTemplate);
 
-const writeSchemaFile = (sourceFile: cr.SourceFile): string => {
+const writeSchemaFile = (sourceFile: cr.SourceFile, options: Options): string => {
   const schemaFileName = sourceFile.fileName.replace(/model\.ts$/i, 'schema.ts');
+  handlebars.registerHelper('useRegistration', () => !options.skipModelRegistration);
   const moduleText = renderModule(sourceFile);
   fs.writeFileSync(schemaFileName, moduleText);
   return schemaFileName;
@@ -353,5 +351,5 @@ export const exec = (options: Options): string[] => {
   const config = readConfigFromFile(resolvedConfigFileName, options);
   const modelFiles = config.fileNames.filter(minimatch.filter('*.model.ts', { matchBase: true }));
   const result = generateMetaInfoForFiles(modelFiles, config.options, { packageName: packageJson.name });
-  return _.map(result.sourceFiles, writeSchemaFile);
+  return _.map(result.sourceFiles, sf => writeSchemaFile(sf, options));
 };

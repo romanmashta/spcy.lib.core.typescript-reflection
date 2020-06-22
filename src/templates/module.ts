@@ -1,8 +1,11 @@
-export const ModuleTemplate = `import { TypeInfo, Module, SchemaRepository } from '@spcy/lib.core.reflection';
+export const ModuleTemplate = `import { TypeInfo, Module{{#if useRegistration}}, SchemaRepository{{/if}} } from '@spcy/lib.core.reflection';
 
 {{#each module.$defs}}
 export const {{@key}}Schema: TypeInfo = {{stringify .}};
+
+{{#if useRegistration}}
 SchemaRepository.register({{@key}}Schema);
+{{/if}}
 
 {{/each}}
 
