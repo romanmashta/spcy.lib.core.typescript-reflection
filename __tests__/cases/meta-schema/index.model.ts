@@ -13,10 +13,13 @@ export type TypeInfo =
   | AllOf;
 
 export interface TypeReference {
+  $id?: string;
   $ref: string;
+  $package?: string;
 }
 
 export interface ArrayType {
+  $id?: string;
   type: 'array';
   items: TypeInfo;
   minItems?: number;
@@ -25,26 +28,32 @@ export interface ArrayType {
 }
 
 export interface ConstLiteral {
+  $id?: string;
   const: string | number | boolean | null;
 }
 
 export interface EnumType {
+  $id?: string;
   enum: string[];
 }
 
 export interface NullType {
+  $id?: string;
   type: 'null';
 }
 
 export interface DateType {
+  $id?: string;
   type: 'date';
 }
 
 export interface BooleanType {
+  $id?: string;
   type: 'boolean';
 }
 
 export interface StringType {
+  $id?: string;
   type: 'string';
   minLength?: number;
   maxLength?: number;
@@ -52,12 +61,14 @@ export interface StringType {
 }
 
 export interface NumberType {
+  $id?: string;
   type: 'number';
   minimum?: number;
   maximum?: number;
 }
 
 export interface ObjectType {
+  $id?: string;
   type: 'object';
   required?: string[];
   properties?: {
@@ -67,10 +78,12 @@ export interface ObjectType {
 }
 
 export interface OneOf {
+  $id?: string;
   oneOf: TypeInfo[];
 }
 
 export interface AllOf {
+  $id?: string;
   allOf: TypeInfo[];
 }
 

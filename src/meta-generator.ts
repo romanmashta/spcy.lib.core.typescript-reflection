@@ -45,9 +45,8 @@ class MetaGenerator {
     this.typeChecker = this.program.getTypeChecker();
   }
 
-  localRef = (ref: string): string => `${this.generatorOptions.packageName || '#/$defs'}/${ref}`;
-  typeId = (ref: string): string | undefined =>
-    this.generatorOptions.packageName ? `${this.generatorOptions.packageName}/${ref}` : undefined;
+  localRef = (ref: string): string => `#/$defs/${ref}`;
+  typeId = (ref: string): string => `#/$defs/${ref}`;
 
   inspectIndexSignature = (node: ts.IndexSignatureDeclaration | undefined): cr.TypeInfo | undefined => {
     if (!node || !node.type) return undefined;
@@ -124,12 +123,12 @@ class MetaGenerator {
   inspectTypeRef = (node: ts.TypeReferenceNode): cr.TypeInfo => {
     const typeRef = (node.typeName as ts.Identifier).text;
     if (typeRef === propTypeName) return this.inspectExplicitProperty(node);
-    return { $ref: this.localRef(typeRef) };
+    return { $ref: this.localRef(typeRef) } as cr.TypeReference;
   };
 
   inspectExpressionWithTypeArguments = (node: ts.ExpressionWithTypeArguments): cr.TypeInfo => {
     const typeRef = (node.expression as ts.Identifier).text;
-    return { $ref: this.localRef(typeRef) };
+    return { $ref: this.localRef(typeRef) } as cr.TypeReference;
   };
 
   inspectType = (node: ts.TypeNode): cr.TypeInfo => {
