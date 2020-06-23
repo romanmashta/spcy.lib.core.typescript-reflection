@@ -205,7 +205,11 @@ class MetaGenerator {
     const childType: cr.ObjectType = {
       ...this.processMembers(node.members)
     };
-    const parentTypes = _.chain(node.heritageClauses).first().get('types').map(this.inspectType).value();
+    const parentTypes = _.chain(node.heritageClauses)
+      .first()
+      .get('types')
+      .map(this.inspectType)
+      .value();
     const info: cr.AllOf = {
       $id: this.typeId(name),
       allOf: [...parentTypes, childType]
