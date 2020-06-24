@@ -1,8 +1,10 @@
+import 'jest-specific-snapshot';
 import * as path from 'path';
 import * as _ from 'lodash';
 import * as fs from 'fs';
 import { generateMetaInfoForFile, exec } from '../src';
 
+const SNAPSHOTS_ROOT = '__snapshots__';
 const CASES_ROOT = '__tests__/cases';
 const MODULE_PATH = '__tests__/module';
 
@@ -12,7 +14,7 @@ const assertSchema = (caseName: string) => {
 
   expect(result.hasErrors).toBe(false);
   const module = _.first(result.modules);
-  expect(module).toMatchSnapshot();
+  expect(module).toMatchSpecificSnapshot(path.join(SNAPSHOTS_ROOT, `${caseName}.shot`));
 };
 
 const caseNames = [

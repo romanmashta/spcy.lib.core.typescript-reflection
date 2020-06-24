@@ -1,0 +1,44 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Process schema array 1`] = `
+Object {
+  "$defs": Object {
+    "Config": Object {
+      "$id": "#/$defs/Config",
+      "additionalProperties": undefined,
+      "properties": Object {
+        "colors": Object {
+          "items": Object {
+            "type": "string",
+          },
+          "type": "array",
+        },
+        "params": Object {
+          "items": Object {
+            "additionalProperties": undefined,
+            "properties": Object {
+              "key": Object {
+                "type": "string",
+              },
+              "value": Object {
+                "type": "string",
+              },
+            },
+            "required": Array [
+              "key",
+              "value",
+            ],
+            "type": "object",
+          },
+          "type": "array",
+        },
+      },
+      "required": Array [
+        "colors",
+        "params",
+      ],
+      "type": "object",
+    },
+  },
+}
+`;

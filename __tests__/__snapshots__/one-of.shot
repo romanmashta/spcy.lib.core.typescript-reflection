@@ -1,0 +1,61 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Process schema one-of 1`] = `
+Object {
+  "$defs": Object {
+    "Circle": Object {
+      "$id": "#/$defs/Circle",
+      "additionalProperties": undefined,
+      "properties": Object {
+        "radius": Object {
+          "type": "number",
+        },
+      },
+      "required": Array [
+        "radius",
+      ],
+      "type": "object",
+    },
+    "Picture": Object {
+      "$id": "#/$defs/Picture",
+      "additionalProperties": undefined,
+      "properties": Object {
+        "figures": Object {
+          "items": Object {
+            "$ref": "#/$defs/Shapes",
+          },
+          "type": "array",
+        },
+      },
+      "required": Array [
+        "figures",
+      ],
+      "type": "object",
+    },
+    "Shapes": Object {
+      "$id": "#/$defs/Shapes",
+      "oneOf": Array [
+        Object {
+          "$ref": "#/$defs/Circle",
+        },
+        Object {
+          "$ref": "#/$defs/Square",
+        },
+      ],
+    },
+    "Square": Object {
+      "$id": "#/$defs/Square",
+      "additionalProperties": undefined,
+      "properties": Object {
+        "side": Object {
+          "type": "number",
+        },
+      },
+      "required": Array [
+        "side",
+      ],
+      "type": "object",
+    },
+  },
+}
+`;

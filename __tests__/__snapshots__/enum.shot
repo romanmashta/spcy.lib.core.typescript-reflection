@@ -1,0 +1,22 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Process schema enum 1`] = `
+Object {
+  "$defs": Object {
+    "Role": Object {
+      "$id": "#/$defs/Role",
+      "oneOf": Array [
+        Object {
+          "const": "Guest",
+        },
+        Object {
+          "const": "User",
+        },
+        Object {
+          "const": "Admin",
+        },
+      ],
+    },
+  },
+}
+`;

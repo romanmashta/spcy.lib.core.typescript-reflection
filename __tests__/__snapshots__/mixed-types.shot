@@ -1,0 +1,64 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Process schema mixed-types 1`] = `
+Object {
+  "$defs": Object {
+    "Location": Object {
+      "$id": "#/$defs/Location",
+      "additionalProperties": undefined,
+      "properties": Object {
+        "lat": Object {
+          "type": "number",
+        },
+        "lon": Object {
+          "type": "number",
+        },
+      },
+      "required": Array [
+        "lat",
+        "lon",
+      ],
+      "type": "object",
+    },
+    "Person": Object {
+      "$id": "#/$defs/Person",
+      "additionalProperties": undefined,
+      "properties": Object {
+        "age": Object {
+          "type": "number",
+        },
+        "firstName": Object {
+          "type": "string",
+        },
+        "isActive": Object {
+          "type": "boolean",
+        },
+        "lastName": Object {
+          "type": "string",
+        },
+      },
+      "required": Array [
+        "firstName",
+        "lastName",
+        "age",
+        "isActive",
+      ],
+      "type": "object",
+    },
+    "Role": Object {
+      "$id": "#/$defs/Role",
+      "oneOf": Array [
+        Object {
+          "const": "Guest",
+        },
+        Object {
+          "const": "User",
+        },
+        Object {
+          "const": "Admin",
+        },
+      ],
+    },
+  },
+}
+`;
