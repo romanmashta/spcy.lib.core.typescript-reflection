@@ -1,32 +1,31 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`Process schema typeliteral-argument 1`] = `
-Object {
-  "$defs": Object {
-    "Person": Object {
+{
+  "$defs": {
+    "Person": {
       "$id": "#/$defs/Person",
-      "additionalProperties": undefined,
-      "properties": Object {
-        "age": Object {
-          "maximum": 99,
-          "minimum": 1,
-          "type": "number",
-        },
-        "email": Object {
-          "pattern": ".*",
-          "type": "string",
-        },
-        "name": Object {
-          "type": "string",
-        },
-      },
-      "required": Array [
+      "type": "object",
+      "required": [
         "email",
         "age",
-        "name",
+        "name"
       ],
-      "type": "object",
-    },
-  },
+      "properties": {
+        "email": {
+          "type": "string",
+          "pattern": ".*"
+        },
+        "age": {
+          "type": "number",
+          "minimum": 1,
+          "maximum": 99
+        },
+        "name": {
+          "type": "string"
+        }
+      }
+    }
+  }
 }
 `;

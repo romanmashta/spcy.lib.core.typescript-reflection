@@ -1,42 +1,40 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`Process schema typeliteral 1`] = `
-Object {
-  "$defs": Object {
-    "Person": Object {
+{
+  "$defs": {
+    "Person": {
       "$id": "#/$defs/Person",
-      "additionalProperties": undefined,
-      "properties": Object {
-        "firstName": Object {
-          "type": "string",
-        },
-        "lastName": Object {
-          "type": "string",
-        },
-        "location": Object {
-          "additionalProperties": undefined,
-          "properties": Object {
-            "lat": Object {
-              "type": "number",
-            },
-            "lon": Object {
-              "type": "number",
-            },
-          },
-          "required": Array [
-            "lat",
-            "lon",
-          ],
-          "type": "object",
-        },
-      },
-      "required": Array [
+      "type": "object",
+      "required": [
         "firstName",
         "lastName",
-        "location",
+        "location"
       ],
-      "type": "object",
-    },
-  },
+      "properties": {
+        "firstName": {
+          "type": "string"
+        },
+        "lastName": {
+          "type": "string"
+        },
+        "location": {
+          "type": "object",
+          "required": [
+            "lat",
+            "lon"
+          ],
+          "properties": {
+            "lat": {
+              "type": "number"
+            },
+            "lon": {
+              "type": "number"
+            }
+          }
+        }
+      }
+    }
+  }
 }
 `;

@@ -1,31 +1,30 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`Process schema required-properties 1`] = `
-Object {
-  "$defs": Object {
-    "Person": Object {
+{
+  "$defs": {
+    "Person": {
       "$id": "#/$defs/Person",
-      "additionalProperties": undefined,
-      "properties": Object {
-        "age": Object {
-          "type": "number",
-        },
-        "firstName": Object {
-          "type": "string",
-        },
-        "isActive": Object {
-          "type": "boolean",
-        },
-        "lastName": Object {
-          "type": "string",
-        },
-      },
-      "required": Array [
-        "firstName",
-        "lastName",
-      ],
       "type": "object",
-    },
-  },
+      "required": [
+        "firstName",
+        "lastName"
+      ],
+      "properties": {
+        "firstName": {
+          "type": "string"
+        },
+        "lastName": {
+          "type": "string"
+        },
+        "age": {
+          "type": "number"
+        },
+        "isActive": {
+          "type": "boolean"
+        }
+      }
+    }
+  }
 }
 `;

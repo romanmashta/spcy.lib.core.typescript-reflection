@@ -1,380 +1,361 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`Process schema meta-schema 1`] = `
-Object {
-  "$defs": Object {
-    "AllOf": Object {
-      "$id": "#/$defs/AllOf",
-      "additionalProperties": undefined,
-      "properties": Object {
-        "$id": Object {
-          "type": "string",
+{
+  "$defs": {
+    "TypeInfo": {
+      "$id": "#/$defs/TypeInfo",
+      "oneOf": [
+        {
+          "$ref": "#/$defs/ObjectType"
         },
-        "allOf": Object {
-          "items": Object {
-            "$ref": "#/$defs/TypeInfo",
-          },
-          "type": "array",
+        {
+          "$ref": "#/$defs/StringType"
         },
-      },
-      "required": Array [
-        "allOf",
-      ],
-      "type": "object",
+        {
+          "$ref": "#/$defs/BooleanType"
+        },
+        {
+          "$ref": "#/$defs/NumberType"
+        },
+        {
+          "$ref": "#/$defs/DateType"
+        },
+        {
+          "$ref": "#/$defs/NullType"
+        },
+        {
+          "$ref": "#/$defs/ArrayType"
+        },
+        {
+          "$ref": "#/$defs/TypeReference"
+        },
+        {
+          "$ref": "#/$defs/EnumType"
+        },
+        {
+          "$ref": "#/$defs/ConstLiteral"
+        },
+        {
+          "$ref": "#/$defs/OneOf"
+        },
+        {
+          "$ref": "#/$defs/AllOf"
+        }
+      ]
     },
-    "ArrayType": Object {
+    "TypeReference": {
+      "$id": "#/$defs/TypeReference",
+      "type": "object",
+      "required": [
+        "$ref"
+      ],
+      "properties": {
+        "$id": {
+          "type": "string"
+        },
+        "$ref": {
+          "type": "string"
+        },
+        "$package": {
+          "type": "string"
+        }
+      }
+    },
+    "ArrayType": {
       "$id": "#/$defs/ArrayType",
-      "additionalProperties": undefined,
-      "properties": Object {
-        "$id": Object {
-          "type": "string",
-        },
-        "items": Object {
-          "$ref": "#/$defs/TypeInfo",
-        },
-        "maxItems": Object {
-          "type": "number",
-        },
-        "minItems": Object {
-          "type": "number",
-        },
-        "type": Object {
-          "const": "array",
-        },
-        "uniqueItems": Object {
-          "type": "boolean",
-        },
-      },
-      "required": Array [
-        "type",
-        "items",
-      ],
       "type": "object",
-    },
-    "BooleanType": Object {
-      "$id": "#/$defs/BooleanType",
-      "additionalProperties": undefined,
-      "properties": Object {
-        "$id": Object {
-          "type": "string",
-        },
-        "type": Object {
-          "const": "boolean",
-        },
-      },
-      "required": Array [
+      "required": [
         "type",
+        "items"
       ],
-      "type": "object",
+      "properties": {
+        "$id": {
+          "type": "string"
+        },
+        "type": {
+          "const": "array"
+        },
+        "items": {
+          "$ref": "#/$defs/TypeInfo"
+        },
+        "minItems": {
+          "type": "number"
+        },
+        "maxItems": {
+          "type": "number"
+        },
+        "uniqueItems": {
+          "type": "boolean"
+        }
+      }
     },
-    "ConstLiteral": Object {
+    "ConstLiteral": {
       "$id": "#/$defs/ConstLiteral",
-      "additionalProperties": undefined,
-      "properties": Object {
-        "$id": Object {
-          "type": "string",
-        },
-        "const": Object {
-          "oneOf": Array [
-            Object {
-              "type": "string",
-            },
-            Object {
-              "type": "number",
-            },
-            Object {
-              "type": "boolean",
-            },
-            Object {
-              "type": "null",
-            },
-          ],
-        },
-      },
-      "required": Array [
-        "const",
-      ],
       "type": "object",
-    },
-    "DateType": Object {
-      "$id": "#/$defs/DateType",
-      "additionalProperties": undefined,
-      "properties": Object {
-        "$id": Object {
-          "type": "string",
-        },
-        "type": Object {
-          "const": "date",
-        },
-      },
-      "required": Array [
-        "type",
+      "required": [
+        "const"
       ],
-      "type": "object",
+      "properties": {
+        "$id": {
+          "type": "string"
+        },
+        "const": {
+          "oneOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "number"
+            },
+            {
+              "type": "boolean"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        }
+      }
     },
-    "EnumType": Object {
+    "EnumType": {
       "$id": "#/$defs/EnumType",
-      "additionalProperties": undefined,
-      "properties": Object {
-        "$id": Object {
-          "type": "string",
-        },
-        "enum": Object {
-          "items": Object {
-            "type": "string",
-          },
-          "type": "array",
-        },
-      },
-      "required": Array [
-        "enum",
-      ],
       "type": "object",
+      "required": [
+        "enum"
+      ],
+      "properties": {
+        "$id": {
+          "type": "string"
+        },
+        "enum": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      }
     },
-    "MetaInfo": Object {
+    "NullType": {
+      "$id": "#/$defs/NullType",
+      "type": "object",
+      "required": [
+        "type"
+      ],
+      "properties": {
+        "$id": {
+          "type": "string"
+        },
+        "type": {
+          "const": "null"
+        }
+      }
+    },
+    "DateType": {
+      "$id": "#/$defs/DateType",
+      "type": "object",
+      "required": [
+        "type"
+      ],
+      "properties": {
+        "$id": {
+          "type": "string"
+        },
+        "type": {
+          "const": "date"
+        }
+      }
+    },
+    "BooleanType": {
+      "$id": "#/$defs/BooleanType",
+      "type": "object",
+      "required": [
+        "type"
+      ],
+      "properties": {
+        "$id": {
+          "type": "string"
+        },
+        "type": {
+          "const": "boolean"
+        }
+      }
+    },
+    "StringType": {
+      "$id": "#/$defs/StringType",
+      "type": "object",
+      "required": [
+        "type"
+      ],
+      "properties": {
+        "$id": {
+          "type": "string"
+        },
+        "type": {
+          "const": "string"
+        },
+        "minLength": {
+          "type": "number"
+        },
+        "maxLength": {
+          "type": "number"
+        },
+        "pattern": {
+          "type": "string"
+        }
+      }
+    },
+    "NumberType": {
+      "$id": "#/$defs/NumberType",
+      "type": "object",
+      "required": [
+        "type"
+      ],
+      "properties": {
+        "$id": {
+          "type": "string"
+        },
+        "type": {
+          "const": "number"
+        },
+        "minimum": {
+          "type": "number"
+        },
+        "maximum": {
+          "type": "number"
+        }
+      }
+    },
+    "ObjectType": {
+      "$id": "#/$defs/ObjectType",
+      "type": "object",
+      "required": [
+        "type"
+      ],
+      "properties": {
+        "$id": {
+          "type": "string"
+        },
+        "type": {
+          "const": "object"
+        },
+        "required": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "properties": {
+          "type": "object",
+          "additionalProperties": {
+            "$ref": "#/$defs/TypeInfo"
+          }
+        },
+        "additionalProperties": {
+          "oneOf": [
+            {
+              "$ref": "#/$defs/TypeInfo"
+            },
+            {
+              "type": "boolean"
+            }
+          ]
+        }
+      }
+    },
+    "OneOf": {
+      "$id": "#/$defs/OneOf",
+      "type": "object",
+      "required": [
+        "oneOf"
+      ],
+      "properties": {
+        "$id": {
+          "type": "string"
+        },
+        "oneOf": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/TypeInfo"
+          }
+        }
+      }
+    },
+    "AllOf": {
+      "$id": "#/$defs/AllOf",
+      "type": "object",
+      "required": [
+        "allOf"
+      ],
+      "properties": {
+        "$id": {
+          "type": "string"
+        },
+        "allOf": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/TypeInfo"
+          }
+        }
+      }
+    },
+    "Module": {
+      "$id": "#/$defs/Module",
+      "type": "object",
+      "required": [
+        "$defs"
+      ],
+      "properties": {
+        "$defs": {
+          "type": "object",
+          "additionalProperties": {
+            "$ref": "#/$defs/TypeInfo"
+          }
+        }
+      }
+    },
+    "SourceFile": {
+      "$id": "#/$defs/SourceFile",
+      "type": "object",
+      "required": [
+        "fileName",
+        "module"
+      ],
+      "properties": {
+        "fileName": {
+          "type": "string"
+        },
+        "module": {
+          "$ref": "#/$defs/Module"
+        }
+      }
+    },
+    "MetaInfo": {
       "$id": "#/$defs/MetaInfo",
-      "additionalProperties": undefined,
-      "properties": Object {
-        "hasErrors": Object {
-          "type": "boolean",
-        },
-        "modules": Object {
-          "items": Object {
-            "$ref": "#/$defs/Module",
-          },
-          "type": "array",
-        },
-        "sourceFiles": Object {
-          "items": Object {
-            "$ref": "#/$defs/SourceFile",
-          },
-          "type": "array",
-        },
-      },
-      "required": Array [
+      "type": "object",
+      "required": [
         "sourceFiles",
         "modules",
-        "hasErrors",
+        "hasErrors"
       ],
-      "type": "object",
-    },
-    "Module": Object {
-      "$id": "#/$defs/Module",
-      "additionalProperties": undefined,
-      "properties": Object {
-        "$defs": Object {
-          "additionalProperties": Object {
-            "$ref": "#/$defs/TypeInfo",
-          },
-          "properties": undefined,
-          "required": undefined,
-          "type": "object",
-        },
-      },
-      "required": Array [
-        "$defs",
-      ],
-      "type": "object",
-    },
-    "NullType": Object {
-      "$id": "#/$defs/NullType",
-      "additionalProperties": undefined,
-      "properties": Object {
-        "$id": Object {
-          "type": "string",
-        },
-        "type": Object {
-          "const": "null",
-        },
-      },
-      "required": Array [
-        "type",
-      ],
-      "type": "object",
-    },
-    "NumberType": Object {
-      "$id": "#/$defs/NumberType",
-      "additionalProperties": undefined,
-      "properties": Object {
-        "$id": Object {
-          "type": "string",
-        },
-        "maximum": Object {
-          "type": "number",
-        },
-        "minimum": Object {
-          "type": "number",
-        },
-        "type": Object {
-          "const": "number",
-        },
-      },
-      "required": Array [
-        "type",
-      ],
-      "type": "object",
-    },
-    "ObjectType": Object {
-      "$id": "#/$defs/ObjectType",
-      "additionalProperties": undefined,
-      "properties": Object {
-        "$id": Object {
-          "type": "string",
-        },
-        "additionalProperties": Object {
-          "oneOf": Array [
-            Object {
-              "$ref": "#/$defs/TypeInfo",
-            },
-            Object {
-              "type": "boolean",
-            },
-          ],
-        },
-        "properties": Object {
-          "additionalProperties": Object {
-            "$ref": "#/$defs/TypeInfo",
-          },
-          "properties": undefined,
-          "required": undefined,
-          "type": "object",
-        },
-        "required": Object {
-          "items": Object {
-            "type": "string",
-          },
+      "properties": {
+        "sourceFiles": {
           "type": "array",
+          "items": {
+            "$ref": "#/$defs/SourceFile"
+          }
         },
-        "type": Object {
-          "const": "object",
-        },
-      },
-      "required": Array [
-        "type",
-      ],
-      "type": "object",
-    },
-    "OneOf": Object {
-      "$id": "#/$defs/OneOf",
-      "additionalProperties": undefined,
-      "properties": Object {
-        "$id": Object {
-          "type": "string",
-        },
-        "oneOf": Object {
-          "items": Object {
-            "$ref": "#/$defs/TypeInfo",
-          },
+        "modules": {
           "type": "array",
+          "items": {
+            "$ref": "#/$defs/Module"
+          }
         },
-      },
-      "required": Array [
-        "oneOf",
-      ],
-      "type": "object",
-    },
-    "SourceFile": Object {
-      "$id": "#/$defs/SourceFile",
-      "additionalProperties": undefined,
-      "properties": Object {
-        "fileName": Object {
-          "type": "string",
-        },
-        "module": Object {
-          "$ref": "#/$defs/Module",
-        },
-      },
-      "required": Array [
-        "fileName",
-        "module",
-      ],
-      "type": "object",
-    },
-    "StringType": Object {
-      "$id": "#/$defs/StringType",
-      "additionalProperties": undefined,
-      "properties": Object {
-        "$id": Object {
-          "type": "string",
-        },
-        "maxLength": Object {
-          "type": "number",
-        },
-        "minLength": Object {
-          "type": "number",
-        },
-        "pattern": Object {
-          "type": "string",
-        },
-        "type": Object {
-          "const": "string",
-        },
-      },
-      "required": Array [
-        "type",
-      ],
-      "type": "object",
-    },
-    "TypeInfo": Object {
-      "$id": "#/$defs/TypeInfo",
-      "oneOf": Array [
-        Object {
-          "$ref": "#/$defs/ObjectType",
-        },
-        Object {
-          "$ref": "#/$defs/StringType",
-        },
-        Object {
-          "$ref": "#/$defs/BooleanType",
-        },
-        Object {
-          "$ref": "#/$defs/NumberType",
-        },
-        Object {
-          "$ref": "#/$defs/DateType",
-        },
-        Object {
-          "$ref": "#/$defs/NullType",
-        },
-        Object {
-          "$ref": "#/$defs/ArrayType",
-        },
-        Object {
-          "$ref": "#/$defs/TypeReference",
-        },
-        Object {
-          "$ref": "#/$defs/EnumType",
-        },
-        Object {
-          "$ref": "#/$defs/ConstLiteral",
-        },
-        Object {
-          "$ref": "#/$defs/OneOf",
-        },
-        Object {
-          "$ref": "#/$defs/AllOf",
-        },
-      ],
-    },
-    "TypeReference": Object {
-      "$id": "#/$defs/TypeReference",
-      "additionalProperties": undefined,
-      "properties": Object {
-        "$id": Object {
-          "type": "string",
-        },
-        "$package": Object {
-          "type": "string",
-        },
-        "$ref": Object {
-          "type": "string",
-        },
-      },
-      "required": Array [
-        "$ref",
-      ],
-      "type": "object",
-    },
-  },
+        "hasErrors": {
+          "type": "boolean"
+        }
+      }
+    }
+  }
 }
 `;

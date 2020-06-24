@@ -1,8 +1,13 @@
-import 'jest-specific-snapshot';
 import * as path from 'path';
 import * as _ from 'lodash';
 import * as fs from 'fs';
+import { addSerializer } from 'jest-specific-snapshot';
 import { generateMetaInfoForFile, exec } from '../src';
+
+addSerializer({
+  test: () => true,
+  print: (object: any) => JSON.stringify(object, undefined, 2)
+});
 
 const SNAPSHOTS_ROOT = '__snapshots__';
 const CASES_ROOT = '__tests__/cases';

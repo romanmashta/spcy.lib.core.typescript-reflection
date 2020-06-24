@@ -1,64 +1,62 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`Process schema mixed-types 1`] = `
-Object {
-  "$defs": Object {
-    "Location": Object {
+{
+  "$defs": {
+    "Location": {
       "$id": "#/$defs/Location",
-      "additionalProperties": undefined,
-      "properties": Object {
-        "lat": Object {
-          "type": "number",
-        },
-        "lon": Object {
-          "type": "number",
-        },
-      },
-      "required": Array [
-        "lat",
-        "lon",
-      ],
       "type": "object",
+      "required": [
+        "lat",
+        "lon"
+      ],
+      "properties": {
+        "lat": {
+          "type": "number"
+        },
+        "lon": {
+          "type": "number"
+        }
+      }
     },
-    "Person": Object {
+    "Person": {
       "$id": "#/$defs/Person",
-      "additionalProperties": undefined,
-      "properties": Object {
-        "age": Object {
-          "type": "number",
-        },
-        "firstName": Object {
-          "type": "string",
-        },
-        "isActive": Object {
-          "type": "boolean",
-        },
-        "lastName": Object {
-          "type": "string",
-        },
-      },
-      "required": Array [
+      "type": "object",
+      "required": [
         "firstName",
         "lastName",
         "age",
-        "isActive",
+        "isActive"
       ],
-      "type": "object",
+      "properties": {
+        "firstName": {
+          "type": "string"
+        },
+        "lastName": {
+          "type": "string"
+        },
+        "age": {
+          "type": "number"
+        },
+        "isActive": {
+          "type": "boolean"
+        }
+      }
     },
-    "Role": Object {
+    "Role": {
       "$id": "#/$defs/Role",
-      "oneOf": Array [
-        Object {
-          "const": "Guest",
+      "oneOf": [
+        {
+          "const": "Guest"
         },
-        Object {
-          "const": "User",
+        {
+          "const": "User"
         },
-        Object {
-          "const": "Admin",
-        },
-      ],
-    },
-  },
+        {
+          "const": "Admin"
+        }
+      ]
+    }
+  }
 }
 `;

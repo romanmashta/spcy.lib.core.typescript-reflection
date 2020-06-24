@@ -1,34 +1,31 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`Process schema index-signature 1`] = `
-Object {
-  "$defs": Object {
-    "Config": Object {
+{
+  "$defs": {
+    "Config": {
       "$id": "#/$defs/Config",
-      "additionalProperties": Object {
-        "$ref": "#/$defs/Section",
-      },
-      "properties": undefined,
-      "required": undefined,
       "type": "object",
+      "additionalProperties": {
+        "$ref": "#/$defs/Section"
+      }
     },
-    "Section": Object {
+    "Section": {
       "$id": "#/$defs/Section",
-      "additionalProperties": undefined,
-      "properties": Object {
-        "id": Object {
-          "type": "string",
-        },
-        "secret": Object {
-          "type": "string",
-        },
-      },
-      "required": Array [
-        "id",
-        "secret",
-      ],
       "type": "object",
-    },
-  },
+      "required": [
+        "id",
+        "secret"
+      ],
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "secret": {
+          "type": "string"
+        }
+      }
+    }
+  }
 }
 `;
