@@ -8,15 +8,11 @@ const MODULE_PATH = '__tests__/module';
 
 const assertSchema = (caseName: string) => {
   const file = path.resolve(`${CASES_ROOT}/${caseName}/index.model.ts`);
-  const metaFile = path.resolve(`${CASES_ROOT}/${caseName}/index.schema.ts`);
   const result = generateMetaInfoForFile(file);
-  const module = _.first(result.modules);
-  const { MetaSchema } = require(metaFile);
-
-  // console.log(JSON.stringify(module, null, 2));
-  expect(module).toEqual(MetaSchema);
 
   expect(result.hasErrors).toBe(false);
+  const module = _.first(result.modules);
+  expect(module).toMatchSnapshot();
 };
 
 const caseNames = [
