@@ -1,15 +1,9 @@
+import '@spcy/lib.dev.tasty';
 import * as path from 'path';
 import * as _ from 'lodash';
 import * as fs from 'fs';
-import { addSerializer } from 'jest-specific-snapshot';
 import { generateMetaInfoForFile, exec } from '../src';
 
-addSerializer({
-  test: () => true,
-  print: (object: any) => JSON.stringify(object, undefined, 2)
-});
-
-const SNAPSHOTS_ROOT = '__snapshots__';
 const CASES_ROOT = '__tests__/cases';
 const MODULE_PATH = '__tests__/module';
 
@@ -19,7 +13,7 @@ const assertSchema = (caseName: string) => {
 
   expect(result.hasErrors).toBe(false);
   const module = _.first(result.modules);
-  expect(module).toMatchSpecificSnapshot(path.join(SNAPSHOTS_ROOT, `${caseName}.shot`));
+  expect(module).toMatchTastyShot(caseName);
 };
 
 const caseNames = [

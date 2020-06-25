@@ -35,7 +35,8 @@
     "jest-specific-snapshot": "^3.0.0",
     "prettier": "^2.0.5",
     "shx": "^0.3.2",
-    "ts-jest": "^26.1.0"
+    "ts-jest": "^26.1.0",
+    "@spcy/lib.dev.tasty": "^1.0.0"
   },
   "dependencies": {
     "@spcy/lib.core.reflection": "^1.0.0",
