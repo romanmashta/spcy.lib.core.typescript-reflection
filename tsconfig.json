@@ -1,7 +1,7 @@
 {
   "compilerOptions": {
     "target": "es5",
-    "types": ["node", "jest", "jest-specific-snapshot"],
+    "types": ["node", "jest"],
     "allowJs": true,
     "skipLibCheck": true,
     "esModuleInterop": true,
