@@ -123,7 +123,11 @@ class MetaGenerator {
   inspectTypeRef = (node: ts.TypeReferenceNode): cr.TypeInfo => {
     const typeRef = (node.typeName as ts.Identifier).text;
     if (typeRef === propTypeName) return this.inspectExplicitProperty(node);
-    return { $ref: this.localRef(typeRef) } as cr.TypeReference;
+    const args = _.map(node.typeArguments, a => this.inspectType(a));
+    return {
+      $ref: this.localRef(typeRef),
+      $arguments: _.isEmpty(args) ? undefined : args
+    } as cr.TypeReference;
   };
 
   inspectExpressionWithTypeArguments = (node: ts.ExpressionWithTypeArguments): cr.TypeInfo => {
@@ -205,11 +209,7 @@ class MetaGenerator {
     const childType: cr.ObjectType = {
       ...this.processMembers(node.members)
     };
-    const parentTypes = _.chain(node.heritageClauses)
-      .first()
-      .get('types')
-      .map(this.inspectType)
-      .value();
+    const parentTypes = _.chain(node.heritageClauses).first().get('types').map(this.inspectType).value();
     const info: cr.AllOf = {
       $id: this.typeId(name),
       allOf: [...parentTypes, childType]

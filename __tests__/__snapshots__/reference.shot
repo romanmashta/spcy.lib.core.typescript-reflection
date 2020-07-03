@@ -27,7 +27,12 @@ exports[`Process schema reference 1`] = `
           "type": "string"
         },
         "query": {
-          "$ref": "#/$defs/Reference"
+          "$ref": "#/$defs/Reference",
+          "$arguments": [
+            {
+              "$ref": "#/$defs/Query"
+            }
+          ]
         }
       }
     }
