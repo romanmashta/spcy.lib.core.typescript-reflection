@@ -29,7 +29,8 @@ const caseNames = [
   'typeliteral-argument',
   'meta-schema',
   'required-properties',
-  'inheritance'
+  'inheritance',
+  'reference'
 ];
 
 it.each(caseNames)('Process schema %s', caseName => {
