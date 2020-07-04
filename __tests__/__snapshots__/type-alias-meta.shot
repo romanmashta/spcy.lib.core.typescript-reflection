@@ -1,0 +1,56 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Process schema type-alias 1`] = `
+{
+  "$id": "@spcy/lib.dev.typescript-reflection",
+  "$defs": {
+    "Figure": {
+      "$id": "Figure",
+      "oneOf": [
+        {
+          "$ref": "Circle"
+        },
+        {
+          "$ref": "Square"
+        }
+      ]
+    },
+    "Decorator": {
+      "$id": "Decorator",
+      "type": "object",
+      "required": [
+        "figure"
+      ],
+      "properties": {
+        "figure": {
+          "$ref": "Figure"
+        }
+      }
+    },
+    "Circle": {
+      "$id": "Circle",
+      "type": "object",
+      "required": [
+        "radius"
+      ],
+      "properties": {
+        "radius": {
+          "type": "number"
+        }
+      }
+    },
+    "Square": {
+      "$id": "Square",
+      "type": "object",
+      "required": [
+        "side"
+      ],
+      "properties": {
+        "side": {
+          "type": "number"
+        }
+      }
+    }
+  }
+}
+`;

@@ -1,0 +1,41 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Process schema typeliteral 1`] = `
+{
+  "$id": "@spcy/lib.dev.typescript-reflection",
+  "$defs": {
+    "Person": {
+      "$id": "Person",
+      "type": "object",
+      "required": [
+        "firstName",
+        "lastName",
+        "location"
+      ],
+      "properties": {
+        "firstName": {
+          "type": "string"
+        },
+        "lastName": {
+          "type": "string"
+        },
+        "location": {
+          "type": "object",
+          "required": [
+            "lat",
+            "lon"
+          ],
+          "properties": {
+            "lat": {
+              "type": "number"
+            },
+            "lon": {
+              "type": "number"
+            }
+          }
+        }
+      }
+    }
+  }
+}
+`;

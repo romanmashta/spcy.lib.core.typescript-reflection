@@ -362,6 +362,7 @@ exports[`Process schema meta-schema 1`] = `
   },
   "fileName": "__tests__/cases/meta-schema/index.model.ts",
   "moduleName": "Index",
-  "exports": []
+  "exports": [],
+  "isEmpty": false
 }
 `;

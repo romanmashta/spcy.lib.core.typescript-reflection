@@ -1,0 +1,42 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Process schema reference 1`] = `
+{
+  "$id": "@spcy/lib.dev.typescript-reflection",
+  "$defs": {
+    "Query": {
+      "$id": "Query",
+      "type": "object",
+      "required": [
+        "name"
+      ],
+      "properties": {
+        "name": {
+          "type": "string"
+        }
+      }
+    },
+    "QueryView": {
+      "$id": "QueryView",
+      "type": "object",
+      "required": [
+        "viewName",
+        "query"
+      ],
+      "properties": {
+        "viewName": {
+          "type": "string"
+        },
+        "query": {
+          "$ref": "Reference",
+          "$arguments": [
+            {
+              "$ref": "Query"
+            }
+          ]
+        }
+      }
+    }
+  }
+}
+`;

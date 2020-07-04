@@ -56,6 +56,7 @@ exports[`Process schema type-alias 1`] = `
   },
   "fileName": "__tests__/cases/type-alias/index.model.ts",
   "moduleName": "Index",
-  "exports": []
+  "exports": [],
+  "isEmpty": false
 }
 `;

@@ -265,7 +265,8 @@ class MetaGenerator {
         module,
         fileName: relativeFileName,
         moduleName,
-        exports: []
+        exports: [],
+        isEmpty: true
       };
       metaInfo.sourceFiles = [...metaInfo.sourceFiles, moduleFile];
       metaInfo.modules = [...metaInfo.modules, module];
@@ -297,6 +298,7 @@ class MetaGenerator {
       };
 
       inspect(sourceFile);
+      moduleFile.isEmpty = _.isEmpty(module.$defs);
     });
 
     return metaInfo;
@@ -359,6 +361,7 @@ const renderModule = handlebars.compile(ModuleTemplate);
 const writeSchemaFile = (sourceFile: cr.SourceFile, options: Options): string => {
   const schemaFileName = sourceFile.fileName.replace(/model\.ts$/i, 'schema.ts');
   handlebars.registerHelper('useRegistration', () => !options.skipModelRegistration);
+  handlebars.registerHelper('isEmpty', () => !_.isEmpty(sourceFile.module.$defs));
   const moduleText = renderModule(sourceFile);
   fs.writeFileSync(schemaFileName, moduleText);
   return schemaFileName;

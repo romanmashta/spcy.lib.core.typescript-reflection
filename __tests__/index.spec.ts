@@ -9,11 +9,14 @@ const MODULE_PATH = '__tests__/module';
 
 const assertSchema = (caseName: string) => {
   const file = path.resolve(`${CASES_ROOT}/${caseName}/index.model.ts`);
+  const generatedSchemaFile = path.resolve(`${CASES_ROOT}/${caseName}/index.schema.ts`);
   const result = generateMetaInfoForFile(file, undefined, { packageName: '@spcy/lib.core.test-module' });
 
   expect(result.hasErrors).toBe(false);
   const sourceFile = _.first(result.sourceFiles);
   expect(sourceFile).toMatchTastyShot(caseName);
+  const { IndexSchema } = require(generatedSchemaFile);
+  expect(IndexSchema).toMatchTastyShot(`${caseName}-meta`);
 };
 
 const caseNames = [

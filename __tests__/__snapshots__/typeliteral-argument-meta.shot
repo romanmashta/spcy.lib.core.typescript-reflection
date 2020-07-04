@@ -1,0 +1,32 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Process schema typeliteral-argument 1`] = `
+{
+  "$id": "@spcy/lib.dev.typescript-reflection",
+  "$defs": {
+    "Person": {
+      "$id": "Person",
+      "type": "object",
+      "required": [
+        "email",
+        "age",
+        "name"
+      ],
+      "properties": {
+        "email": {
+          "type": "string",
+          "pattern": ".*"
+        },
+        "age": {
+          "type": "number",
+          "minimum": 1,
+          "maximum": 99
+        },
+        "name": {
+          "type": "string"
+        }
+      }
+    }
+  }
+}
+`;

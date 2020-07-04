@@ -1,0 +1,69 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Process schema inheritance 1`] = `
+{
+  "$id": "@spcy/lib.dev.typescript-reflection",
+  "$defs": {
+    "Entity": {
+      "$id": "Entity",
+      "type": "object",
+      "required": [
+        "id"
+      ],
+      "properties": {
+        "id": {
+          "type": "string"
+        }
+      }
+    },
+    "Audit": {
+      "$id": "Audit",
+      "type": "object",
+      "required": [
+        "createdOn",
+        "updatedOn"
+      ],
+      "properties": {
+        "createdOn": {
+          "type": "string"
+        },
+        "updatedOn": {
+          "type": "string"
+        }
+      }
+    },
+    "Person": {
+      "$id": "Person",
+      "allOf": [
+        {
+          "$ref": "Audit"
+        },
+        {
+          "$ref": "Entity"
+        },
+        {
+          "type": "object",
+          "required": [
+            "firstName",
+            "lastName"
+          ],
+          "properties": {
+            "firstName": {
+              "type": "string"
+            },
+            "lastName": {
+              "type": "string"
+            },
+            "age": {
+              "type": "number"
+            },
+            "isActive": {
+              "type": "boolean"
+            }
+          }
+        }
+      ]
+    }
+  }
+}
+`;

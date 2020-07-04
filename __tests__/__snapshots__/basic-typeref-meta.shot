@@ -1,0 +1,71 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Process schema basic-typeref 1`] = `
+{
+  "$id": "@spcy/lib.dev.typescript-reflection",
+  "$defs": {
+    "Location": {
+      "$id": "Location",
+      "type": "object",
+      "required": [
+        "lat",
+        "lon"
+      ],
+      "properties": {
+        "lat": {
+          "type": "number"
+        },
+        "lon": {
+          "type": "number"
+        }
+      }
+    },
+    "Person": {
+      "$id": "Person",
+      "type": "object",
+      "required": [
+        "firstName",
+        "lastName",
+        "age",
+        "isActive",
+        "location",
+        "role"
+      ],
+      "properties": {
+        "firstName": {
+          "type": "string"
+        },
+        "lastName": {
+          "type": "string"
+        },
+        "age": {
+          "type": "number"
+        },
+        "isActive": {
+          "type": "boolean"
+        },
+        "location": {
+          "$ref": "Location"
+        },
+        "role": {
+          "$ref": "Role"
+        }
+      }
+    },
+    "Role": {
+      "$id": "Role",
+      "oneOf": [
+        {
+          "const": "Guest"
+        },
+        {
+          "const": "User"
+        },
+        {
+          "const": "Admin"
+        }
+      ]
+    }
+  }
+}
+`;

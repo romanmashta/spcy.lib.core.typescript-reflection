@@ -1,0 +1,362 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Process schema meta-schema 1`] = `
+{
+  "$id": "@spcy/lib.dev.typescript-reflection",
+  "$defs": {
+    "TypeInfo": {
+      "$id": "TypeInfo",
+      "oneOf": [
+        {
+          "$ref": "ObjectType"
+        },
+        {
+          "$ref": "StringType"
+        },
+        {
+          "$ref": "BooleanType"
+        },
+        {
+          "$ref": "NumberType"
+        },
+        {
+          "$ref": "DateType"
+        },
+        {
+          "$ref": "NullType"
+        },
+        {
+          "$ref": "ArrayType"
+        },
+        {
+          "$ref": "TypeReference"
+        },
+        {
+          "$ref": "EnumType"
+        },
+        {
+          "$ref": "ConstLiteral"
+        },
+        {
+          "$ref": "OneOf"
+        },
+        {
+          "$ref": "AllOf"
+        }
+      ]
+    },
+    "TypeReference": {
+      "$id": "TypeReference",
+      "type": "object",
+      "required": [
+        "$ref"
+      ],
+      "properties": {
+        "$id": {
+          "type": "string"
+        },
+        "$ref": {
+          "type": "string"
+        },
+        "$package": {
+          "type": "string"
+        }
+      }
+    },
+    "ArrayType": {
+      "$id": "ArrayType",
+      "type": "object",
+      "required": [
+        "type",
+        "items"
+      ],
+      "properties": {
+        "$id": {
+          "type": "string"
+        },
+        "type": {
+          "const": "array"
+        },
+        "items": {
+          "$ref": "TypeInfo"
+        },
+        "minItems": {
+          "type": "number"
+        },
+        "maxItems": {
+          "type": "number"
+        },
+        "uniqueItems": {
+          "type": "boolean"
+        }
+      }
+    },
+    "ConstLiteral": {
+      "$id": "ConstLiteral",
+      "type": "object",
+      "required": [
+        "const"
+      ],
+      "properties": {
+        "$id": {
+          "type": "string"
+        },
+        "const": {
+          "oneOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "number"
+            },
+            {
+              "type": "boolean"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        }
+      }
+    },
+    "EnumType": {
+      "$id": "EnumType",
+      "type": "object",
+      "required": [
+        "enum"
+      ],
+      "properties": {
+        "$id": {
+          "type": "string"
+        },
+        "enum": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "NullType": {
+      "$id": "NullType",
+      "type": "object",
+      "required": [
+        "type"
+      ],
+      "properties": {
+        "$id": {
+          "type": "string"
+        },
+        "type": {
+          "const": "null"
+        }
+      }
+    },
+    "DateType": {
+      "$id": "DateType",
+      "type": "object",
+      "required": [
+        "type"
+      ],
+      "properties": {
+        "$id": {
+          "type": "string"
+        },
+        "type": {
+          "const": "date"
+        }
+      }
+    },
+    "BooleanType": {
+      "$id": "BooleanType",
+      "type": "object",
+      "required": [
+        "type"
+      ],
+      "properties": {
+        "$id": {
+          "type": "string"
+        },
+        "type": {
+          "const": "boolean"
+        }
+      }
+    },
+    "StringType": {
+      "$id": "StringType",
+      "type": "object",
+      "required": [
+        "type"
+      ],
+      "properties": {
+        "$id": {
+          "type": "string"
+        },
+        "type": {
+          "const": "string"
+        },
+        "minLength": {
+          "type": "number"
+        },
+        "maxLength": {
+          "type": "number"
+        },
+        "pattern": {
+          "type": "string"
+        }
+      }
+    },
+    "NumberType": {
+      "$id": "NumberType",
+      "type": "object",
+      "required": [
+        "type"
+      ],
+      "properties": {
+        "$id": {
+          "type": "string"
+        },
+        "type": {
+          "const": "number"
+        },
+        "minimum": {
+          "type": "number"
+        },
+        "maximum": {
+          "type": "number"
+        }
+      }
+    },
+    "ObjectType": {
+      "$id": "ObjectType",
+      "type": "object",
+      "required": [
+        "type"
+      ],
+      "properties": {
+        "$id": {
+          "type": "string"
+        },
+        "type": {
+          "const": "object"
+        },
+        "required": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "properties": {
+          "type": "object",
+          "additionalProperties": {
+            "$ref": "TypeInfo"
+          }
+        },
+        "additionalProperties": {
+          "oneOf": [
+            {
+              "$ref": "TypeInfo"
+            },
+            {
+              "type": "boolean"
+            }
+          ]
+        }
+      }
+    },
+    "OneOf": {
+      "$id": "OneOf",
+      "type": "object",
+      "required": [
+        "oneOf"
+      ],
+      "properties": {
+        "$id": {
+          "type": "string"
+        },
+        "oneOf": {
+          "type": "array",
+          "items": {
+            "$ref": "TypeInfo"
+          }
+        }
+      }
+    },
+    "AllOf": {
+      "$id": "AllOf",
+      "type": "object",
+      "required": [
+        "allOf"
+      ],
+      "properties": {
+        "$id": {
+          "type": "string"
+        },
+        "allOf": {
+          "type": "array",
+          "items": {
+            "$ref": "TypeInfo"
+          }
+        }
+      }
+    },
+    "Module": {
+      "$id": "Module",
+      "type": "object",
+      "required": [
+        "$defs"
+      ],
+      "properties": {
+        "$defs": {
+          "type": "object",
+          "additionalProperties": {
+            "$ref": "TypeInfo"
+          }
+        }
+      }
+    },
+    "SourceFile": {
+      "$id": "SourceFile",
+      "type": "object",
+      "required": [
+        "fileName",
+        "module"
+      ],
+      "properties": {
+        "fileName": {
+          "type": "string"
+        },
+        "module": {
+          "$ref": "Module"
+        }
+      }
+    },
+    "MetaInfo": {
+      "$id": "MetaInfo",
+      "type": "object",
+      "required": [
+        "sourceFiles",
+        "modules",
+        "hasErrors"
+      ],
+      "properties": {
+        "sourceFiles": {
+          "type": "array",
+          "items": {
+            "$ref": "SourceFile"
+          }
+        },
+        "modules": {
+          "type": "array",
+          "items": {
+            "$ref": "Module"
+          }
+        },
+        "hasErrors": {
+          "type": "boolean"
+        }
+      }
+    }
+  }
+}
+`;

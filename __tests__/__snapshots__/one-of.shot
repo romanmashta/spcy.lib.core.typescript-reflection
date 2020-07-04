@@ -59,6 +59,7 @@ exports[`Process schema one-of 1`] = `
   },
   "fileName": "__tests__/cases/one-of/index.model.ts",
   "moduleName": "Index",
-  "exports": []
+  "exports": [],
+  "isEmpty": false
 }
 `;

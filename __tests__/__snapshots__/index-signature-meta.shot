@@ -1,0 +1,32 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Process schema index-signature 1`] = `
+{
+  "$id": "@spcy/lib.dev.typescript-reflection",
+  "$defs": {
+    "Config": {
+      "$id": "Config",
+      "type": "object",
+      "additionalProperties": {
+        "$ref": "Section"
+      }
+    },
+    "Section": {
+      "$id": "Section",
+      "type": "object",
+      "required": [
+        "id",
+        "secret"
+      ],
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "secret": {
+          "type": "string"
+        }
+      }
+    }
+  }
+}
+`;

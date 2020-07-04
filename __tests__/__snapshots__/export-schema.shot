@@ -13,6 +13,7 @@ exports[`Process schema export-schema 1`] = `
       "fileName": "./picture.schema",
       "moduleName": "Picture"
     }
-  ]
+  ],
+  "isEmpty": true
 }
 `;

@@ -1,4 +1,8 @@
-export const ModuleTemplate = `import { TypeInfo, Module } from '@spcy/lib.core.reflection';
+export const ModuleTemplate = `;{{#if isEmpty}}
+import { Module } from '@spcy/lib.core.reflection'
+{{else}}
+import { TypeInfo, Module } from '@spcy/lib.core.reflection'
+{{/if}}
 {{#each exports}}
 import { {{moduleName}}Schema } from '{{fileName}}'
 {{/each}}

@@ -42,6 +42,7 @@ exports[`Process schema reference 1`] = `
   },
   "fileName": "__tests__/cases/reference/index.model.ts",
   "moduleName": "Index",
-  "exports": []
+  "exports": [],
+  "isEmpty": false
 }
 `;
