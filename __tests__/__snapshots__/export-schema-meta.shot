@@ -4,8 +4,8 @@ exports[`Process schema export-schema 1`] = `
 {
   "$id": "@spcy/lib.dev.typescript-reflection",
   "$defs": {
-    "Shapes": {
-      "$id": "Shapes",
+    "Shape": {
+      "$id": "Shape",
       "oneOf": [
         {
           "$ref": "Circle"
@@ -15,18 +15,15 @@ exports[`Process schema export-schema 1`] = `
         }
       ]
     },
-    "Picture": {
-      "$id": "Picture",
+    "Square": {
+      "$id": "Square",
       "type": "object",
       "required": [
-        "figures"
+        "side"
       ],
       "properties": {
-        "figures": {
-          "type": "array",
-          "items": {
-            "$ref": "Shapes"
-          }
+        "side": {
+          "type": "number"
         }
       }
     },
@@ -42,15 +39,18 @@ exports[`Process schema export-schema 1`] = `
         }
       }
     },
-    "Square": {
-      "$id": "Square",
+    "Picture": {
+      "$id": "Picture",
       "type": "object",
       "required": [
-        "side"
+        "figures"
       ],
       "properties": {
-        "side": {
-          "type": "number"
+        "figures": {
+          "type": "array",
+          "items": {
+            "$ref": "Shape"
+          }
         }
       }
     }

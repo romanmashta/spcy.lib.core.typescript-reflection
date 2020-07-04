@@ -290,8 +290,9 @@ class MetaGenerator {
         } else if (ts.isExportDeclaration(node)) {
           if (node.moduleSpecifier) {
             const fileName = (node.moduleSpecifier as ts.StringLiteral).text.replace(/\.model(\.ts)?$/i, '.schema');
-            const exportModuleName = pascalCase(fileName.match(/([^.]+)\.schema/)?.[1] || NonameModule);
-            const exportModule: cr.ExportModule = { fileName, moduleName: exportModuleName };
+            const importName = pascalCase(fileName.match(/([^.]+)\.schema/)?.[1] || 'index');
+            const aliasName = importName === 'Index' ? pascalCase(fileName) : importName;
+            const exportModule: cr.ExportModule = { fileName, importName, aliasName };
             moduleFile.exports = [...moduleFile.exports, exportModule];
           }
         } else ts.forEachChild(node, inspect);
