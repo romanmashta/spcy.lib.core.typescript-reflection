@@ -2,57 +2,63 @@
 
 exports[`Process schema one-of 1`] = `
 {
-  "$defs": {
-    "Shapes": {
-      "$id": "#/$defs/Shapes",
-      "oneOf": [
-        {
-          "$ref": "#/$defs/Circle"
-        },
-        {
-          "$ref": "#/$defs/Square"
+  "module": {
+    "$id": "@spcy/lib.core.test-module",
+    "$defs": {
+      "Shapes": {
+        "$id": "Shapes",
+        "oneOf": [
+          {
+            "$ref": "Circle"
+          },
+          {
+            "$ref": "Square"
+          }
+        ]
+      },
+      "Picture": {
+        "$id": "Picture",
+        "type": "object",
+        "required": [
+          "figures"
+        ],
+        "properties": {
+          "figures": {
+            "type": "array",
+            "items": {
+              "$ref": "Shapes"
+            }
+          }
         }
-      ]
-    },
-    "Picture": {
-      "$id": "#/$defs/Picture",
-      "type": "object",
-      "required": [
-        "figures"
-      ],
-      "properties": {
-        "figures": {
-          "type": "array",
-          "items": {
-            "$ref": "#/$defs/Shapes"
+      },
+      "Circle": {
+        "$id": "Circle",
+        "type": "object",
+        "required": [
+          "radius"
+        ],
+        "properties": {
+          "radius": {
+            "type": "number"
+          }
+        }
+      },
+      "Square": {
+        "$id": "Square",
+        "type": "object",
+        "required": [
+          "side"
+        ],
+        "properties": {
+          "side": {
+            "type": "number"
           }
         }
       }
-    },
-    "Circle": {
-      "$id": "#/$defs/Circle",
-      "type": "object",
-      "required": [
-        "radius"
-      ],
-      "properties": {
-        "radius": {
-          "type": "number"
-        }
-      }
-    },
-    "Square": {
-      "$id": "#/$defs/Square",
-      "type": "object",
-      "required": [
-        "side"
-      ],
-      "properties": {
-        "side": {
-          "type": "number"
-        }
-      }
     }
-  }
+  },
+  "fileName": "__tests__/cases/one-of/index.model.ts",
+  "moduleName": "Index",
+  "exports": []
 }
 `;

@@ -1,21 +1,24 @@
 import _ from 'lodash';
-import ts from 'typescript';
+import ts, { Node } from 'typescript';
 import cr from '@spcy/lib.core.reflection';
 import path from 'path';
 import handlebars from 'handlebars';
 import stringify from 'stringify-object';
 import fs from 'fs';
 import minimatch from 'minimatch';
+import { pascalCase } from 'change-case';
 import { ModuleTemplate } from './templates';
 
-const propTypeName = 'property';
+const PropTypeName = 'property';
+const NonamePackageName = '@spcy/lib.core.noname';
+const NonameModule = '@spcy/lib.core.noname';
 
 type propertiesMap = { [name: string]: cr.TypeInfo };
 
 type propertyMetaObject = { [name: string]: propertyMeta };
 type propertyMeta = propertyMetaObject | string | number | boolean | null;
 
-const defaultOptions: ts.CompilerOptions = {
+const DefaultOptions: ts.CompilerOptions = {
   declaration: false
 };
 
@@ -40,13 +43,13 @@ class MetaGenerator {
     this.files = files;
     this.options = options;
     this.generatorOptions = generatorOptions;
-    this.program = ts.createProgram(files, { ...defaultOptions, ...options });
+    this.program = ts.createProgram(files, { ...DefaultOptions, ...options });
     this.sources = _.map(this.files, f => this.program.getSourceFile(f)) as ts.SourceFile[];
     this.typeChecker = this.program.getTypeChecker();
   }
 
-  localRef = (ref: string): string => `#/$defs/${ref}`;
-  typeId = (ref: string): string => `#/$defs/${ref}`;
+  localRef = (ref: string): string => `${ref}`;
+  typeId = (ref: string): string => `${ref}`;
 
   inspectIndexSignature = (node: ts.IndexSignatureDeclaration | undefined): cr.TypeInfo | undefined => {
     if (!node || !node.type) return undefined;
@@ -122,7 +125,7 @@ class MetaGenerator {
 
   inspectTypeRef = (node: ts.TypeReferenceNode): cr.TypeInfo => {
     const typeRef = (node.typeName as ts.Identifier).text;
-    if (typeRef === propTypeName) return this.inspectExplicitProperty(node);
+    if (typeRef === PropTypeName) return this.inspectExplicitProperty(node);
     const args = _.map(node.typeArguments, a => this.inspectType(a));
     return {
       $ref: this.localRef(typeRef),
@@ -251,8 +254,19 @@ class MetaGenerator {
     };
 
     _.forEach(this.sources, sourceFile => {
-      const module: cr.Module = { $defs: {} };
-      const moduleFile: cr.SourceFile = { module, fileName: sourceFile.fileName };
+      const module: cr.Module = {
+        $id: this.generatorOptions.packageName || NonamePackageName,
+        $defs: {}
+      };
+      const relativeFileName = path.relative(process.cwd(), sourceFile.fileName);
+      const moduleFileName = path.basename(relativeFileName);
+      const moduleName = pascalCase(moduleFileName.match(/([^.]+)\.model\.ts/)?.[1] || NonameModule);
+      const moduleFile: cr.SourceFile = {
+        module,
+        fileName: relativeFileName,
+        moduleName,
+        exports: []
+      };
       metaInfo.sourceFiles = [...metaInfo.sourceFiles, moduleFile];
       metaInfo.modules = [...metaInfo.modules, module];
 
@@ -272,6 +286,13 @@ class MetaGenerator {
             ...module.$defs,
             ...this.inspectTypeAlias(node)
           };
+        } else if (ts.isExportDeclaration(node)) {
+          if (node.moduleSpecifier) {
+            const fileName = (node.moduleSpecifier as ts.StringLiteral).text.replace(/\.model(\.ts)?$/i, '.schema');
+            const exportModuleName = pascalCase(fileName.match(/([^.]+)\.schema/)?.[1] || NonameModule);
+            const exportModule: cr.ExportModule = { fileName, moduleName: exportModuleName };
+            moduleFile.exports = [...moduleFile.exports, exportModule];
+          }
         } else ts.forEachChild(node, inspect);
       };
 

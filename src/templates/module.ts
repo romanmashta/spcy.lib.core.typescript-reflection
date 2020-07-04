@@ -1,16 +1,22 @@
-export const ModuleTemplate = `import { TypeInfo, Module, SchemaRepository } from '@spcy/lib.core.reflection';
-
-{{#each module.$defs}}
-export const {{@key}}Schema: TypeInfo = {{stringify .}};
-
-SchemaRepository.register({{@key}}Schema);
+export const ModuleTemplate = `import { TypeInfo, Module } from '@spcy/lib.core.reflection';
+{{#each exports}}
+import { {{moduleName}}Schema } from '{{fileName}}'
 {{/each}}
 
-export const MetaSchema: Module = {
+{{#each module.$defs}}
+const {{@key}}: TypeInfo = {{stringify .}};
+
+{{/each}}
+
+export const {{moduleName}}Schema: Module = {
+  $id: '{{module.$id}}',
   $defs: {
 {{#each module.$defs}}
-    {{@key}}: {{@key}}Schema,
-{{/each}}  
+    {{@key}},
+{{/each}}
+{{#each exports}}
+    ...{{moduleName}}Schema.$defs,
+{{/each}}
   }
 };
 

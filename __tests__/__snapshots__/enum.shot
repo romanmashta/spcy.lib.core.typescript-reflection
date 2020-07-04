@@ -2,21 +2,27 @@
 
 exports[`Process schema enum 1`] = `
 {
-  "$defs": {
-    "Role": {
-      "$id": "#/$defs/Role",
-      "oneOf": [
-        {
-          "const": "Guest"
-        },
-        {
-          "const": "User"
-        },
-        {
-          "const": "Admin"
-        }
-      ]
+  "module": {
+    "$id": "@spcy/lib.core.test-module",
+    "$defs": {
+      "Role": {
+        "$id": "Role",
+        "oneOf": [
+          {
+            "const": "Guest"
+          },
+          {
+            "const": "User"
+          },
+          {
+            "const": "Admin"
+          }
+        ]
+      }
     }
-  }
+  },
+  "fileName": "__tests__/cases/enum/index.model.ts",
+  "moduleName": "Index",
+  "exports": []
 }
 `;

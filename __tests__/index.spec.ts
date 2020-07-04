@@ -9,11 +9,11 @@ const MODULE_PATH = '__tests__/module';
 
 const assertSchema = (caseName: string) => {
   const file = path.resolve(`${CASES_ROOT}/${caseName}/index.model.ts`);
-  const result = generateMetaInfoForFile(file);
+  const result = generateMetaInfoForFile(file, undefined, { packageName: '@spcy/lib.core.test-module' });
 
   expect(result.hasErrors).toBe(false);
-  const module = _.first(result.modules);
-  expect(module).toMatchTastyShot(caseName);
+  const sourceFile = _.first(result.sourceFiles);
+  expect(sourceFile).toMatchTastyShot(caseName);
 };
 
 const caseNames = [
@@ -30,7 +30,8 @@ const caseNames = [
   'meta-schema',
   'required-properties',
   'inheritance',
-  'reference'
+  'reference',
+  'export-schema'
 ];
 
 it.each(caseNames)('Process schema %s', caseName => {

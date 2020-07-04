@@ -2,54 +2,60 @@
 
 exports[`Process schema type-alias 1`] = `
 {
-  "$defs": {
-    "Figure": {
-      "$id": "#/$defs/Figure",
-      "oneOf": [
-        {
-          "$ref": "#/$defs/Circle"
-        },
-        {
-          "$ref": "#/$defs/Square"
+  "module": {
+    "$id": "@spcy/lib.core.test-module",
+    "$defs": {
+      "Figure": {
+        "$id": "Figure",
+        "oneOf": [
+          {
+            "$ref": "Circle"
+          },
+          {
+            "$ref": "Square"
+          }
+        ]
+      },
+      "Decorator": {
+        "$id": "Decorator",
+        "type": "object",
+        "required": [
+          "figure"
+        ],
+        "properties": {
+          "figure": {
+            "$ref": "Figure"
+          }
         }
-      ]
-    },
-    "Decorator": {
-      "$id": "#/$defs/Decorator",
-      "type": "object",
-      "required": [
-        "figure"
-      ],
-      "properties": {
-        "figure": {
-          "$ref": "#/$defs/Figure"
+      },
+      "Circle": {
+        "$id": "Circle",
+        "type": "object",
+        "required": [
+          "radius"
+        ],
+        "properties": {
+          "radius": {
+            "type": "number"
+          }
         }
-      }
-    },
-    "Circle": {
-      "$id": "#/$defs/Circle",
-      "type": "object",
-      "required": [
-        "radius"
-      ],
-      "properties": {
-        "radius": {
-          "type": "number"
-        }
-      }
-    },
-    "Square": {
-      "$id": "#/$defs/Square",
-      "type": "object",
-      "required": [
-        "side"
-      ],
-      "properties": {
-        "side": {
-          "type": "number"
+      },
+      "Square": {
+        "$id": "Square",
+        "type": "object",
+        "required": [
+          "side"
+        ],
+        "properties": {
+          "side": {
+            "type": "number"
+          }
         }
       }
     }
-  }
+  },
+  "fileName": "__tests__/cases/type-alias/index.model.ts",
+  "moduleName": "Index",
+  "exports": []
 }
 `;

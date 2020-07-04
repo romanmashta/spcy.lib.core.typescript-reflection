@@ -2,30 +2,36 @@
 
 exports[`Process schema index-signature 1`] = `
 {
-  "$defs": {
-    "Config": {
-      "$id": "#/$defs/Config",
-      "type": "object",
-      "additionalProperties": {
-        "$ref": "#/$defs/Section"
-      }
-    },
-    "Section": {
-      "$id": "#/$defs/Section",
-      "type": "object",
-      "required": [
-        "id",
-        "secret"
-      ],
-      "properties": {
-        "id": {
-          "type": "string"
-        },
-        "secret": {
-          "type": "string"
+  "module": {
+    "$id": "@spcy/lib.core.test-module",
+    "$defs": {
+      "Config": {
+        "$id": "Config",
+        "type": "object",
+        "additionalProperties": {
+          "$ref": "Section"
+        }
+      },
+      "Section": {
+        "$id": "Section",
+        "type": "object",
+        "required": [
+          "id",
+          "secret"
+        ],
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "secret": {
+            "type": "string"
+          }
         }
       }
     }
-  }
+  },
+  "fileName": "__tests__/cases/index-signature/index.model.ts",
+  "moduleName": "Index",
+  "exports": []
 }
 `;

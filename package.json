@@ -19,6 +19,7 @@
     "spcy:clean": "shx rm -rf dist && shx rm -rf lib",
     "spcy:meta": "yarn tsr --includes='__tests__/**/*.ts' --skip-model-reg=true && yarn spcy:format",
     "spcy:build": "yarn spcy:clean && tsc",
+    "spcy:buildall": "yarn spcy:build && yarn spcy:meta",
     "spcy:format": "prettier --write \"{src,__tests__}/**/*.{js,ts}\"",
     "spcy:lint": "eslint --fix \"src/**/*.{js,ts}\"",
     "spcy:test": "jest"
@@ -38,6 +39,7 @@
   },
   "dependencies": {
     "@spcy/lib.core.reflection": "^1.0.0",
+    "change-case": "^4.1.1",
     "handlebars": "^4.7.6",
     "lodash": "^4.17.15",
     "minimatch": "^3.0.4",

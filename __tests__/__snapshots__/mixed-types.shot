@@ -2,61 +2,67 @@
 
 exports[`Process schema mixed-types 1`] = `
 {
-  "$defs": {
-    "Location": {
-      "$id": "#/$defs/Location",
-      "type": "object",
-      "required": [
-        "lat",
-        "lon"
-      ],
-      "properties": {
-        "lat": {
-          "type": "number"
-        },
-        "lon": {
-          "type": "number"
+  "module": {
+    "$id": "@spcy/lib.core.test-module",
+    "$defs": {
+      "Location": {
+        "$id": "Location",
+        "type": "object",
+        "required": [
+          "lat",
+          "lon"
+        ],
+        "properties": {
+          "lat": {
+            "type": "number"
+          },
+          "lon": {
+            "type": "number"
+          }
         }
+      },
+      "Person": {
+        "$id": "Person",
+        "type": "object",
+        "required": [
+          "firstName",
+          "lastName",
+          "age",
+          "isActive"
+        ],
+        "properties": {
+          "firstName": {
+            "type": "string"
+          },
+          "lastName": {
+            "type": "string"
+          },
+          "age": {
+            "type": "number"
+          },
+          "isActive": {
+            "type": "boolean"
+          }
+        }
+      },
+      "Role": {
+        "$id": "Role",
+        "oneOf": [
+          {
+            "const": "Guest"
+          },
+          {
+            "const": "User"
+          },
+          {
+            "const": "Admin"
+          }
+        ]
       }
-    },
-    "Person": {
-      "$id": "#/$defs/Person",
-      "type": "object",
-      "required": [
-        "firstName",
-        "lastName",
-        "age",
-        "isActive"
-      ],
-      "properties": {
-        "firstName": {
-          "type": "string"
-        },
-        "lastName": {
-          "type": "string"
-        },
-        "age": {
-          "type": "number"
-        },
-        "isActive": {
-          "type": "boolean"
-        }
-      }
-    },
-    "Role": {
-      "$id": "#/$defs/Role",
-      "oneOf": [
-        {
-          "const": "Guest"
-        },
-        {
-          "const": "User"
-        },
-        {
-          "const": "Admin"
-        }
-      ]
     }
-  }
+  },
+  "fileName": "__tests__/cases/mixed-types/index.model.ts",
+  "moduleName": "Index",
+  "exports": []
 }
 `;

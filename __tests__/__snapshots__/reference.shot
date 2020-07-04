@@ -2,40 +2,46 @@
 
 exports[`Process schema reference 1`] = `
 {
-  "$defs": {
-    "Query": {
-      "$id": "#/$defs/Query",
-      "type": "object",
-      "required": [
-        "name"
-      ],
-      "properties": {
-        "name": {
-          "type": "string"
+  "module": {
+    "$id": "@spcy/lib.core.test-module",
+    "$defs": {
+      "Query": {
+        "$id": "Query",
+        "type": "object",
+        "required": [
+          "name"
+        ],
+        "properties": {
+          "name": {
+            "type": "string"
+          }
         }
-      }
-    },
-    "QueryView": {
-      "$id": "#/$defs/QueryView",
-      "type": "object",
-      "required": [
-        "viewName",
-        "query"
-      ],
-      "properties": {
-        "viewName": {
-          "type": "string"
-        },
-        "query": {
-          "$ref": "#/$defs/Reference",
-          "$arguments": [
-            {
-              "$ref": "#/$defs/Query"
-            }
-          ]
+      },
+      "QueryView": {
+        "$id": "QueryView",
+        "type": "object",
+        "required": [
+          "viewName",
+          "query"
+        ],
+        "properties": {
+          "viewName": {
+            "type": "string"
+          },
+          "query": {
+            "$ref": "Reference",
+            "$arguments": [
+              {
+                "$ref": "Query"
+              }
+            ]
+          }
         }
       }
     }
-  }
+  },
+  "fileName": "__tests__/cases/reference/index.model.ts",
+  "moduleName": "Index",
+  "exports": []
 }
 `;

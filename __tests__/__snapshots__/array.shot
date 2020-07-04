@@ -2,41 +2,47 @@
 
 exports[`Process schema array 1`] = `
 {
-  "$defs": {
-    "Config": {
-      "$id": "#/$defs/Config",
-      "type": "object",
-      "required": [
-        "colors",
-        "params"
-      ],
-      "properties": {
-        "colors": {
-          "type": "array",
-          "items": {
-            "type": "string"
-          }
-        },
-        "params": {
-          "type": "array",
-          "items": {
-            "type": "object",
-            "required": [
-              "key",
-              "value"
-            ],
-            "properties": {
-              "key": {
-                "type": "string"
-              },
-              "value": {
-                "type": "string"
+  "module": {
+    "$id": "@spcy/lib.core.test-module",
+    "$defs": {
+      "Config": {
+        "$id": "Config",
+        "type": "object",
+        "required": [
+          "colors",
+          "params"
+        ],
+        "properties": {
+          "colors": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "params": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "required": [
+                "key",
+                "value"
+              ],
+              "properties": {
+                "key": {
+                  "type": "string"
+                },
+                "value": {
+                  "type": "string"
+                }
               }
             }
           }
         }
       }
     }
-  }
+  },
+  "fileName": "__tests__/cases/array/index.model.ts",
+  "moduleName": "Index",
+  "exports": []
 }
 `;

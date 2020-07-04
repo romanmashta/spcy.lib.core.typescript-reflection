@@ -2,29 +2,35 @@
 
 exports[`Process schema required-properties 1`] = `
 {
-  "$defs": {
-    "Person": {
-      "$id": "#/$defs/Person",
-      "type": "object",
-      "required": [
-        "firstName",
-        "lastName"
-      ],
-      "properties": {
-        "firstName": {
-          "type": "string"
-        },
-        "lastName": {
-          "type": "string"
-        },
-        "age": {
-          "type": "number"
-        },
-        "isActive": {
-          "type": "boolean"
+  "module": {
+    "$id": "@spcy/lib.core.test-module",
+    "$defs": {
+      "Person": {
+        "$id": "Person",
+        "type": "object",
+        "required": [
+          "firstName",
+          "lastName"
+        ],
+        "properties": {
+          "firstName": {
+            "type": "string"
+          },
+          "lastName": {
+            "type": "string"
+          },
+          "age": {
+            "type": "number"
+          },
+          "isActive": {
+            "type": "boolean"
+          }
         }
       }
     }
-  }
+  },
+  "fileName": "__tests__/cases/required-properties/index.model.ts",
+  "moduleName": "Index",
+  "exports": []
 }
 `;

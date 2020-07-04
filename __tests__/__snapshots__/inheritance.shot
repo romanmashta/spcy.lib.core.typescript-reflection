@@ -2,67 +2,73 @@
 
 exports[`Process schema inheritance 1`] = `
 {
-  "$defs": {
-    "Entity": {
-      "$id": "#/$defs/Entity",
-      "type": "object",
-      "required": [
-        "id"
-      ],
-      "properties": {
-        "id": {
-          "type": "string"
-        }
-      }
-    },
-    "Audit": {
-      "$id": "#/$defs/Audit",
-      "type": "object",
-      "required": [
-        "createdOn",
-        "updatedOn"
-      ],
-      "properties": {
-        "createdOn": {
-          "type": "string"
-        },
-        "updatedOn": {
-          "type": "string"
-        }
-      }
-    },
-    "Person": {
-      "$id": "#/$defs/Person",
-      "allOf": [
-        {
-          "$ref": "#/$defs/Audit"
-        },
-        {
-          "$ref": "#/$defs/Entity"
-        },
-        {
-          "type": "object",
-          "required": [
-            "firstName",
-            "lastName"
-          ],
-          "properties": {
-            "firstName": {
-              "type": "string"
-            },
-            "lastName": {
-              "type": "string"
-            },
-            "age": {
-              "type": "number"
-            },
-            "isActive": {
-              "type": "boolean"
-            }
+  "module": {
+    "$id": "@spcy/lib.core.test-module",
+    "$defs": {
+      "Entity": {
+        "$id": "Entity",
+        "type": "object",
+        "required": [
+          "id"
+        ],
+        "properties": {
+          "id": {
+            "type": "string"
           }
         }
-      ]
+      },
+      "Audit": {
+        "$id": "Audit",
+        "type": "object",
+        "required": [
+          "createdOn",
+          "updatedOn"
+        ],
+        "properties": {
+          "createdOn": {
+            "type": "string"
+          },
+          "updatedOn": {
+            "type": "string"
+          }
+        }
+      },
+      "Person": {
+        "$id": "Person",
+        "allOf": [
+          {
+            "$ref": "Audit"
+          },
+          {
+            "$ref": "Entity"
+          },
+          {
+            "type": "object",
+            "required": [
+              "firstName",
+              "lastName"
+            ],
+            "properties": {
+              "firstName": {
+                "type": "string"
+              },
+              "lastName": {
+                "type": "string"
+              },
+              "age": {
+                "type": "number"
+              },
+              "isActive": {
+                "type": "boolean"
+              }
+            }
+          }
+        ]
+      }
     }
-  }
+  },
+  "fileName": "__tests__/cases/inheritance/index.model.ts",
+  "moduleName": "Index",
+  "exports": []
 }
 `;

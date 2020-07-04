@@ -2,30 +2,36 @@
 
 exports[`Process schema typeliteral-argument 1`] = `
 {
-  "$defs": {
-    "Person": {
-      "$id": "#/$defs/Person",
-      "type": "object",
-      "required": [
-        "email",
-        "age",
-        "name"
-      ],
-      "properties": {
-        "email": {
-          "type": "string",
-          "pattern": ".*"
-        },
-        "age": {
-          "type": "number",
-          "minimum": 1,
-          "maximum": 99
-        },
-        "name": {
-          "type": "string"
+  "module": {
+    "$id": "@spcy/lib.core.test-module",
+    "$defs": {
+      "Person": {
+        "$id": "Person",
+        "type": "object",
+        "required": [
+          "email",
+          "age",
+          "name"
+        ],
+        "properties": {
+          "email": {
+            "type": "string",
+            "pattern": ".*"
+          },
+          "age": {
+            "type": "number",
+            "minimum": 1,
+            "maximum": 99
+          },
+          "name": {
+            "type": "string"
+          }
         }
       }
     }
-  }
+  },
+  "fileName": "__tests__/cases/typeliteral-argument/index.model.ts",
+  "moduleName": "Index",
+  "exports": []
 }
 `;

@@ -2,39 +2,45 @@
 
 exports[`Process schema typeliteral 1`] = `
 {
-  "$defs": {
-    "Person": {
-      "$id": "#/$defs/Person",
-      "type": "object",
-      "required": [
-        "firstName",
-        "lastName",
-        "location"
-      ],
-      "properties": {
-        "firstName": {
-          "type": "string"
-        },
-        "lastName": {
-          "type": "string"
-        },
-        "location": {
-          "type": "object",
-          "required": [
-            "lat",
-            "lon"
-          ],
-          "properties": {
-            "lat": {
-              "type": "number"
-            },
-            "lon": {
-              "type": "number"
+  "module": {
+    "$id": "@spcy/lib.core.test-module",
+    "$defs": {
+      "Person": {
+        "$id": "Person",
+        "type": "object",
+        "required": [
+          "firstName",
+          "lastName",
+          "location"
+        ],
+        "properties": {
+          "firstName": {
+            "type": "string"
+          },
+          "lastName": {
+            "type": "string"
+          },
+          "location": {
+            "type": "object",
+            "required": [
+              "lat",
+              "lon"
+            ],
+            "properties": {
+              "lat": {
+                "type": "number"
+              },
+              "lon": {
+                "type": "number"
+              }
             }
           }
         }
       }
     }
-  }
+  },
+  "fileName": "__tests__/cases/typeliteral/index.model.ts",
+  "moduleName": "Index",
+  "exports": []
 }
 `;
