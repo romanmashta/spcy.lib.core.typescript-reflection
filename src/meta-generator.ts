@@ -254,8 +254,9 @@ class MetaGenerator {
     };
 
     _.forEach(this.sources, sourceFile => {
+      const packageName = this.generatorOptions.packageName?.match(/([^/]+\/)?(?<name>.+)/)?.groups?.name;
       const module: cr.Module = {
-        $id: this.generatorOptions.packageName || NonamePackageName,
+        $id: packageName || NonamePackageName,
         $defs: {}
       };
       const relativeFileName = path.relative(process.cwd(), sourceFile.fileName);
