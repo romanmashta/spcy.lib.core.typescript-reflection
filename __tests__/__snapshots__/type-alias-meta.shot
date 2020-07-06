@@ -2,7 +2,7 @@
 
 exports[`Process schema type-alias 1`] = `
 {
-  "$id": "@spcy/lib.dev.typescript-reflection",
+  "$id": "lib.dev.typescript-reflection",
   "$defs": {
     "Figure": {
       "$id": "Figure",

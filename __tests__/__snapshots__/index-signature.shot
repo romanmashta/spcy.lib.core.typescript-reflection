@@ -3,7 +3,7 @@
 exports[`Process schema index-signature 1`] = `
 {
   "module": {
-    "$id": "@spcy/lib.core.test-module",
+    "$id": "lib.core.test-module",
     "$defs": {
       "Config": {
         "$id": "Config",

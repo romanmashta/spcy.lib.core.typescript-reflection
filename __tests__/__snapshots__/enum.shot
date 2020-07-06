@@ -3,7 +3,7 @@
 exports[`Process schema enum 1`] = `
 {
   "module": {
-    "$id": "@spcy/lib.core.test-module",
+    "$id": "lib.core.test-module",
     "$defs": {
       "Role": {
         "$id": "Role",

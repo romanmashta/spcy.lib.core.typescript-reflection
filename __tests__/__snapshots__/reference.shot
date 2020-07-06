@@ -3,7 +3,7 @@
 exports[`Process schema reference 1`] = `
 {
   "module": {
-    "$id": "@spcy/lib.core.test-module",
+    "$id": "lib.core.test-module",
     "$defs": {
       "Query": {
         "$id": "Query",

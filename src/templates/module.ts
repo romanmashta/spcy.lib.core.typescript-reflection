@@ -8,7 +8,7 @@ import { {{importName}}Module as {{aliasName}}Module } from '{{fileName}}'
 {{/each}}
 
 {{#each module.$defs}}
-const {{@key}}: TypeInfo = {{stringify .}};
+const {{@key}}Type: TypeInfo = {{stringify .}};
 
 {{/each}}
 
@@ -16,7 +16,7 @@ export const {{moduleName}}Module: Module = {
   $id: '{{module.$id}}',
   $defs: {
 {{#each module.$defs}}
-    {{@key}},
+    {{@key}}: {{@key}}Type,
 {{/each}}
 {{#each exports}}
     ...{{aliasName}}Module.$defs,

@@ -2,7 +2,7 @@
 
 exports[`Process schema one-of 1`] = `
 {
-  "$id": "@spcy/lib.dev.typescript-reflection",
+  "$id": "lib.dev.typescript-reflection",
   "$defs": {
     "Shapes": {
       "$id": "Shapes",

@@ -2,7 +2,7 @@
 
 exports[`Process schema required-properties 1`] = `
 {
-  "$id": "@spcy/lib.dev.typescript-reflection",
+  "$id": "lib.dev.typescript-reflection",
   "$defs": {
     "Person": {
       "$id": "Person",

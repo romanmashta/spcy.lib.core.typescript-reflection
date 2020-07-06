@@ -15,8 +15,8 @@ const assertSchema = (caseName: string) => {
   expect(result.hasErrors).toBe(false);
   const sourceFile = _.first(result.sourceFiles);
   expect(sourceFile).toMatchTastyShot(caseName);
-  const { IndexSchema } = require(generatedSchemaFile);
-  expect(IndexSchema).toMatchTastyShot(`${caseName}-meta`);
+  const { IndexModule } = require(generatedSchemaFile);
+  expect(IndexModule).toMatchTastyShot(`${caseName}-meta`);
 };
 
 const caseNames = [
