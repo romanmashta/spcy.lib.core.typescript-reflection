@@ -29,6 +29,7 @@ exports[`Process schema required-properties 1`] = `
       }
     }
   },
+  "moduleFileName": "index.model",
   "fileName": "__tests__/cases/required-properties/index.model.ts",
   "moduleName": "Index",
   "exports": [],

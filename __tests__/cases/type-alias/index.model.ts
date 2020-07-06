@@ -1,4 +1,4 @@
-type Figure = Circle | Square;
+export type Figure = Circle | Square;
 
 export interface Decorator {
   figure: Figure;

@@ -30,6 +30,7 @@ exports[`Process schema typeliteral-argument 1`] = `
       }
     }
   },
+  "moduleFileName": "index.model",
   "fileName": "__tests__/cases/typeliteral-argument/index.model.ts",
   "moduleName": "Index",
   "exports": [],

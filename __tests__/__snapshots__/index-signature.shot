@@ -30,6 +30,7 @@ exports[`Process schema index-signature 1`] = `
       }
     }
   },
+  "moduleFileName": "index.model",
   "fileName": "__tests__/cases/index-signature/index.model.ts",
   "moduleName": "Index",
   "exports": [],

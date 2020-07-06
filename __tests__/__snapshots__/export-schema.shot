@@ -6,6 +6,7 @@ exports[`Process schema export-schema 1`] = `
     "$id": "lib.core.test-module",
     "$defs": {}
   },
+  "moduleFileName": "index.model",
   "fileName": "__tests__/cases/export-schema/index.model.ts",
   "moduleName": "Index",
   "exports": [

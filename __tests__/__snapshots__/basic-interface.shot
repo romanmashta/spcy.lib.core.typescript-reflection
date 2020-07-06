@@ -29,6 +29,7 @@ exports[`Process schema basic-interface 1`] = `
       }
     }
   },
+  "moduleFileName": "index.model",
   "fileName": "__tests__/cases/basic-interface/index.model.ts",
   "moduleName": "Index",
   "exports": [],

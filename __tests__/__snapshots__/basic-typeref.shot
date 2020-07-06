@@ -69,6 +69,7 @@ exports[`Process schema basic-typeref 1`] = `
       }
     }
   },
+  "moduleFileName": "index.model",
   "fileName": "__tests__/cases/basic-typeref/index.model.ts",
   "moduleName": "Index",
   "exports": [],

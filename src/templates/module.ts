@@ -1,18 +1,18 @@
-export const ModuleTemplate = `;{{#if isEmpty}}
-import { Module } from '@spcy/lib.core.reflection'
+export const ModuleTemplate = `import * as r from '@spcy/lib.core.reflection';
+{{#if isEmpty}}
 {{else}}
-import { TypeInfo, Module } from '@spcy/lib.core.reflection'
+import * as m from './{{moduleFileName}}';
 {{/if}}
 {{#each exports}}
-import { {{importName}}Module as {{aliasName}}Module } from '{{fileName}}'
+import { {{importName}}Module as {{aliasName}}Module } from '{{fileName}}';
 {{/each}}
 
 {{#each module.$defs}}
-const {{@key}}Type: TypeInfo = {{stringify .}};
+export const {{@key}}Type: r.TypeInfo & r.Prototype<m.{{@key}}> = {{stringify .}};
 
 {{/each}}
 
-export const {{moduleName}}Module: Module = {
+export const {{moduleName}}Module: r.Module = {
   $id: '{{module.$id}}',
   $defs: {
 {{#each module.$defs}}

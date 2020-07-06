@@ -61,6 +61,7 @@ exports[`Process schema mixed-types 1`] = `
       }
     }
   },
+  "moduleFileName": "index.model",
   "fileName": "__tests__/cases/mixed-types/index.model.ts",
   "moduleName": "Index",
   "exports": [],

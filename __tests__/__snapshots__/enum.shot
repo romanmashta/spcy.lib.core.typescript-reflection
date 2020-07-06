@@ -21,6 +21,7 @@ exports[`Process schema enum 1`] = `
       }
     }
   },
+  "moduleFileName": "index.model",
   "fileName": "__tests__/cases/enum/index.model.ts",
   "moduleName": "Index",
   "exports": [],

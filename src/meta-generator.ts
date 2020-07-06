@@ -260,10 +260,11 @@ class MetaGenerator {
         $defs: {}
       };
       const relativeFileName = path.relative(process.cwd(), sourceFile.fileName);
-      const moduleFileName = path.basename(relativeFileName);
-      const moduleName = pascalCase(moduleFileName.match(/([^.]+)\.model\.ts/)?.[1] || NonameModule);
+      const moduleFileName = path.basename(relativeFileName).match(/(.+)\.ts/)?.[1] || NonameModule;
+      const moduleName = pascalCase(moduleFileName.match(/([^.]+)\.model/)?.[1] || NonameModule);
       const moduleFile: cr.SourceFile = {
         module,
+        moduleFileName,
         fileName: relativeFileName,
         moduleName,
         exports: [],
