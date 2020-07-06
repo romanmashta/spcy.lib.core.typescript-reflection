@@ -15,7 +15,8 @@ export type TypeInfo =
 export interface TypeReference {
   $id?: string;
   $ref: string;
-  $package?: string;
+  $refPackage?: string;
+  $arguments?: TypeReference[];
 }
 
 export interface ArrayType {
@@ -88,18 +89,8 @@ export interface AllOf {
 }
 
 export interface Module {
+  $id?: string;
   $defs: {
     [name: string]: TypeInfo;
   };
-}
-
-export interface SourceFile {
-  fileName: string;
-  module: Module;
-}
-
-export interface MetaInfo {
-  sourceFiles: SourceFile[];
-  modules: Module[];
-  hasErrors: boolean;
 }

@@ -58,8 +58,14 @@ exports[`Process schema meta-schema 1`] = `
         "$ref": {
           "type": "string"
         },
-        "$package": {
+        "$refPackage": {
           "type": "string"
+        },
+        "$arguments": {
+          "type": "array",
+          "items": {
+            "$ref": "TypeReference"
+          }
         }
       }
     },
@@ -307,53 +313,14 @@ exports[`Process schema meta-schema 1`] = `
         "$defs"
       ],
       "properties": {
+        "$id": {
+          "type": "string"
+        },
         "$defs": {
           "type": "object",
           "additionalProperties": {
             "$ref": "TypeInfo"
           }
-        }
-      }
-    },
-    "SourceFile": {
-      "$id": "SourceFile",
-      "type": "object",
-      "required": [
-        "fileName",
-        "module"
-      ],
-      "properties": {
-        "fileName": {
-          "type": "string"
-        },
-        "module": {
-          "$ref": "Module"
-        }
-      }
-    },
-    "MetaInfo": {
-      "$id": "MetaInfo",
-      "type": "object",
-      "required": [
-        "sourceFiles",
-        "modules",
-        "hasErrors"
-      ],
-      "properties": {
-        "sourceFiles": {
-          "type": "array",
-          "items": {
-            "$ref": "SourceFile"
-          }
-        },
-        "modules": {
-          "type": "array",
-          "items": {
-            "$ref": "Module"
-          }
-        },
-        "hasErrors": {
-          "type": "boolean"
         }
       }
     }
