@@ -4,7 +4,7 @@ import { Module } from '@spcy/lib.core.reflection'
 import { TypeInfo, Module } from '@spcy/lib.core.reflection'
 {{/if}}
 {{#each exports}}
-import { {{importName}}Schema as {{aliasName}}Schema } from '{{fileName}}'
+import { {{importName}}Module as {{aliasName}}Module } from '{{fileName}}'
 {{/each}}
 
 {{#each module.$defs}}
@@ -12,14 +12,14 @@ const {{@key}}: TypeInfo = {{stringify .}};
 
 {{/each}}
 
-export const {{moduleName}}Schema: Module = {
+export const {{moduleName}}Module: Module = {
   $id: '{{module.$id}}',
   $defs: {
 {{#each module.$defs}}
     {{@key}},
 {{/each}}
 {{#each exports}}
-    ...{{aliasName}}Schema.$defs,
+    ...{{aliasName}}Module.$defs,
 {{/each}}
   }
 };
