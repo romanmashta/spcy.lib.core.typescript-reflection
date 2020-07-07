@@ -39,6 +39,8 @@ class MetaGenerator {
   private typeChecker: ts.TypeChecker;
   private generatorOptions: GeneratorOptions;
   private packageName: string = NonamePackageName;
+  private importModule?: string = undefined;
+  private importsMap: Record<string, string> = {};
 
   constructor(files: string[], options: ts.CompilerOptions = {}, generatorOptions: GeneratorOptions = {}) {
     this.files = files;
@@ -124,13 +126,15 @@ class MetaGenerator {
     return { ...type, ...meta };
   };
 
+  getPackageRef = (ref: string) => this.importsMap[ref] || this.packageName;
+
   inspectTypeRef = (node: ts.TypeReferenceNode): cr.TypeInfo => {
     const typeRef = (node.typeName as ts.Identifier).text;
     if (typeRef === PropTypeName) return this.inspectExplicitProperty(node);
     const args = _.map(node.typeArguments, a => this.inspectType(a));
     return {
       $ref: this.localRef(typeRef),
-      $refPackage: this.packageName,
+      $refPackage: this.getPackageRef(typeRef),
       $arguments: _.isEmpty(args) ? undefined : args
     } as cr.TypeReference;
   };
@@ -139,7 +143,7 @@ class MetaGenerator {
     const typeRef = (node.expression as ts.Identifier).text;
     return {
       $ref: this.localRef(typeRef),
-      $refPackage: this.packageName
+      $refPackage: this.getPackageRef(typeRef)
     } as cr.TypeReference;
   };
 
@@ -255,6 +259,20 @@ class MetaGenerator {
     return { [name]: type };
   };
 
+  inspectImportDeclaration = (node: ts.ImportDeclaration): void => {
+    const importModule = (node.moduleSpecifier as ts.StringLiteral).text.match(/@([^/]+\/)?(?<name>.+)/)?.groups?.name;
+    if (!importModule) return;
+    this.importModule = importModule;
+    const inspect = (subNode: ts.Node) => {
+      if (ts.isImportSpecifier(subNode)) {
+        const importName = subNode.name.text;
+        if (this.importModule) this.importsMap[importName] = this.importModule;
+      } else ts.forEachChild(subNode, inspect);
+    };
+    ts.forEachChild(node, inspect);
+    this.importModule = undefined;
+  };
+
   transform = (): cr.MetaInfo => {
     const metaInfo: cr.MetaInfo = {
       sourceFiles: [],
@@ -284,9 +302,12 @@ class MetaGenerator {
       };
       metaInfo.sourceFiles = [...metaInfo.sourceFiles, moduleFile];
       metaInfo.modules = [...metaInfo.modules, module];
+      this.importsMap = {};
 
       const inspect = (node: ts.Node) => {
-        if (ts.isInterfaceDeclaration(node)) {
+        if (ts.isImportDeclaration(node)) {
+          this.inspectImportDeclaration(node);
+        } else if (ts.isInterfaceDeclaration(node)) {
           module.$defs = {
             ...module.$defs,
             ...this.inspectInterface(node)

@@ -20,6 +20,7 @@ const assertSchema = (caseName: string) => {
 };
 
 const caseNames = [
+  'external-type',
   'index-signature',
   'array',
   'type-alias',

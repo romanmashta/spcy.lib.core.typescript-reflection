@@ -1,0 +1,35 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Process schema external-type 1`] = `
+{
+  "$id": "lib.dev.typescript-reflection",
+  "$defs": {
+    "Decorator": {
+      "$id": "Decorator",
+      "$package": "lib.dev.typescript-reflection",
+      "type": "object",
+      "required": [
+        "title",
+        "tags",
+        "type"
+      ],
+      "properties": {
+        "title": {
+          "type": "string"
+        },
+        "tags": {
+          "type": "array",
+          "items": {
+            "$ref": "Tag",
+            "$refPackage": "lib.dev.typescript-reflection"
+          }
+        },
+        "type": {
+          "$ref": "TypeInfo",
+          "$refPackage": "lib.core.reflection"
+        }
+      }
+    }
+  }
+}
+`;
