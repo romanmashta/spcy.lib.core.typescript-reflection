@@ -137,7 +137,10 @@ class MetaGenerator {
 
   inspectExpressionWithTypeArguments = (node: ts.ExpressionWithTypeArguments): cr.TypeInfo => {
     const typeRef = (node.expression as ts.Identifier).text;
-    return { $ref: this.localRef(typeRef) } as cr.TypeReference;
+    return {
+      $ref: this.localRef(typeRef),
+      $refPackage: this.packageName
+    } as cr.TypeReference;
   };
 
   inspectType = (node: ts.TypeNode): cr.TypeInfo => {
