@@ -130,6 +130,7 @@ class MetaGenerator {
     const args = _.map(node.typeArguments, a => this.inspectType(a));
     return {
       $ref: this.localRef(typeRef),
+      $refPackage: this.packageName,
       $arguments: _.isEmpty(args) ? undefined : args
     } as cr.TypeReference;
   };

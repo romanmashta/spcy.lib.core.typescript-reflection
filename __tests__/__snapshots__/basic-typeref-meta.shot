@@ -47,10 +47,12 @@ exports[`Process schema basic-typeref 1`] = `
           "type": "boolean"
         },
         "location": {
-          "$ref": "Location"
+          "$ref": "Location",
+          "$refPackage": "lib.dev.typescript-reflection"
         },
         "role": {
-          "$ref": "Role"
+          "$ref": "Role",
+          "$refPackage": "lib.dev.typescript-reflection"
         }
       }
     },

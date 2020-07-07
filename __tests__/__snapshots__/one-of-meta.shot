@@ -9,10 +9,12 @@ exports[`Process schema one-of 1`] = `
       "$package": "lib.dev.typescript-reflection",
       "oneOf": [
         {
-          "$ref": "Circle"
+          "$ref": "Circle",
+          "$refPackage": "lib.dev.typescript-reflection"
         },
         {
-          "$ref": "Square"
+          "$ref": "Square",
+          "$refPackage": "lib.dev.typescript-reflection"
         }
       ]
     },
@@ -27,7 +29,8 @@ exports[`Process schema one-of 1`] = `
         "figures": {
           "type": "array",
           "items": {
-            "$ref": "Shapes"
+            "$ref": "Shapes",
+            "$refPackage": "lib.dev.typescript-reflection"
           }
         }
       }

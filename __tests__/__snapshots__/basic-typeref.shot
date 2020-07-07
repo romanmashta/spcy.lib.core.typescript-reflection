@@ -48,10 +48,12 @@ exports[`Process schema basic-typeref 1`] = `
             "type": "boolean"
           },
           "location": {
-            "$ref": "Location"
+            "$ref": "Location",
+            "$refPackage": "lib.core.test-module"
           },
           "role": {
-            "$ref": "Role"
+            "$ref": "Role",
+            "$refPackage": "lib.core.test-module"
           }
         }
       },

@@ -10,10 +10,12 @@ exports[`Process schema type-alias 1`] = `
         "$package": "lib.core.test-module",
         "oneOf": [
           {
-            "$ref": "Circle"
+            "$ref": "Circle",
+            "$refPackage": "lib.core.test-module"
           },
           {
-            "$ref": "Square"
+            "$ref": "Square",
+            "$refPackage": "lib.core.test-module"
           }
         ]
       },
@@ -26,7 +28,8 @@ exports[`Process schema type-alias 1`] = `
         ],
         "properties": {
           "figure": {
-            "$ref": "Figure"
+            "$ref": "Figure",
+            "$refPackage": "lib.core.test-module"
           }
         }
       },

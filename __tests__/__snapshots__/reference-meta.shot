@@ -31,9 +31,11 @@ exports[`Process schema reference 1`] = `
         },
         "query": {
           "$ref": "Reference",
+          "$refPackage": "lib.dev.typescript-reflection",
           "$arguments": [
             {
-              "$ref": "Query"
+              "$ref": "Query",
+              "$refPackage": "lib.dev.typescript-reflection"
             }
           ]
         }

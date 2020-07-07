@@ -9,40 +9,52 @@ exports[`Process schema meta-schema 1`] = `
       "$package": "lib.dev.typescript-reflection",
       "oneOf": [
         {
-          "$ref": "ObjectType"
+          "$ref": "ObjectType",
+          "$refPackage": "lib.dev.typescript-reflection"
         },
         {
-          "$ref": "StringType"
+          "$ref": "StringType",
+          "$refPackage": "lib.dev.typescript-reflection"
         },
         {
-          "$ref": "BooleanType"
+          "$ref": "BooleanType",
+          "$refPackage": "lib.dev.typescript-reflection"
         },
         {
-          "$ref": "NumberType"
+          "$ref": "NumberType",
+          "$refPackage": "lib.dev.typescript-reflection"
         },
         {
-          "$ref": "DateType"
+          "$ref": "DateType",
+          "$refPackage": "lib.dev.typescript-reflection"
         },
         {
-          "$ref": "NullType"
+          "$ref": "NullType",
+          "$refPackage": "lib.dev.typescript-reflection"
         },
         {
-          "$ref": "ArrayType"
+          "$ref": "ArrayType",
+          "$refPackage": "lib.dev.typescript-reflection"
         },
         {
-          "$ref": "TypeReference"
+          "$ref": "TypeReference",
+          "$refPackage": "lib.dev.typescript-reflection"
         },
         {
-          "$ref": "EnumType"
+          "$ref": "EnumType",
+          "$refPackage": "lib.dev.typescript-reflection"
         },
         {
-          "$ref": "ConstLiteral"
+          "$ref": "ConstLiteral",
+          "$refPackage": "lib.dev.typescript-reflection"
         },
         {
-          "$ref": "OneOf"
+          "$ref": "OneOf",
+          "$refPackage": "lib.dev.typescript-reflection"
         },
         {
-          "$ref": "AllOf"
+          "$ref": "AllOf",
+          "$refPackage": "lib.dev.typescript-reflection"
         }
       ]
     },
@@ -66,7 +78,8 @@ exports[`Process schema meta-schema 1`] = `
         "$arguments": {
           "type": "array",
           "items": {
-            "$ref": "TypeReference"
+            "$ref": "TypeReference",
+            "$refPackage": "lib.dev.typescript-reflection"
           }
         }
       }
@@ -87,7 +100,8 @@ exports[`Process schema meta-schema 1`] = `
           "const": "array"
         },
         "items": {
-          "$ref": "TypeInfo"
+          "$ref": "TypeInfo",
+          "$refPackage": "lib.dev.typescript-reflection"
         },
         "minItems": {
           "type": "number"
@@ -266,13 +280,15 @@ exports[`Process schema meta-schema 1`] = `
         "properties": {
           "type": "object",
           "additionalProperties": {
-            "$ref": "TypeInfo"
+            "$ref": "TypeInfo",
+            "$refPackage": "lib.dev.typescript-reflection"
           }
         },
         "additionalProperties": {
           "oneOf": [
             {
-              "$ref": "TypeInfo"
+              "$ref": "TypeInfo",
+              "$refPackage": "lib.dev.typescript-reflection"
             },
             {
               "type": "boolean"
@@ -295,7 +311,8 @@ exports[`Process schema meta-schema 1`] = `
         "oneOf": {
           "type": "array",
           "items": {
-            "$ref": "TypeInfo"
+            "$ref": "TypeInfo",
+            "$refPackage": "lib.dev.typescript-reflection"
           }
         }
       }
@@ -314,7 +331,8 @@ exports[`Process schema meta-schema 1`] = `
         "allOf": {
           "type": "array",
           "items": {
-            "$ref": "TypeInfo"
+            "$ref": "TypeInfo",
+            "$refPackage": "lib.dev.typescript-reflection"
           }
         }
       }
@@ -333,7 +351,8 @@ exports[`Process schema meta-schema 1`] = `
         "$defs": {
           "type": "object",
           "additionalProperties": {
-            "$ref": "TypeInfo"
+            "$ref": "TypeInfo",
+            "$refPackage": "lib.dev.typescript-reflection"
           }
         }
       }

@@ -9,7 +9,8 @@ exports[`Process schema index-signature 1`] = `
       "$package": "lib.dev.typescript-reflection",
       "type": "object",
       "additionalProperties": {
-        "$ref": "Section"
+        "$ref": "Section",
+        "$refPackage": "lib.dev.typescript-reflection"
       }
     },
     "Section": {

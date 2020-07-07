@@ -10,10 +10,12 @@ exports[`Process schema one-of 1`] = `
         "$package": "lib.core.test-module",
         "oneOf": [
           {
-            "$ref": "Circle"
+            "$ref": "Circle",
+            "$refPackage": "lib.core.test-module"
           },
           {
-            "$ref": "Square"
+            "$ref": "Square",
+            "$refPackage": "lib.core.test-module"
           }
         ]
       },
@@ -28,7 +30,8 @@ exports[`Process schema one-of 1`] = `
           "figures": {
             "type": "array",
             "items": {
-              "$ref": "Shapes"
+              "$ref": "Shapes",
+              "$refPackage": "lib.core.test-module"
             }
           }
         }

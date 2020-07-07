@@ -10,7 +10,8 @@ exports[`Process schema index-signature 1`] = `
         "$package": "lib.core.test-module",
         "type": "object",
         "additionalProperties": {
-          "$ref": "Section"
+          "$ref": "Section",
+          "$refPackage": "lib.core.test-module"
         }
       },
       "Section": {

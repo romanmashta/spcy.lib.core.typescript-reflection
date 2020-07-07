@@ -10,40 +10,52 @@ exports[`Process schema meta-schema 1`] = `
         "$package": "lib.core.test-module",
         "oneOf": [
           {
-            "$ref": "ObjectType"
+            "$ref": "ObjectType",
+            "$refPackage": "lib.core.test-module"
           },
           {
-            "$ref": "StringType"
+            "$ref": "StringType",
+            "$refPackage": "lib.core.test-module"
           },
           {
-            "$ref": "BooleanType"
+            "$ref": "BooleanType",
+            "$refPackage": "lib.core.test-module"
           },
           {
-            "$ref": "NumberType"
+            "$ref": "NumberType",
+            "$refPackage": "lib.core.test-module"
           },
           {
-            "$ref": "DateType"
+            "$ref": "DateType",
+            "$refPackage": "lib.core.test-module"
           },
           {
-            "$ref": "NullType"
+            "$ref": "NullType",
+            "$refPackage": "lib.core.test-module"
           },
           {
-            "$ref": "ArrayType"
+            "$ref": "ArrayType",
+            "$refPackage": "lib.core.test-module"
           },
           {
-            "$ref": "TypeReference"
+            "$ref": "TypeReference",
+            "$refPackage": "lib.core.test-module"
           },
           {
-            "$ref": "EnumType"
+            "$ref": "EnumType",
+            "$refPackage": "lib.core.test-module"
           },
           {
-            "$ref": "ConstLiteral"
+            "$ref": "ConstLiteral",
+            "$refPackage": "lib.core.test-module"
           },
           {
-            "$ref": "OneOf"
+            "$ref": "OneOf",
+            "$refPackage": "lib.core.test-module"
           },
           {
-            "$ref": "AllOf"
+            "$ref": "AllOf",
+            "$refPackage": "lib.core.test-module"
           }
         ]
       },
@@ -67,7 +79,8 @@ exports[`Process schema meta-schema 1`] = `
           "$arguments": {
             "type": "array",
             "items": {
-              "$ref": "TypeReference"
+              "$ref": "TypeReference",
+              "$refPackage": "lib.core.test-module"
             }
           }
         }
@@ -88,7 +101,8 @@ exports[`Process schema meta-schema 1`] = `
             "const": "array"
           },
           "items": {
-            "$ref": "TypeInfo"
+            "$ref": "TypeInfo",
+            "$refPackage": "lib.core.test-module"
           },
           "minItems": {
             "type": "number"
@@ -267,13 +281,15 @@ exports[`Process schema meta-schema 1`] = `
           "properties": {
             "type": "object",
             "additionalProperties": {
-              "$ref": "TypeInfo"
+              "$ref": "TypeInfo",
+              "$refPackage": "lib.core.test-module"
             }
           },
           "additionalProperties": {
             "oneOf": [
               {
-                "$ref": "TypeInfo"
+                "$ref": "TypeInfo",
+                "$refPackage": "lib.core.test-module"
               },
               {
                 "type": "boolean"
@@ -296,7 +312,8 @@ exports[`Process schema meta-schema 1`] = `
           "oneOf": {
             "type": "array",
             "items": {
-              "$ref": "TypeInfo"
+              "$ref": "TypeInfo",
+              "$refPackage": "lib.core.test-module"
             }
           }
         }
@@ -315,7 +332,8 @@ exports[`Process schema meta-schema 1`] = `
           "allOf": {
             "type": "array",
             "items": {
-              "$ref": "TypeInfo"
+              "$ref": "TypeInfo",
+              "$refPackage": "lib.core.test-module"
             }
           }
         }
@@ -334,7 +352,8 @@ exports[`Process schema meta-schema 1`] = `
           "$defs": {
             "type": "object",
             "additionalProperties": {
-              "$ref": "TypeInfo"
+              "$ref": "TypeInfo",
+              "$refPackage": "lib.core.test-module"
             }
           }
         }
