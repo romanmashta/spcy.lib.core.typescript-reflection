@@ -12,8 +12,8 @@ import { {{importName}}Module as {{aliasName}}Module, Types as {{aliasName}}Type
 const {{@key}}Type: r.TypeInfo = {{stringify .}};
   
 const {{@key}}: r.Prototype<m.{{@key}}> = { 
-  id: {{@key}}Type.$id!,
-  package: {{@key}}Type.$package!,
+  $ref: {{@key}}Type.$id!,
+  $refPackage: {{@key}}Type.$package!,
   typeInfo: {{@key}}Type,
 }
 
