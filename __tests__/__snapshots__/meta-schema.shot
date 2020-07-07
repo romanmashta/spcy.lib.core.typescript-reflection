@@ -7,6 +7,7 @@ exports[`Process schema meta-schema 1`] = `
     "$defs": {
       "TypeInfo": {
         "$id": "TypeInfo",
+        "$package": "lib.core.test-module",
         "oneOf": [
           {
             "$ref": "ObjectType"
@@ -48,6 +49,7 @@ exports[`Process schema meta-schema 1`] = `
       },
       "TypeReference": {
         "$id": "TypeReference",
+        "$package": "lib.core.test-module",
         "type": "object",
         "required": [
           "$ref"
@@ -72,6 +74,7 @@ exports[`Process schema meta-schema 1`] = `
       },
       "ArrayType": {
         "$id": "ArrayType",
+        "$package": "lib.core.test-module",
         "type": "object",
         "required": [
           "type",
@@ -100,6 +103,7 @@ exports[`Process schema meta-schema 1`] = `
       },
       "ConstLiteral": {
         "$id": "ConstLiteral",
+        "$package": "lib.core.test-module",
         "type": "object",
         "required": [
           "const"
@@ -128,6 +132,7 @@ exports[`Process schema meta-schema 1`] = `
       },
       "EnumType": {
         "$id": "EnumType",
+        "$package": "lib.core.test-module",
         "type": "object",
         "required": [
           "enum"
@@ -146,6 +151,7 @@ exports[`Process schema meta-schema 1`] = `
       },
       "NullType": {
         "$id": "NullType",
+        "$package": "lib.core.test-module",
         "type": "object",
         "required": [
           "type"
@@ -161,6 +167,7 @@ exports[`Process schema meta-schema 1`] = `
       },
       "DateType": {
         "$id": "DateType",
+        "$package": "lib.core.test-module",
         "type": "object",
         "required": [
           "type"
@@ -176,6 +183,7 @@ exports[`Process schema meta-schema 1`] = `
       },
       "BooleanType": {
         "$id": "BooleanType",
+        "$package": "lib.core.test-module",
         "type": "object",
         "required": [
           "type"
@@ -191,6 +199,7 @@ exports[`Process schema meta-schema 1`] = `
       },
       "StringType": {
         "$id": "StringType",
+        "$package": "lib.core.test-module",
         "type": "object",
         "required": [
           "type"
@@ -215,6 +224,7 @@ exports[`Process schema meta-schema 1`] = `
       },
       "NumberType": {
         "$id": "NumberType",
+        "$package": "lib.core.test-module",
         "type": "object",
         "required": [
           "type"
@@ -236,6 +246,7 @@ exports[`Process schema meta-schema 1`] = `
       },
       "ObjectType": {
         "$id": "ObjectType",
+        "$package": "lib.core.test-module",
         "type": "object",
         "required": [
           "type"
@@ -273,6 +284,7 @@ exports[`Process schema meta-schema 1`] = `
       },
       "OneOf": {
         "$id": "OneOf",
+        "$package": "lib.core.test-module",
         "type": "object",
         "required": [
           "oneOf"
@@ -291,6 +303,7 @@ exports[`Process schema meta-schema 1`] = `
       },
       "AllOf": {
         "$id": "AllOf",
+        "$package": "lib.core.test-module",
         "type": "object",
         "required": [
           "allOf"
@@ -309,6 +322,7 @@ exports[`Process schema meta-schema 1`] = `
       },
       "Module": {
         "$id": "Module",
+        "$package": "lib.core.test-module",
         "type": "object",
         "required": [
           "$defs"

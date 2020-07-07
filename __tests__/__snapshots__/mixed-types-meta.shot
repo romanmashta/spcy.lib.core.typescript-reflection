@@ -6,6 +6,7 @@ exports[`Process schema mixed-types 1`] = `
   "$defs": {
     "Location": {
       "$id": "Location",
+      "$package": "lib.dev.typescript-reflection",
       "type": "object",
       "required": [
         "lat",
@@ -22,6 +23,7 @@ exports[`Process schema mixed-types 1`] = `
     },
     "Person": {
       "$id": "Person",
+      "$package": "lib.dev.typescript-reflection",
       "type": "object",
       "required": [
         "firstName",
@@ -46,6 +48,7 @@ exports[`Process schema mixed-types 1`] = `
     },
     "Role": {
       "$id": "Role",
+      "$package": "lib.dev.typescript-reflection",
       "oneOf": [
         {
           "const": "Guest"

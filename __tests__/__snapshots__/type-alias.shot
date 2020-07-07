@@ -7,6 +7,7 @@ exports[`Process schema type-alias 1`] = `
     "$defs": {
       "Figure": {
         "$id": "Figure",
+        "$package": "lib.core.test-module",
         "oneOf": [
           {
             "$ref": "Circle"
@@ -18,6 +19,7 @@ exports[`Process schema type-alias 1`] = `
       },
       "Decorator": {
         "$id": "Decorator",
+        "$package": "lib.core.test-module",
         "type": "object",
         "required": [
           "figure"
@@ -30,6 +32,7 @@ exports[`Process schema type-alias 1`] = `
       },
       "Circle": {
         "$id": "Circle",
+        "$package": "lib.core.test-module",
         "type": "object",
         "required": [
           "radius"
@@ -42,6 +45,7 @@ exports[`Process schema type-alias 1`] = `
       },
       "Square": {
         "$id": "Square",
+        "$package": "lib.core.test-module",
         "type": "object",
         "required": [
           "side"

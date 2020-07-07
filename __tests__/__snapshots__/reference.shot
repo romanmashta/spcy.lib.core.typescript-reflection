@@ -7,6 +7,7 @@ exports[`Process schema reference 1`] = `
     "$defs": {
       "Query": {
         "$id": "Query",
+        "$package": "lib.core.test-module",
         "type": "object",
         "required": [
           "name"
@@ -19,6 +20,7 @@ exports[`Process schema reference 1`] = `
       },
       "QueryView": {
         "$id": "QueryView",
+        "$package": "lib.core.test-module",
         "type": "object",
         "required": [
           "viewName",

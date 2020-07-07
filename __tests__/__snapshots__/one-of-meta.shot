@@ -6,6 +6,7 @@ exports[`Process schema one-of 1`] = `
   "$defs": {
     "Shapes": {
       "$id": "Shapes",
+      "$package": "lib.dev.typescript-reflection",
       "oneOf": [
         {
           "$ref": "Circle"
@@ -17,6 +18,7 @@ exports[`Process schema one-of 1`] = `
     },
     "Picture": {
       "$id": "Picture",
+      "$package": "lib.dev.typescript-reflection",
       "type": "object",
       "required": [
         "figures"
@@ -32,6 +34,7 @@ exports[`Process schema one-of 1`] = `
     },
     "Circle": {
       "$id": "Circle",
+      "$package": "lib.dev.typescript-reflection",
       "type": "object",
       "required": [
         "radius"
@@ -44,6 +47,7 @@ exports[`Process schema one-of 1`] = `
     },
     "Square": {
       "$id": "Square",
+      "$package": "lib.dev.typescript-reflection",
       "type": "object",
       "required": [
         "side"

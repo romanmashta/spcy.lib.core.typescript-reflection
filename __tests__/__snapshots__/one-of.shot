@@ -7,6 +7,7 @@ exports[`Process schema one-of 1`] = `
     "$defs": {
       "Shapes": {
         "$id": "Shapes",
+        "$package": "lib.core.test-module",
         "oneOf": [
           {
             "$ref": "Circle"
@@ -18,6 +19,7 @@ exports[`Process schema one-of 1`] = `
       },
       "Picture": {
         "$id": "Picture",
+        "$package": "lib.core.test-module",
         "type": "object",
         "required": [
           "figures"
@@ -33,6 +35,7 @@ exports[`Process schema one-of 1`] = `
       },
       "Circle": {
         "$id": "Circle",
+        "$package": "lib.core.test-module",
         "type": "object",
         "required": [
           "radius"
@@ -45,6 +48,7 @@ exports[`Process schema one-of 1`] = `
       },
       "Square": {
         "$id": "Square",
+        "$package": "lib.core.test-module",
         "type": "object",
         "required": [
           "side"

@@ -6,6 +6,7 @@ exports[`Process schema typeliteral 1`] = `
   "$defs": {
     "Person": {
       "$id": "Person",
+      "$package": "lib.dev.typescript-reflection",
       "type": "object",
       "required": [
         "firstName",

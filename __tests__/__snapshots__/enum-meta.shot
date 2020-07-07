@@ -6,6 +6,7 @@ exports[`Process schema enum 1`] = `
   "$defs": {
     "Role": {
       "$id": "Role",
+      "$package": "lib.dev.typescript-reflection",
       "oneOf": [
         {
           "const": "Guest"

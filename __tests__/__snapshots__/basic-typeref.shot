@@ -7,6 +7,7 @@ exports[`Process schema basic-typeref 1`] = `
     "$defs": {
       "Location": {
         "$id": "Location",
+        "$package": "lib.core.test-module",
         "type": "object",
         "required": [
           "lat",
@@ -23,6 +24,7 @@ exports[`Process schema basic-typeref 1`] = `
       },
       "Person": {
         "$id": "Person",
+        "$package": "lib.core.test-module",
         "type": "object",
         "required": [
           "firstName",
@@ -55,6 +57,7 @@ exports[`Process schema basic-typeref 1`] = `
       },
       "Role": {
         "$id": "Role",
+        "$package": "lib.core.test-module",
         "oneOf": [
           {
             "const": "Guest"

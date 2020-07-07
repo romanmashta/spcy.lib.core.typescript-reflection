@@ -38,6 +38,7 @@ class MetaGenerator {
   private program: ts.Program;
   private typeChecker: ts.TypeChecker;
   private generatorOptions: GeneratorOptions;
+  private packageName: string = NonamePackageName;
 
   constructor(files: string[], options: ts.CompilerOptions = {}, generatorOptions: GeneratorOptions = {}) {
     this.files = files;
@@ -204,6 +205,7 @@ class MetaGenerator {
     if (_.isEmpty(node.heritageClauses)) {
       const info: cr.ObjectType = {
         $id: this.typeId(name),
+        $package: this.packageName,
         ...this.processMembers(node.members)
       };
       return { [name]: info };
@@ -215,6 +217,7 @@ class MetaGenerator {
     const parentTypes = _.chain(node.heritageClauses).first().get('types').map(this.inspectType).value();
     const info: cr.AllOf = {
       $id: this.typeId(name),
+      $package: this.packageName,
       allOf: [...parentTypes, childType]
     };
     return { [name]: info };
@@ -229,6 +232,7 @@ class MetaGenerator {
     const name = node.name.text;
     const info: cr.OneOf = {
       $id: this.typeId(name),
+      $package: this.packageName,
       oneOf: _.chain(node.members)
         .filter(ts.isEnumMember)
         .map(prop => this.inspectEnumMember(prop))
@@ -241,6 +245,7 @@ class MetaGenerator {
     const name = node.name.text;
     const type = {
       $id: this.typeId(name),
+      $package: this.packageName,
       ...this.inspectType(node.type)
     };
     return { [name]: type };
@@ -253,10 +258,13 @@ class MetaGenerator {
       hasErrors: false
     };
 
+    this.packageName = NonamePackageName;
+
     _.forEach(this.sources, sourceFile => {
-      const packageName = this.generatorOptions.packageName?.match(/([^/]+\/)?(?<name>.+)/)?.groups?.name;
+      this.packageName =
+        this.generatorOptions.packageName?.match(/([^/]+\/)?(?<name>.+)/)?.groups?.name || NonamePackageName;
       const module: cr.Module = {
-        $id: packageName || NonamePackageName,
+        $id: this.packageName,
         $defs: {}
       };
       const relativeFileName = path.relative(process.cwd(), sourceFile.fileName);

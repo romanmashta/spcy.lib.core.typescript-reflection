@@ -8,19 +8,18 @@ import * as m from './{{moduleFileName}}';
 import { {{importName}}Module as {{aliasName}}Module, Types as {{aliasName}}Types } from '{{fileName}}';
 {{/each}}
 
-const PackageName = '{{module.$id}}';
-
 {{#each module.$defs}}
 const {{@key}}Type: r.TypeInfo = {{stringify .}};
+  
 const {{@key}}: r.Prototype<m.{{@key}}> = { 
-  id: {{@key}}Type.$id,
-  package: PackageName,
+  id: {{@key}}Type.$id!,
+  package: {{@key}}Type.$package!,
   typeInfo: {{@key}}Type,
 }
-{{/each}}
 
+{{/each}}
 export const {{moduleName}}Module: r.Module = {
-  $id: PackageName,
+  $id: '{{module.$id}}',
   $defs: {
 {{#each module.$defs}}
     {{@key}}: {{@key}}Type,

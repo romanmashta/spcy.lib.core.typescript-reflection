@@ -6,6 +6,7 @@ exports[`Process schema array 1`] = `
   "$defs": {
     "Config": {
       "$id": "Config",
+      "$package": "lib.dev.typescript-reflection",
       "type": "object",
       "required": [
         "colors",

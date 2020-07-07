@@ -7,6 +7,7 @@ exports[`Process schema inheritance 1`] = `
     "$defs": {
       "Entity": {
         "$id": "Entity",
+        "$package": "lib.core.test-module",
         "type": "object",
         "required": [
           "id"
@@ -19,6 +20,7 @@ exports[`Process schema inheritance 1`] = `
       },
       "Audit": {
         "$id": "Audit",
+        "$package": "lib.core.test-module",
         "type": "object",
         "required": [
           "createdOn",
@@ -35,6 +37,7 @@ exports[`Process schema inheritance 1`] = `
       },
       "Person": {
         "$id": "Person",
+        "$package": "lib.core.test-module",
         "allOf": [
           {
             "$ref": "Audit"

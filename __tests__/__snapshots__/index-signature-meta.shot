@@ -6,6 +6,7 @@ exports[`Process schema index-signature 1`] = `
   "$defs": {
     "Config": {
       "$id": "Config",
+      "$package": "lib.dev.typescript-reflection",
       "type": "object",
       "additionalProperties": {
         "$ref": "Section"
@@ -13,6 +14,7 @@ exports[`Process schema index-signature 1`] = `
     },
     "Section": {
       "$id": "Section",
+      "$package": "lib.dev.typescript-reflection",
       "type": "object",
       "required": [
         "id",

@@ -7,6 +7,7 @@ exports[`Process schema typeliteral-argument 1`] = `
     "$defs": {
       "Person": {
         "$id": "Person",
+        "$package": "lib.core.test-module",
         "type": "object",
         "required": [
           "email",

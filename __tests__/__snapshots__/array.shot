@@ -7,6 +7,7 @@ exports[`Process schema array 1`] = `
     "$defs": {
       "Config": {
         "$id": "Config",
+        "$package": "lib.core.test-module",
         "type": "object",
         "required": [
           "colors",
