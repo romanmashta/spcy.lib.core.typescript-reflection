@@ -1,0 +1,98 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Process schema generics 1`] = `
+{
+  "module": {
+    "$id": "lib.core.test-module",
+    "$defs": {
+      "Person": {
+        "$id": "Person",
+        "$package": "lib.core.test-module",
+        "type": "object",
+        "required": [
+          "firstName",
+          "lastName"
+        ],
+        "properties": {
+          "firstName": {
+            "type": "string"
+          },
+          "lastName": {
+            "type": "string"
+          },
+          "age": {
+            "type": "number"
+          },
+          "isActive": {
+            "type": "boolean"
+          }
+        }
+      },
+      "Meta": {
+        "$id": "Meta",
+        "$package": "lib.core.test-module",
+        "type": "object",
+        "required": [
+          "count",
+          "fetchTime"
+        ],
+        "properties": {
+          "count": {
+            "type": "number"
+          },
+          "fetchTime": {
+            "type": "number"
+          }
+        }
+      },
+      "Collection": {
+        "$id": "Collection",
+        "$package": "lib.core.test-module",
+        "$typeArguments": [
+          "T",
+          "U"
+        ],
+        "type": "object",
+        "required": [
+          "meta",
+          "items"
+        ],
+        "properties": {
+          "meta": {
+            "$ref": "U",
+            "$refPackage": "lib.core.test-module"
+          },
+          "items": {
+            "type": "array",
+            "items": {
+              "$ref": "T",
+              "$refPackage": "lib.core.test-module"
+            }
+          }
+        }
+      },
+      "Persons": {
+        "$id": "Persons",
+        "$package": "lib.core.test-module",
+        "$ref": "Collection",
+        "$refPackage": "lib.core.test-module",
+        "$arguments": [
+          {
+            "$ref": "Person",
+            "$refPackage": "lib.core.test-module"
+          },
+          {
+            "$ref": "Meta",
+            "$refPackage": "lib.core.test-module"
+          }
+        ]
+      }
+    }
+  },
+  "moduleFileName": "index.model",
+  "fileName": "__tests__/cases/generics/index.model.ts",
+  "moduleName": "Index",
+  "exports": [],
+  "isEmpty": false
+}
+`;

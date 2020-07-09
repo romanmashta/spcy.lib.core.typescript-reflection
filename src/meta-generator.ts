@@ -210,10 +210,12 @@ class MetaGenerator {
 
   inspectInterface = (node: ts.InterfaceDeclaration): NamedInfo<cr.TypeInfo> => {
     const name = node.name.text;
+    const typeArguments = _.map(node.typeParameters, p => p.name.text);
     if (_.isEmpty(node.heritageClauses)) {
       const info: cr.ObjectType = {
         $id: this.typeId(name),
         $package: this.packageName,
+        $typeArguments: _.isEmpty(typeArguments) ? undefined : typeArguments,
         ...this.processMembers(node.members)
       };
       return { [name]: info };

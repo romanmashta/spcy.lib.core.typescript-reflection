@@ -1,0 +1,91 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Process schema generics 1`] = `
+{
+  "$id": "lib.dev.typescript-reflection",
+  "$defs": {
+    "Person": {
+      "$id": "Person",
+      "$package": "lib.dev.typescript-reflection",
+      "type": "object",
+      "required": [
+        "firstName",
+        "lastName"
+      ],
+      "properties": {
+        "firstName": {
+          "type": "string"
+        },
+        "lastName": {
+          "type": "string"
+        },
+        "age": {
+          "type": "number"
+        },
+        "isActive": {
+          "type": "boolean"
+        }
+      }
+    },
+    "Meta": {
+      "$id": "Meta",
+      "$package": "lib.dev.typescript-reflection",
+      "type": "object",
+      "required": [
+        "count",
+        "fetchTime"
+      ],
+      "properties": {
+        "count": {
+          "type": "number"
+        },
+        "fetchTime": {
+          "type": "number"
+        }
+      }
+    },
+    "Collection": {
+      "$id": "Collection",
+      "$package": "lib.dev.typescript-reflection",
+      "$typeArguments": [
+        "T",
+        "U"
+      ],
+      "type": "object",
+      "required": [
+        "meta",
+        "items"
+      ],
+      "properties": {
+        "meta": {
+          "$ref": "U",
+          "$refPackage": "lib.dev.typescript-reflection"
+        },
+        "items": {
+          "type": "array",
+          "items": {
+            "$ref": "T",
+            "$refPackage": "lib.dev.typescript-reflection"
+          }
+        }
+      }
+    },
+    "Persons": {
+      "$id": "Persons",
+      "$package": "lib.dev.typescript-reflection",
+      "$ref": "Collection",
+      "$refPackage": "lib.dev.typescript-reflection",
+      "$arguments": [
+        {
+          "$ref": "Person",
+          "$refPackage": "lib.dev.typescript-reflection"
+        },
+        {
+          "$ref": "Meta",
+          "$refPackage": "lib.dev.typescript-reflection"
+        }
+      ]
+    }
+  }
+}
+`;

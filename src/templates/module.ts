@@ -10,14 +10,23 @@ import { {{importName}}Module as {{aliasName}}Module, Types as {{aliasName}}Type
 
 {{#each module.$defs}}
 const {{@key}}Type: r.TypeInfo = {{stringify .}};
-  
+
+{{#if $typeArguments}}
+const {{@key}}: r.PrototypeInfo = { 
+  $ref: {{@key}}Type.$id!,
+  $refPackage: {{@key}}Type.$package!,
+  typeInfo: {{@key}}Type,
+}
+{{else}}
 const {{@key}}: r.Prototype<m.{{@key}}> = { 
   $ref: {{@key}}Type.$id!,
   $refPackage: {{@key}}Type.$package!,
   typeInfo: {{@key}}Type,
 }
+{{/if}}
 
 {{/each}}
+
 export const {{moduleName}}Module: r.Module = {
   $id: '{{module.$id}}',
   $defs: {

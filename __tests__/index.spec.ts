@@ -35,7 +35,8 @@ const caseNames = [
   'required-properties',
   'inheritance',
   'reference',
-  'export-schema'
+  'export-schema',
+  'generics'
 ];
 
 it.each(caseNames)('Process schema %s', caseName => {
