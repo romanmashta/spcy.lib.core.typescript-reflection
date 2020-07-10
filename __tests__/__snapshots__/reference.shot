@@ -38,7 +38,8 @@ exports[`Process schema reference 1`] = `
                 "$ref": "Query",
                 "$refPackage": "lib.core.test-module"
               }
-            ]
+            ],
+            "$refArguments": "lib.core.test-module.Query"
           }
         }
       }

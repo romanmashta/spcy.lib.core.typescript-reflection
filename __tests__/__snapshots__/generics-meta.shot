@@ -84,7 +84,8 @@ exports[`Process schema generics 1`] = `
           "$ref": "Meta",
           "$refPackage": "lib.dev.typescript-reflection"
         }
-      ]
+      ],
+      "$refArguments": "lib.dev.typescript-reflection.Person|lib.dev.typescript-reflection.Meta"
     }
   }
 }

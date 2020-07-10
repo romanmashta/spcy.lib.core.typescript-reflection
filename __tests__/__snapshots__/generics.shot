@@ -85,7 +85,8 @@ exports[`Process schema generics 1`] = `
             "$ref": "Meta",
             "$refPackage": "lib.core.test-module"
           }
-        ]
+        ],
+        "$refArguments": "lib.core.test-module.Person|lib.core.test-module.Meta"
       }
     }
   },

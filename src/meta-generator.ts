@@ -1,6 +1,6 @@
 import _ from 'lodash';
 import ts, { Node } from 'typescript';
-import cr from '@spcy/lib.core.reflection';
+import * as cr from '@spcy/lib.core.reflection';
 import path from 'path';
 import handlebars from 'handlebars';
 import stringify from 'stringify-object';
@@ -128,6 +128,16 @@ class MetaGenerator {
 
   getPackageRef = (ref: string) => this.importsMap[ref] || this.packageName;
 
+  typeToString = (type: cr.TypeInfo) => {
+    if (cr.isTypeReference(type)) return `${type.$refPackage}.${type.$ref}`;
+    if (cr.isStringType(type) || cr.isNumberType(type) || cr.isBooleanType(type) || cr.isDateType(type))
+      return type.type;
+    return 'unknown';
+  };
+
+  getArgumentsRef = (args: cr.TypeInfo[]) =>
+    _.isEmpty(args) ? undefined : _.chain(args).map(this.typeToString).join('|').value();
+
   inspectTypeRef = (node: ts.TypeReferenceNode): cr.TypeInfo => {
     const typeRef = (node.typeName as ts.Identifier).text;
     if (typeRef === PropTypeName) return this.inspectExplicitProperty(node);
@@ -135,7 +145,8 @@ class MetaGenerator {
     return {
       $ref: this.localRef(typeRef),
       $refPackage: this.getPackageRef(typeRef),
-      $arguments: _.isEmpty(args) ? undefined : args
+      $arguments: _.isEmpty(args) ? undefined : args,
+      $refArguments: this.getArgumentsRef(args)
     } as cr.TypeReference;
   };
 
