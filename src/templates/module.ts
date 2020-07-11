@@ -13,14 +13,12 @@ const {{@key}}Type: r.TypeInfo = {{stringify .}};
 
 {{#if $typeArguments}}
 const {{@key}}: r.PrototypeInfo = { 
-  $ref: {{@key}}Type.$id!,
-  $refPackage: {{@key}}Type.$package!,
+  ref: {$ref: {{@key}}Type.$id!, $refPackage: {{@key}}Type.$package!},
   typeInfo: {{@key}}Type,
 }
 {{else}}
 const {{@key}}: r.Prototype<m.{{@key}}> = { 
-  $ref: {{@key}}Type.$id!,
-  $refPackage: {{@key}}Type.$package!,
+  ref: {$ref: {{@key}}Type.$id!, $refPackage: {{@key}}Type.$package!},
   typeInfo: {{@key}}Type,
 }
 {{/if}}
