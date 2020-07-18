@@ -45,6 +45,19 @@ exports[`Process schema generics 1`] = `
           }
         }
       },
+      "CollectionBase": {
+        "$id": "CollectionBase",
+        "$package": "lib.core.test-module",
+        "type": "object",
+        "required": [
+          "count"
+        ],
+        "properties": {
+          "count": {
+            "type": "number"
+          }
+        }
+      },
       "Collection": {
         "$id": "Collection",
         "$package": "lib.core.test-module",
@@ -52,24 +65,32 @@ exports[`Process schema generics 1`] = `
           "T",
           "U"
         ],
-        "type": "object",
-        "required": [
-          "meta",
-          "items"
-        ],
-        "properties": {
-          "meta": {
-            "$ref": "U",
+        "allOf": [
+          {
+            "$ref": "CollectionBase",
             "$refPackage": "lib.core.test-module"
           },
-          "items": {
-            "type": "array",
-            "items": {
-              "$ref": "T",
-              "$refPackage": "lib.core.test-module"
+          {
+            "type": "object",
+            "required": [
+              "meta",
+              "items"
+            ],
+            "properties": {
+              "meta": {
+                "$ref": "U",
+                "$refPackage": "lib.core.test-module"
+              },
+              "items": {
+                "type": "array",
+                "items": {
+                  "$ref": "T",
+                  "$refPackage": "lib.core.test-module"
+                }
+              }
             }
           }
-        }
+        ]
       },
       "Persons": {
         "$id": "Persons",

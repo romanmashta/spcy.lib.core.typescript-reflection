@@ -44,6 +44,19 @@ exports[`Process schema generics 1`] = `
         }
       }
     },
+    "CollectionBase": {
+      "$id": "CollectionBase",
+      "$package": "lib.dev.typescript-reflection",
+      "type": "object",
+      "required": [
+        "count"
+      ],
+      "properties": {
+        "count": {
+          "type": "number"
+        }
+      }
+    },
     "Collection": {
       "$id": "Collection",
       "$package": "lib.dev.typescript-reflection",
@@ -51,24 +64,32 @@ exports[`Process schema generics 1`] = `
         "T",
         "U"
       ],
-      "type": "object",
-      "required": [
-        "meta",
-        "items"
-      ],
-      "properties": {
-        "meta": {
-          "$ref": "U",
+      "allOf": [
+        {
+          "$ref": "CollectionBase",
           "$refPackage": "lib.dev.typescript-reflection"
         },
-        "items": {
-          "type": "array",
-          "items": {
-            "$ref": "T",
-            "$refPackage": "lib.dev.typescript-reflection"
+        {
+          "type": "object",
+          "required": [
+            "meta",
+            "items"
+          ],
+          "properties": {
+            "meta": {
+              "$ref": "U",
+              "$refPackage": "lib.dev.typescript-reflection"
+            },
+            "items": {
+              "type": "array",
+              "items": {
+                "$ref": "T",
+                "$refPackage": "lib.dev.typescript-reflection"
+              }
+            }
           }
         }
-      }
+      ]
     },
     "Persons": {
       "$id": "Persons",

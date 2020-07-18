@@ -239,6 +239,7 @@ class MetaGenerator {
     const info: cr.AllOf = {
       $id: this.typeId(name),
       $package: this.packageName,
+      $typeArguments: _.isEmpty(typeArguments) ? undefined : typeArguments,
       allOf: [...parentTypes, childType]
     };
     return { [name]: info };

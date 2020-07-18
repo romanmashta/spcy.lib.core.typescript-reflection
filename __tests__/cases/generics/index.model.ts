@@ -10,7 +10,11 @@ export interface Meta {
   fetchTime: number;
 }
 
-export interface Collection<T, U> {
+export interface CollectionBase {
+  count: number;
+}
+
+export interface Collection<T, U> extends CollectionBase {
   meta: U;
   items: T[];
 }
