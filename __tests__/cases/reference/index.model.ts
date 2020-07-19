@@ -1,4 +1,4 @@
-import { Reference } from '@spcy/lib.core.reflection';
+import { ReferenceWithType } from '@spcy/lib.core.reflection';
 
 export interface Query {
   name: string;
@@ -6,5 +6,5 @@ export interface Query {
 
 export interface QueryView {
   viewName: string;
-  query: Reference<Query>;
+  query: ReferenceWithType<Query>;
 }

@@ -30,7 +30,7 @@ exports[`Process schema reference 1`] = `
           "type": "string"
         },
         "query": {
-          "$ref": "Reference",
+          "$ref": "ReferenceWithType",
           "$refPackage": "lib.core.reflection",
           "$arguments": [
             {
