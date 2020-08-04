@@ -138,12 +138,7 @@ class MetaGenerator {
   };
 
   getArgumentsRef = (args: cr.TypeInfo[]) =>
-    _.isEmpty(args)
-      ? undefined
-      : _.chain(args)
-          .map(this.typeToString)
-          .join('|')
-          .value();
+    _.isEmpty(args) ? undefined : _.chain(args).map(this.typeToString).join('|').value();
 
   inspectTypeRef = (node: ts.TypeReferenceNode): cr.TypeInfo => {
     const typeRef = (node.typeName as ts.Identifier).text;
@@ -242,11 +237,7 @@ class MetaGenerator {
     const childType: cr.ObjectType = {
       ...this.processMembers(node.members)
     };
-    const parentTypes = _.chain(node.heritageClauses)
-      .first()
-      .get('types')
-      .map(this.inspectType)
-      .value();
+    const parentTypes = _.chain(node.heritageClauses).first().get('types').map(this.inspectType).value();
     const info: cr.AllOf = {
       $id: this.typeId(name),
       $package: this.packageName,
