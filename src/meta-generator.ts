@@ -12,6 +12,7 @@ import { ModuleTemplate } from './templates';
 const PropTypeName = 'property';
 const NonamePackageName = '@spcy/lib.core.noname';
 const NonameModule = '@spcy/lib.core.noname';
+const ReflectionModule = '@spcy/lib.core.reflection';
 
 type propertiesMap = { [name: string]: cr.TypeInfo };
 
@@ -29,6 +30,7 @@ interface NamedInfo<T> {
 export interface GeneratorOptions {
   packageName?: string;
   noAdditionalProperties?: boolean;
+  reflectionModule?: string;
 }
 
 class MetaGenerator {
@@ -136,7 +138,12 @@ class MetaGenerator {
   };
 
   getArgumentsRef = (args: cr.TypeInfo[]) =>
-    _.isEmpty(args) ? undefined : _.chain(args).map(this.typeToString).join('|').value();
+    _.isEmpty(args)
+      ? undefined
+      : _.chain(args)
+          .map(this.typeToString)
+          .join('|')
+          .value();
 
   inspectTypeRef = (node: ts.TypeReferenceNode): cr.TypeInfo => {
     const typeRef = (node.typeName as ts.Identifier).text;
@@ -235,7 +242,11 @@ class MetaGenerator {
     const childType: cr.ObjectType = {
       ...this.processMembers(node.members)
     };
-    const parentTypes = _.chain(node.heritageClauses).first().get('types').map(this.inspectType).value();
+    const parentTypes = _.chain(node.heritageClauses)
+      .first()
+      .get('types')
+      .map(this.inspectType)
+      .value();
     const info: cr.AllOf = {
       $id: this.typeId(name),
       $package: this.packageName,
@@ -306,9 +317,11 @@ class MetaGenerator {
       const relativeFileName = path.relative(process.cwd(), sourceFile.fileName);
       const moduleFileName = path.basename(relativeFileName).match(/(.+)\.ts/)?.[1] || NonameModule;
       const moduleName = pascalCase(moduleFileName.match(/([^.]+)\.model/)?.[1] || NonameModule);
+      const reflectionModule = this.generatorOptions.reflectionModule || ReflectionModule;
       const moduleFile: cr.SourceFile = {
         module,
         moduleFileName,
+        reflectionModule,
         fileName: relativeFileName,
         moduleName,
         exports: [],
@@ -373,11 +386,16 @@ interface PackageJson {
 
 interface Options {
   path?: string;
+  reflectionModule?: string;
   includes?: string[];
   skipModelRegistration?: boolean;
 }
 
-export const getDefaultOptions = (): Options => ({ includes: [], skipModelRegistration: false });
+export const getDefaultOptions = (): Options => ({
+  includes: [],
+  skipModelRegistration: false,
+  reflectionModule: ReflectionModule
+});
 
 const readConfigFromFile = (configFileName: string, options: Options): ts.ParsedCommandLine => {
   const config = ts.sys.readFile(configFileName);
@@ -428,6 +446,9 @@ export const exec = (options: Options): string[] => {
   const packageJson = JSON.parse(fs.readFileSync(resolvedPackageFileName, { encoding: 'utf-8' })) as PackageJson;
   const config = readConfigFromFile(resolvedConfigFileName, options);
   const modelFiles = config.fileNames.filter(minimatch.filter('*.model.ts', { matchBase: true }));
-  const result = generateMetaInfoForFiles(modelFiles, config.options, { packageName: packageJson.name });
+  const result = generateMetaInfoForFiles(modelFiles, config.options, {
+    packageName: packageJson.name,
+    reflectionModule: options.reflectionModule
+  });
   return _.map(result.sourceFiles, sf => writeSchemaFile(sf, options));
 };

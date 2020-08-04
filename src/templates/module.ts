@@ -1,5 +1,6 @@
 export const ModuleTemplate = `
-import * as r from '@spcy/lib.core.reflection';
+/* eslint-disable @typescript-eslint/no-non-null-assertion */
+import * as r from '{{reflectionModule}}';
 {{#if isEmpty}}
 {{else}}
 import * as m from './{{moduleFileName}}';
