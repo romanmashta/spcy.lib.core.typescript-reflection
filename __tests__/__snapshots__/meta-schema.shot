@@ -361,6 +361,7 @@ exports[`Process schema meta-schema 1`] = `
     }
   },
   "moduleFileName": "index.model",
+  "reflectionModule": "@spcy/lib.core.reflection",
   "fileName": "__tests__/cases/meta-schema/index.model.ts",
   "moduleName": "Index",
   "exports": [],

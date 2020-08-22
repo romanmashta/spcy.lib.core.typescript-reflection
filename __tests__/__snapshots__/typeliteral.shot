@@ -41,6 +41,7 @@ exports[`Process schema typeliteral 1`] = `
     }
   },
   "moduleFileName": "index.model",
+  "reflectionModule": "@spcy/lib.core.reflection",
   "fileName": "__tests__/cases/typeliteral/index.model.ts",
   "moduleName": "Index",
   "exports": [],

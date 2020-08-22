@@ -7,6 +7,7 @@ exports[`Process schema export-schema 1`] = `
     "$defs": {}
   },
   "moduleFileName": "index.model",
+  "reflectionModule": "@spcy/lib.core.reflection",
   "fileName": "__tests__/cases/export-schema/index.model.ts",
   "moduleName": "Index",
   "exports": [

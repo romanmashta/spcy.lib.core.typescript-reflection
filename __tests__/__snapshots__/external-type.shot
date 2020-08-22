@@ -34,6 +34,7 @@ exports[`Process schema external-type 1`] = `
     }
   },
   "moduleFileName": "index.model",
+  "reflectionModule": "@spcy/lib.core.reflection",
   "fileName": "__tests__/cases/external-type/index.model.ts",
   "moduleName": "Index",
   "exports": [],

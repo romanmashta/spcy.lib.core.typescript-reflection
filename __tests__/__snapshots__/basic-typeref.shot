@@ -75,6 +75,7 @@ exports[`Process schema basic-typeref 1`] = `
     }
   },
   "moduleFileName": "index.model",
+  "reflectionModule": "@spcy/lib.core.reflection",
   "fileName": "__tests__/cases/basic-typeref/index.model.ts",
   "moduleName": "Index",
   "exports": [],
